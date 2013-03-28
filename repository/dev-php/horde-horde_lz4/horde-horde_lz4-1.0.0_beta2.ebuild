@@ -18,7 +18,6 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND=">=dev-lang/php-5.0.0
-	>=dev-php/PEAR-PEAR-1.7.0
-	"
-RDEPEND="${DEPEND}"
+DEPEND=">=dev-lang/php-5.0.0"
+RDEPEND="${DEPEND}
+	>=dev-php/pear-pear-1.7.0"

@@ -16,25 +16,24 @@ SRC_URI="http://pear.horde.org/get/ingo-3.0.3.tgz"
 LICENSE="ASL"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=" horde-Horde_Vfs PEAR-Net_Sieve PEAR-Net_Socket"
+IUSE="horde-horde_vfs pear-net_sieve pear-net_socket"
 
 DEPEND="dev-lang/php[nls]
-    >=dev-lang/php-5.3.0
-	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-lang/php-5.3.0"
+RDEPEND="${DEPEND}
+	>=dev-php/pear-pear-1.7.0
 	>=www-apps/horde-horde-5.0.0
-	>=dev-php/horde-Horde_Auth-2.0.0
-	>=dev-php/horde-Horde_Autoloader-2.0.0
-	>=dev-php/horde-Horde_Core-2.0.0
-	>=dev-php/horde-Horde_Exception-2.0.0
-	>=dev-php/horde-Horde_Group-2.0.0
-	>=dev-php/horde-Horde_Form-2.0.0
-	>=dev-php/horde-Horde_Imap_Client-2.0.0
-	>=dev-php/horde-Horde_Mime-2.0.0
-	>=dev-php/horde-Horde_Perms-2.0.0
-	>=dev-php/horde-Horde_Share-2.0.0
-	>=dev-php/horde-Horde_Util-2.0.0
-	horde-Horde_Vfs? ( >=dev-php/horde-Horde_Vfs-2.0.0 )
-	PEAR-Net_Sieve? ( >=dev-php/PEAR-Net_Sieve-1.3.1 )
-	PEAR-Net_Socket? ( dev-php/PEAR-Net_Socket )
-	"
-RDEPEND="${DEPEND}"
+	>=dev-php/horde-horde_auth-2.0.0
+	>=dev-php/horde-horde_autoloader-2.0.0
+	>=dev-php/horde-horde_core-2.0.0
+	>=dev-php/horde-horde_exception-2.0.0
+	>=dev-php/horde-horde_group-2.0.0
+	>=dev-php/horde-horde_form-2.0.0
+	>=dev-php/horde-horde_imap_client-2.0.0
+	>=dev-php/horde-horde_mime-2.0.0
+	>=dev-php/horde-horde_perms-2.0.0
+	>=dev-php/horde-horde_share-2.0.0
+	>=dev-php/horde-horde_util-2.0.0
+	horde-horde_vfs? ( >=dev-php/horde-horde_vfs-2.0.0 )
+	pear-net_sieve? ( >=dev-php/pear-net_sieve-1.3.1 )
+	pear-net_socket? ( dev-php/pear-net_socket )"

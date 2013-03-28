@@ -24,3 +24,13 @@ foreach ( file( $indexpage) as $line)
     }
 }
 
+//Clean up the exceptions after the build:
+
+    // 1. Remove PECL-APC ebuild
+    //    We expect Gentoo to provide a better ebuild than this one
+rmdir( "./repository/dev-php/pecl-apc");
+
+    // 2. Remove any PHPUnit builds
+    //    as they are not part of our concern
+rmdir( "./repository/dev-php/phpunit-*";
+

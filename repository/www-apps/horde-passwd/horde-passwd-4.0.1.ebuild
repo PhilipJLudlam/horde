@@ -16,21 +16,20 @@ SRC_URI="http://pear.horde.org/get/passwd-4.0.1.tgz"
 LICENSE="GPL-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=" horde-Horde_Db horde-Horde_Ldap horde-Horde_Vfs PEAR-Crypt_CHAP"
+IUSE="horde-horde_db horde-horde_ldap horde-horde_vfs pear-crypt_chap"
 
 DEPEND="dev-lang/php[nls]
-    >=dev-lang/php-5.2.0
-	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-lang/php-5.2.0"
+RDEPEND="${DEPEND}
+	>=dev-php/pear-pear-1.7.0
 	>=www-apps/horde-horde-4.0.0
-	>=dev-php/horde-Horde_Auth-1.4.0
-	>=dev-php/horde-Horde_Core-1.3.0
-	>=dev-php/horde-Horde_Exception-1.0.0
-	>=dev-php/horde-Horde_Injector-1.0.0
-	>=dev-php/horde-Horde_Util-1.0.0
-	>=dev-php/horde-Horde_View-1.0.0
-	horde-Horde_Db? ( >=dev-php/horde-Horde_Db-1.0.0 )
-	horde-Horde_Ldap? ( >=dev-php/horde-Horde_Ldap-1.0.0 )
-	horde-Horde_Vfs? ( >=dev-php/horde-Horde_Vfs-1.0.0 )
-	PEAR-Crypt_CHAP? ( dev-php/PEAR-Crypt_CHAP )
-	"
-RDEPEND="${DEPEND}"
+	>=dev-php/horde-horde_auth-1.4.0
+	>=dev-php/horde-horde_core-1.3.0
+	>=dev-php/horde-horde_exception-1.0.0
+	>=dev-php/horde-horde_injector-1.0.0
+	>=dev-php/horde-horde_util-1.0.0
+	>=dev-php/horde-horde_view-1.0.0
+	horde-horde_db? ( >=dev-php/horde-horde_db-1.0.0 )
+	horde-horde_ldap? ( >=dev-php/horde-horde_ldap-1.0.0 )
+	horde-horde_vfs? ( >=dev-php/horde-horde_vfs-1.0.0 )
+	pear-crypt_chap? ( dev-php/pear-crypt_chap )"

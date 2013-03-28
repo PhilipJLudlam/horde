@@ -16,17 +16,17 @@ SRC_URI="http://pear.horde.org/get/timeobjects-2.0.3.tgz"
 LICENSE="BSD-2-Clause"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=" horde-Horde_Service_Facebook horde-Horde_Service_Weather"
+IUSE="horde-horde_service_facebook horde-horde_service_weather"
 
 DEPEND="dev-lang/php[nls]
-    >=dev-lang/php-5.3.0
-	>=dev-php/PEAR-PEAR-1.7.0
-	>=dev-php/horde-Horde_Core-2.0.0
-	>=dev-php/horde-Horde_Date-2.0.0
-	>=dev-php/horde-Horde_Exception-2.0.0
-	>=dev-php/horde-Horde_Url-2.0.0
-	>=dev-php/horde-Horde_Util-2.0.0
-	horde-Horde_Service_Facebook? ( >=dev-php/horde-Horde_Service_Facebook-2.0.0 )
-	horde-Horde_Service_Weather? ( >=dev-php/horde-Horde_Service_Weather-2.0.0 )
-	"
-RDEPEND="${DEPEND}"
+	>=dev-lang/php-5.3.0
+	dev-php/horde-Horde_Role"
+RDEPEND="${DEPEND}
+	>=dev-php/pear-pear-1.7.0
+	>=dev-php/horde-horde_core-2.0.0
+	>=dev-php/horde-horde_date-2.0.0
+	>=dev-php/horde-horde_exception-2.0.0
+	>=dev-php/horde-horde_url-2.0.0
+	>=dev-php/horde-horde_util-2.0.0
+	horde-horde_service_facebook? ( >=dev-php/horde-horde_service_facebook-2.0.0 )
+	horde-horde_service_weather? ( >=dev-php/horde-horde_service_weather-2.0.0 )"

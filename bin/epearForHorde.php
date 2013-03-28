@@ -121,6 +121,8 @@ function generate_ebuild($pear_package)
     $name = $url["package"];
     $version = $url["version"];
 
+        // Download the file into the distfiles area so that
+        // generating the manifest is faster
     if (!is_dir('/usr/portage/distfiles')) {
         mkdir('/usr/portage/distfiles');
     }
@@ -187,32 +189,34 @@ function generate_ebuild($pear_package)
                 $postDeps[$dep["name"]] = $pkgname;
 	        } else {
 
-                if ($dep["optional"] == "no" || $OptOptionalAsRequired == TRUE) 
+                if ( (isset($dep["optional"]) && $dep["optional"] == "no") || $OptOptionalAsRequired == TRUE) 
                 {
                     //The key is used to prevent duplicates
 		            $pearDeps[$dep["name"]] = $pkgname;
                 }
                 else
                 {
-                    $optdep[$dep["name"]]["key"]   = get_package_name($prefix . $dep["name"], false);
+                    $optdep[$dep["name"]]["key"]   = get_package_name( $prefix . $dep["name"], false);
                     $optdep[$dep["name"]]["value"] = $pkgname;
                 }
 
             // If we don't care about creating dependancies, then we can stop here
                 {
-                    if ( substr( $dep["name"],0, 6) != "horde-") {
+                    if ( $dep["channel"] != "pear.horde.org") {
                         // Only generate ebuilds IF it's not a Horde package
-                        // as we are already generating ebuilds for all Horde packages
 
-                //if (!(shell_exec("portageq match / " . escapeshellarg($pkgname)))) {
-                //    echo "  ..Dependency $pkgname not found\n";
+                if (!(shell_exec("portageq match / " . escapeshellarg($pkgname)))) {
+                    echo "  ..Dependency $pkgname not found\n";
+                    // Hmm, this 'if' statement seems to be a cheap way to stop
+                    // the process recursively building a package for PEAR
+                    echo " ..Generating ebuild for " . $dep["channel"] . "/" . $dep["name"] . "\n";
 		            generate_ebuild($dep["channel"] . "/" . $dep["name"]);
                     
                 // Also: Make it remember the packages it's built (sans version number)
 		        // So that a quick check can be performed and it doesn't try to build the same dependancy
 		        // multiple times (because multiple packages all require it
 		        // - as in the case of Horde ;)
-                //}
+                }
                 }
             }
             }
@@ -237,7 +241,7 @@ function generate_ebuild($pear_package)
 
     $phpdep = "";
     if (!empty($phpflags)) {
-        $phpdep2 = "dev-lang/php[" . implode(",", $phpflags). "]\n    ";
+        $phpdep2 = "dev-lang/php[" . implode(",", $phpflags). "]\n\t";
         $search  = array("gettext", "openssl", "SimpleXML");
         $replace = array("nls", "ssl", "simplexml");
         $phpdep  = str_replace($search, $replace, $phpdep2);
@@ -256,6 +260,7 @@ function generate_ebuild($pear_package)
         $iuse=$iuse ." ". $opt['key'];
         $optdep2=$optdep2 . $opt['key'] ."? ( ". $opt['value'] ." )\n\t";
     }
+    $iuse=ltrim($iuse);
 
     $doins = "";
 
@@ -269,16 +274,22 @@ function generate_ebuild($pear_package)
     $euri = str_replace($ename, $myp, $uri);
 
     // XXX: PJL: TO fix up - make destination directory configurable
-    if (!is_dir("/usr/local/horde/" . get_package_name($ename))) {
-        mkdir("/usr/local/horde/" . get_package_name($ename), 0777, true);
+    if (!is_dir("/usr/local/horde/repository/" . strtolower(get_package_name($ename)))) {
+        mkdir("/usr/local/horde/repository/" . strtolower(get_package_name($ename)), 0777, true);
     }
 
-    $ebuildname = "/usr/local/horde/" . get_package_name($ename)  . "/" . 
+    $ebuildname = strtolower("/usr/local/horde/repository/" . get_package_name($ename)  . "/" . 
         get_package_name($ename, false) . "-" . cleanup_version($pf->getVersion()) .
-	".ebuild";
+	".ebuild");
 
     if ( !is_file($ebuildname) || $OptForce == TRUE)
     {
+
+            // If we install a Horde package, the Horde_Role package MUST be installed first,
+            // however we don't want any recursive dependancies ;)
+        $hordedep="";
+        if ( isset($dep["channel"]) && $dep["channel"] == "pear.horde.org"  && get_package_name($ename, false) != "dev-php/horde-Horde_Role")
+            $hordedep="\n\tdev-php/horde-Horde_Role";
 
     $ebuild = `head -n4 /usr/portage/skel.ebuild`;
 
@@ -297,10 +308,10 @@ function generate_ebuild($pear_package)
         "\"\n";
     $ebuild .= "SLOT=\"0\"\n";
     $ebuild .= "KEYWORDS=\"~" . trim(`portageq envvar ARCH`) . "\"\n";
-    $ebuild .= "IUSE=\"" . $iuse ."\"\n";
+    $ebuild .= "IUSE=\"" . strtolower($iuse) ."\"\n";
     $ebuild .= "\n";
-    $ebuild .= "DEPEND=\"" . $phpdep . "\n\t" . $peardep . "\n\t" . $optdep2 . "\"\n";
-    $ebuild .= "RDEPEND=\"\${DEPEND}\"\n";
+    $ebuild .= "DEPEND=\"" . $phpdep . $hordedep . "\"\n";
+    $ebuild .= "RDEPEND=\"". trim("\${DEPEND}\n\t" . strtolower($peardep) . "\n\t" . strtolower($optdep2)) . "\"\n";
     if ($postdep) {
         $ebuild .= "PDEPEND=\"$postdep\"\n";
     }
@@ -329,7 +340,7 @@ Examples:
 
 // Gobal Options:
 $OptNoDeps = FALSE;
-$OptForce = FALSE;
+$OptForce = TRUE;
 $OptOptionalAsRequired = FALSE;
 $OpsWWWApps = FALSE;
 $package = "";
