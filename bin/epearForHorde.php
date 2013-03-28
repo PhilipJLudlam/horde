@@ -199,16 +199,20 @@ function generate_ebuild($pear_package)
                 }
 
             // If we don't care about creating dependancies, then we can stop here
-            if ($OptNoDeps == FALSE)
-            {
-                if (!(shell_exec("portageq match / " . escapeshellarg($pkgname)))) {
-                    echo "  ..Dependency $pkgname not found\n";
+                {
+                    if ( substr( $dep["name"],0, 6) != "horde-") {
+                        // Only generate ebuilds IF it's not a Horde package
+                        // as we are already generating ebuilds for all Horde packages
+
+                //if (!(shell_exec("portageq match / " . escapeshellarg($pkgname)))) {
+                //    echo "  ..Dependency $pkgname not found\n";
 		            generate_ebuild($dep["channel"] . "/" . $dep["name"]);
                     
                 // Also: Make it remember the packages it's built (sans version number)
 		        // So that a quick check can be performed and it doesn't try to build the same dependancy
 		        // multiple times (because multiple packages all require it
 		        // - as in the case of Horde ;)
+                //}
                 }
             }
             }
@@ -327,7 +331,7 @@ Examples:
 $OptNoDeps = FALSE;
 $OptForce = FALSE;
 $OptOptionalAsRequired = FALSE;
-$OpsCustomCategory = "";
+$OpsWWWApps = FALSE;
 $package = "";
 
 // Handle the Command Line Arguments
@@ -340,11 +344,8 @@ for ($p=1; $p<$argc; $p++)
         $OptForce = TRUE;
     elseif ($lcargvp == "--optionalasrequired")
         $OptOptionalAsRequired = TRUE;
-    elseif ($lcargvp == "--category")
-    {
-        $OpsCustomCategory=$argv[$p+1];
-        $p+=1;
-    }
+    elseif ($lcargvp == "--wwwapps")
+        $OpsWWWApps = TRUE;
     elseif ($lcargvp == "--help")
         help();
     else

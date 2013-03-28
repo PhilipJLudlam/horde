@@ -18,7 +18,7 @@ foreach ( file( $indexpage) as $line)
 
         $category = "";
         if ( strtolower( substr( $package, 0, 6)) != "horde_" )
-            $category = "--www-apps";
+            $category = "--wwwapps";
 
         passthru( "/usr/bin/php ./epearForHorde.php --nodeps --force " . $category . " " . $hordepackage);
     }
