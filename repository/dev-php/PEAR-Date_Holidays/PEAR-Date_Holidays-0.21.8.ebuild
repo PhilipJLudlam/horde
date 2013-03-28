@@ -1,0 +1,27 @@
+# Copyright 1999-2013 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+EAPI=4
+
+PEAR_PV="0.21.8"
+PHP_PEAR_PKG_NAME="Date_Holidays"
+
+inherit php-pear-r1
+
+DESCRIPTION="Driver based class to calculate holidays."
+HOMEPAGE="pear.php.net"
+SRC_URI="http://pear.php.net/get/Date_Holidays-0.21.8.tgz"
+
+LICENSE="PHP"
+SLOT="0"
+KEYWORDS="~amd64"
+IUSE=" PEAR-Console_Getargs"
+
+DEPEND=">=dev-lang/php-5.0.0
+	>=dev-php/PEAR-PEAR-1.3.1
+	dev-php/PEAR-Date
+	dev-php/PEAR-XML_Serializer
+	PEAR-Console_Getargs? ( dev-php/PEAR-Console_Getargs )
+	"
+RDEPEND="${DEPEND}"
