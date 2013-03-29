@@ -268,7 +268,7 @@ function generate_ebuild($pear_package)
     {
         $iuse=$iuse ." ". $opt['key'];
         $optdep2=$optdep2 . $opt['key'] ."? ( ". $opt['value'] ." )\n\t";
-        file_put_contents( "/tmp/generateHordeEBuilds/iuse", $opt['key'] . PHP_EOL, FILE_APPEND);
+        file_put_contents( "/tmp/generateHordeEBuilds/iuse", strtolower($opt['key']) . PHP_EOL, FILE_APPEND);
     }
     $iuse=ltrim($iuse);
 
@@ -316,7 +316,7 @@ function generate_ebuild($pear_package)
     $ebuild .= "\n";
     $ebuild .= "LICENSE=\"" . str_replace(" License", "", $pf->getLicense()) . "\"\n";
     $ebuild .= "SLOT=\"0\"\n";
-    $ebuild .= "KEYWORDS=\"~" . trim(`portageq envvar ARCH`) . "\"\n";
+    $ebuild .= "KEYWORDS=\"~" . $ARCH . "\"\n";
     $ebuild .= "IUSE=\"" . strtolower($iuse) ."\"\n";
     $ebuild .= "\n";
     $ebuild .= "DEPEND=\"" . $phpdep . $hordedep ."\"\n";
@@ -331,8 +331,8 @@ function generate_ebuild($pear_package)
     
     passthru("ebuild $ebuildname manifest");
 
-    file_put_contents( "/tmp/generateHordeEBuilds/keywords", strtolower(get_package_name($ename)  . "/" . get_package_name($ename, false)) . " ~amd64" . PHP_EOL, FILE_APPEND);
-    file_put_contents( "/tmp/generateHordeEBuilds/keywords_ver", "=" . strtolower(get_package_name($ename)  . "/" . get_package_name($ename, false) . "-" . cleanup_version($pf->getVersion())) . " ~amd64" . PHP_EOL, FILE_APPEND);
+    file_put_contents( "/tmp/generateHordeEBuilds/keywords", strtolower(get_package_name($ename) . " " . $ARCH . PHP_EOL, FILE_APPEND);
+    file_put_contents( "/tmp/generateHordeEBuilds/keywords_ver", "=" . strtolower(get_package_name($ename)  . "-" . cleanup_version($pf->getVersion())) . " " .$ARCH .  PHP_EOL, FILE_APPEND);
     }
 }
 
@@ -356,6 +356,8 @@ $OptForce = TRUE;
 $OptOptionalAsRequired = FALSE;
 $OpsWWWApps = FALSE;
 $package = "";
+
+$ARCH="~" . trim(`portageq envvar ARCH`) 
 
 // Handle the Command Line Arguments
 for ($p=1; $p<$argc; $p++)
