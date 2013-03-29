@@ -17,10 +17,6 @@
 
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
 
-// Probably need an array of PEAR and PECL packages provided by Gentoo
-// Something generated automatically
-
-
 
 require_once "PEAR/Config.php";
 require_once "PEAR/PackageFile.php";
@@ -260,6 +256,11 @@ function generate_ebuild($pear_package)
                 if (isset($dep["optional"])) {
                     // The optionality of this requirement has been defined
 
+                    $deplowercase = TRUE;
+                    if ($dep["channel"] == "pear.php.net" || $dep["channel"] == "pear.horde.org")
+                        $deplowercase = FALSE;
+
+
                 if ( $dep["optional"] == "no" || $OptOptionalAsRequired == TRUE) 
                 {
                     //The key is used to prevent duplicates
@@ -268,7 +269,7 @@ function generate_ebuild($pear_package)
                 else
                 {
                     $optdep[$dep["name"]]["key"]   = strtolower(get_package_name( $prefix . $dep["name"], false));
-                    $optdep[$dep["name"]]["value"] = $pkgname;
+                    $optdep[$dep["name"]]["value"] = $deplowercase ? strtolower($pkgname) : $pkgname;
                 }
 
                 // If we don't care about creating dependancies, then we can stop here
@@ -281,10 +282,7 @@ function generate_ebuild($pear_package)
                          $dep["channel"] . "/" . $dep["name"] != "pecl.php.net/sasl") {
                              
                             $GentooPackage = get_package_name( get_channel_prefix($dep["channel"]) . $dep["name"], true);
-                            $lowercase = TRUE;
-                            if ($dep["channel"] == "pear.php.net" || $dep["channel"] == "pear.horde.org")
-                                $lowercase = FALSE;
-                            if ($lowercase == TRUE)
+                            if ($deplowercase == TRUE)
                                 $GentooPackage = strtolower($GentooPackage);
 
                             $Result=exec("ACCEPT_KEYWORDS=\"" . $ARCH . "\" portageq best_visible / ebuild " . $GentooPackage);
@@ -297,10 +295,8 @@ function generate_ebuild($pear_package)
                                 //echo "  ..Generating ebuild for " . $dep["channel"] . "/" . $dep["name"] . "\n";
         		                generate_ebuild($dep["channel"] . "/" . $dep["name"]);
                     
-                                    // Also: Make it remember the packages it's built (sans version number)
-        		                    // So that a quick check can be performed and it doesn't try to build the same dependancy
-    	                	        // multiple times (because multiple packages all require it
-                                    // - as in the case of Horde ;)
+                                    // Also: Make it remember the ebuilds it's created (sans version number)
+        		                    // so that a quick check can be performed and it doesn't try to create the same ebuild many times
                             }
                         }
                     }

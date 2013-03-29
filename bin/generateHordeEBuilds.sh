@@ -27,16 +27,12 @@ done
 
 #Clean up the exceptions after the build:
 
-    # 1. Remove PECL-APC ebuild
-    #    We expect Gentoo to provide a better ebuild than this one
-rm -rf /usr/local/horde/repository/dev-php/pecl-apc
-
-    # 2. Remove any PHPUnit builds
+    # 1. Remove any PHPUnit builds
     #    as they are not part of our concern
 rm -rf /usr/local/horde/repository/dev-php/phpunit-*
 
-    # 3. Sort out the log files generated
-    # 3.a. The USE/IUSE field can use a lot of packages
+    # 2. Sort out the log files generated
+    # 2.a. The USE/IUSE field can use a lot of packages
     #      So sort them, remove duplicates and pretty it up
 cat /tmp/generateHordeEBuilds/temp_iuse | sort | uniq > /tmp/generateHordeEBuilds/temp_iuse2
 grep -v "phpunit-" /tmp/generateHordeEBuilds/temp_iuse2 \
@@ -57,7 +53,7 @@ cat >> ./../package.use << EOF
 ----
 EOF
 
-    # 3.b. The Keywords files need the same treatment
+    # 2.b. The Keywords files need the same treatment
 cat /tmp/generateHordeEBuilds/temp_keywords | sort | uniq > /tmp/generateHordeEBuilds/temp_keywords2
 cat /tmp/generateHordeEBuilds/temp_keywords_with_version | sort | uniq > /tmp/generateHordeEBuilds/temp_keywords_with_version2
 grep -v "dev-php/phpunit-phpunit_story" /tmp/generateHordeEBuilds/temp_keywords2 | \

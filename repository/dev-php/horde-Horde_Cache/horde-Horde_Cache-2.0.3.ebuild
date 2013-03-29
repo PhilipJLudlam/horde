@@ -29,4 +29,4 @@ RDEPEND="${DEPEND}
 	horde-horde_db? ( >=dev-php/horde-Horde_Db-2.0.0 )
 	horde-horde_log? ( >=dev-php/horde-Horde_Log-2.0.0 )
 	horde-horde_memcache? ( >=dev-php/horde-Horde_Memcache-2.0.0 )
-	pecl-apc? ( >=dev-php/pecl-APC-3.1.1 )"
+	pecl-apc? ( >=dev-php/pecl-apc-3.1.1 )"
