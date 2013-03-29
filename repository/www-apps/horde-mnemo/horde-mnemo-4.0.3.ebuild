@@ -7,14 +7,13 @@ EAPI=4
 PEAR_PV="4.0.3"
 PHP_PEAR_PKG_NAME="mnemo"
 
-inherit php-pear-r1
+inherit php-pear-r1 webapp
 
 DESCRIPTION="A web based notes manager"
 HOMEPAGE="pear.horde.org"
 SRC_URI="http://pear.horde.org/get/mnemo-4.0.3.tgz"
 
 LICENSE="ASL"
-SLOT="0"
 KEYWORDS="~amd64"
 IUSE="horde-horde_cli horde-horde_crypt horde-horde_db horde-horde_pdf horde-horde_test"
 
@@ -49,15 +48,20 @@ src_install() {
     webapp_src_preinst
 
     rm -rf ${WORKDIR}/package.xml ${WORKDIR}/mnemo-${PV}/bin
-    dodoc ${WORKDIR}/mnemo-${PV}/README ${WORKDIR}/mnemo-${PV}/docs
-    rm -rf ${WORKDIR}/mnemo-${PV}/README ${WORKDIR}/mnemo-${PV}/docs
+    if [[ -x ${WORKDIR}/mnemo-${PV}/README ]]; then
+        dodoc ${WORKDIR}/mnemo-${PV}/README
+    fi
+    find ${WORKDIR}/mnemo-${PV}/docs/ -type f | xargs dodoc
+    rm -rf ${WORKDIR}/mnemo-${PV}/README ${WORKDIR}/mnemo-${PV}/docs/*
     insinto ${MY_HTDOCSDIR}
-    doins -r ${WORKDIR}/webmail-${PV}/*
+    doins -r ${WORKDIR}/mnemo-${PV}/*
 
-    webapp_serverowned "${MY_HTDOCSDIR}"/config
+    if [[ -x "${MY_HTDOCSDIR}"/config ]]; then
+        webapp_serverowned "${MY_HTDOCSDIR}"/config
+    fi
 
-   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
-   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+    webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+    webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
 
     webapp_src_install
 }

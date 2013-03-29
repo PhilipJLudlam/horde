@@ -7,14 +7,13 @@ EAPI=4
 PEAR_PV="1.0.2"
 PHP_PEAR_PKG_NAME="wicked"
 
-inherit php-pear-r1
+inherit php-pear-r1 webapp
 
 DESCRIPTION="Wiki application"
 HOMEPAGE="pear.horde.org"
 SRC_URI="http://pear.horde.org/get/wicked-1.0.2.tgz"
 
 LICENSE="GPL-2.0"
-SLOT="0"
 KEYWORDS="~amd64"
 IUSE="pear-text_figlet pear-text_wiki_creole pear-text_wiki_mediawiki pear-text_wiki_tiki"
 
@@ -53,15 +52,20 @@ src_install() {
     webapp_src_preinst
 
     rm -rf ${WORKDIR}/package.xml ${WORKDIR}/wicked-${PV}/bin
-    dodoc ${WORKDIR}/wicked-${PV}/README ${WORKDIR}/wicked-${PV}/docs
-    rm -rf ${WORKDIR}/wicked-${PV}/README ${WORKDIR}/wicked-${PV}/docs
+    if [[ -x ${WORKDIR}/wicked-${PV}/README ]]; then
+        dodoc ${WORKDIR}/wicked-${PV}/README
+    fi
+    find ${WORKDIR}/wicked-${PV}/docs/ -type f | xargs dodoc
+    rm -rf ${WORKDIR}/wicked-${PV}/README ${WORKDIR}/wicked-${PV}/docs/*
     insinto ${MY_HTDOCSDIR}
-    doins -r ${WORKDIR}/webmail-${PV}/*
+    doins -r ${WORKDIR}/wicked-${PV}/*
 
-    webapp_serverowned "${MY_HTDOCSDIR}"/config
+    if [[ -x "${MY_HTDOCSDIR}"/config ]]; then
+        webapp_serverowned "${MY_HTDOCSDIR}"/config
+    fi
 
-   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
-   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+    webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+    webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
 
     webapp_src_install
 }

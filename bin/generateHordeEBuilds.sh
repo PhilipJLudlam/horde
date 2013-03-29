@@ -39,7 +39,7 @@ rm -rf /usr/local/horde/repository/dev-php/phpunit-*
     # 3.a. The USE/IUSE field can use a lot of packages
     #      So sort them, remove duplicates and pretty it up
 cat /tmp/generateHordeEBuilds/temp_iuse | sort | uniq > /tmp/generateHordeEBuilds/temp_iuse2
-grep -v "phpunit-" /tmp/generateHordeEBuilds/temp_iuse \
+grep -v "phpunit-" /tmp/generateHordeEBuilds/temp_iuse2 \
   > /tmp/generateHordeEBuilds/temp_iuse3
 
 cat > ./../package.use << EOF

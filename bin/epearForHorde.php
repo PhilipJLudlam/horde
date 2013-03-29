@@ -77,7 +77,7 @@ function get_channel_prefix($channelUri)
 }
 
 
-function hordeapp( $EbuildName, $PackageAtom, $ShortName)
+function doHordeApp( $EbuildName, $PackageAtom, $ShortName)
 {
 
     $additional = <<< EOF
@@ -86,15 +86,20 @@ src_install() {
     webapp_src_preinst
 
     rm -rf \${WORKDIR}/package.xml \${WORKDIR}/$ShortName-\${PV}/bin
-    dodoc \${WORKDIR}/$ShortName-\${PV}/README \${WORKDIR}/$ShortName-\${PV}/docs
-    rm -rf \${WORKDIR}/$ShortName-\${PV}/README \${WORKDIR}/$ShortName-\${PV}/docs
+    if [[ -x \${WORKDIR}/$ShortName-\${PV}/README ]]; then
+        dodoc \${WORKDIR}/$ShortName-\${PV}/README
+    fi
+    find \${WORKDIR}/$ShortName-\${PV}/docs/ -type f | xargs dodoc
+    rm -rf \${WORKDIR}/$ShortName-\${PV}/README \${WORKDIR}/$ShortName-\${PV}/docs/*
     insinto \${MY_HTDOCSDIR}
-    doins -r \${WORKDIR}/webmail-\${PV}/*
+    doins -r \${WORKDIR}/$ShortName-\${PV}/*
 
-    webapp_serverowned "\${MY_HTDOCSDIR}"/config
+    if [[ -x "\${MY_HTDOCSDIR}"/config ]]; then
+        webapp_serverowned "\${MY_HTDOCSDIR}"/config
+    fi
 
-   webapp_postinst_txt en "\${FILESDIR}"/postinstall.txt
-   webapp_postupgrade_txt en "\${FILESDIR}"/postupgrade.txt
+    webapp_postinst_txt en "\${FILESDIR}"/postinstall.txt
+    webapp_postupgrade_txt en "\${FILESDIR}"/postupgrade.txt
 
     webapp_src_install
 }
@@ -387,6 +392,10 @@ function generate_ebuild($pear_package)
         if ( $channelUri == "pear.horde.org" && $MyPackageName != "dev-php/horde-Horde_Role")
             $hordedep="\n\tdev-php/horde-Horde_Role";
 
+    $hordeapp = FALSE;
+    if ($channelUri == "pear.horde.org" && substr( $MyPackageName, 0, 8) == "www-apps" )
+        $hordeapp = TRUE;
+
     $ebuild = `head -n4 /usr/portage/skel.ebuild`;
 
     $ebuild .= "EAPI=4\n";
@@ -394,14 +403,18 @@ function generate_ebuild($pear_package)
     $ebuild .= "PEAR_PV=\"" . $pf->getVersion() . "\"\n";
     $ebuild .= "PHP_PEAR_PKG_NAME=\"" . $pf->getName() . "\"\n";
     $ebuild .= "\n";
-    $ebuild .= "inherit php-pear-r1\n";
+    $ebuild .= "inherit php-pear-r1";
+    if ($hordeapp == TRUE)
+        $ebuild .= " webapp";
+    $ebuild .= "\n";
     $ebuild .= "\n";
     $ebuild .= "DESCRIPTION=\"" . $pf->getSummary() . "\"\n";
     $ebuild .= "HOMEPAGE=\"" . $parsedName['channel'] . "\"\n";
     $ebuild .= "SRC_URI=\"" . $euri . "\"\n";
     $ebuild .= "\n";
     $ebuild .= "LICENSE=\"" . str_replace(" License", "", $pf->getLicense()) . "\"\n";
-    $ebuild .= "SLOT=\"0\"\n";
+    if ($hordeapp == FALSE)
+        $ebuild .= "SLOT=\"0\"\n";
     $ebuild .= "KEYWORDS=\"" . $ARCH . "\"\n";
     $ebuild .= "IUSE=\"" . strtolower($iuse) ."\"\n";
     $ebuild .= "\n";
@@ -413,9 +426,8 @@ function generate_ebuild($pear_package)
 
     file_put_contents( $ebuildname, $ebuild);
 
-    //echo "  ..".substr( $MyPackageName, strrpos($MyPackageName, "-") +1)."\n";
-    if ($channelUri == "pear.horde.org" && substr( $MyPackageName, 0, 8) == "www-apps" )
-        hordeapp( $ebuildname, $MyPackageName, substr( $MyPackageName, strrpos($MyPackageName, "-") +1));
+    if ($hordeapp == TRUE)
+        doHordeApp( $ebuildname, $MyPackageName, substr( $MyPackageName, strrpos($MyPackageName, "-") +1));
 
     echo "Ebuild written to $ebuildname\n";
     

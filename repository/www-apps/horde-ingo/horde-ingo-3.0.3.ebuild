@@ -7,14 +7,13 @@ EAPI=4
 PEAR_PV="3.0.3"
 PHP_PEAR_PKG_NAME="ingo"
 
-inherit php-pear-r1
+inherit php-pear-r1 webapp
 
 DESCRIPTION="An email filter rules manager"
 HOMEPAGE="pear.horde.org"
 SRC_URI="http://pear.horde.org/get/ingo-3.0.3.tgz"
 
 LICENSE="ASL"
-SLOT="0"
 KEYWORDS="~amd64"
 IUSE="horde-horde_vfs pear-net_sieve pear-net_socket"
 
@@ -43,15 +42,20 @@ src_install() {
     webapp_src_preinst
 
     rm -rf ${WORKDIR}/package.xml ${WORKDIR}/ingo-${PV}/bin
-    dodoc ${WORKDIR}/ingo-${PV}/README ${WORKDIR}/ingo-${PV}/docs
-    rm -rf ${WORKDIR}/ingo-${PV}/README ${WORKDIR}/ingo-${PV}/docs
+    if [[ -x ${WORKDIR}/ingo-${PV}/README ]]; then
+        dodoc ${WORKDIR}/ingo-${PV}/README
+    fi
+    find ${WORKDIR}/ingo-${PV}/docs/ -type f | xargs dodoc
+    rm -rf ${WORKDIR}/ingo-${PV}/README ${WORKDIR}/ingo-${PV}/docs/*
     insinto ${MY_HTDOCSDIR}
-    doins -r ${WORKDIR}/webmail-${PV}/*
+    doins -r ${WORKDIR}/ingo-${PV}/*
 
-    webapp_serverowned "${MY_HTDOCSDIR}"/config
+    if [[ -x "${MY_HTDOCSDIR}"/config ]]; then
+        webapp_serverowned "${MY_HTDOCSDIR}"/config
+    fi
 
-   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
-   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+    webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+    webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
 
     webapp_src_install
 }

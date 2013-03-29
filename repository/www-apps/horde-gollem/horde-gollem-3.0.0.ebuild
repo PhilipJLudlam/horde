@@ -7,14 +7,13 @@ EAPI=4
 PEAR_PV="3.0.0"
 PHP_PEAR_PKG_NAME="gollem"
 
-inherit php-pear-r1
+inherit php-pear-r1 webapp
 
 DESCRIPTION="Web-based file manager"
 HOMEPAGE="pear.horde.org"
 SRC_URI="http://pear.horde.org/get/gollem-3.0.0.tgz"
 
 LICENSE="GPL-2.0"
-SLOT="0"
 KEYWORDS="~amd64"
 IUSE="horde-horde_db horde-horde_share"
 
@@ -46,15 +45,20 @@ src_install() {
     webapp_src_preinst
 
     rm -rf ${WORKDIR}/package.xml ${WORKDIR}/gollem-${PV}/bin
-    dodoc ${WORKDIR}/gollem-${PV}/README ${WORKDIR}/gollem-${PV}/docs
-    rm -rf ${WORKDIR}/gollem-${PV}/README ${WORKDIR}/gollem-${PV}/docs
+    if [[ -x ${WORKDIR}/gollem-${PV}/README ]]; then
+        dodoc ${WORKDIR}/gollem-${PV}/README
+    fi
+    find ${WORKDIR}/gollem-${PV}/docs/ -type f | xargs dodoc
+    rm -rf ${WORKDIR}/gollem-${PV}/README ${WORKDIR}/gollem-${PV}/docs/*
     insinto ${MY_HTDOCSDIR}
-    doins -r ${WORKDIR}/webmail-${PV}/*
+    doins -r ${WORKDIR}/gollem-${PV}/*
 
-    webapp_serverowned "${MY_HTDOCSDIR}"/config
+    if [[ -x "${MY_HTDOCSDIR}"/config ]]; then
+        webapp_serverowned "${MY_HTDOCSDIR}"/config
+    fi
 
-   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
-   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+    webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+    webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
 
     webapp_src_install
 }

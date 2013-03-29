@@ -7,14 +7,13 @@ EAPI=4
 PEAR_PV="4.0.3"
 PHP_PEAR_PKG_NAME="turba"
 
-inherit php-pear-r1
+inherit php-pear-r1 webapp
 
 DESCRIPTION="A web based address book"
 HOMEPAGE="pear.horde.org"
 SRC_URI="http://pear.horde.org/get/turba-4.0.3.tgz"
 
 LICENSE="ASL"
-SLOT="0"
 KEYWORDS="~amd64"
 IUSE="horde-horde_activesync horde-horde_db horde-horde_imsp horde-horde_ldap horde-horde_service_facebook"
 
@@ -54,15 +53,20 @@ src_install() {
     webapp_src_preinst
 
     rm -rf ${WORKDIR}/package.xml ${WORKDIR}/turba-${PV}/bin
-    dodoc ${WORKDIR}/turba-${PV}/README ${WORKDIR}/turba-${PV}/docs
-    rm -rf ${WORKDIR}/turba-${PV}/README ${WORKDIR}/turba-${PV}/docs
+    if [[ -x ${WORKDIR}/turba-${PV}/README ]]; then
+        dodoc ${WORKDIR}/turba-${PV}/README
+    fi
+    find ${WORKDIR}/turba-${PV}/docs/ -type f | xargs dodoc
+    rm -rf ${WORKDIR}/turba-${PV}/README ${WORKDIR}/turba-${PV}/docs/*
     insinto ${MY_HTDOCSDIR}
-    doins -r ${WORKDIR}/webmail-${PV}/*
+    doins -r ${WORKDIR}/turba-${PV}/*
 
-    webapp_serverowned "${MY_HTDOCSDIR}"/config
+    if [[ -x "${MY_HTDOCSDIR}"/config ]]; then
+        webapp_serverowned "${MY_HTDOCSDIR}"/config
+    fi
 
-   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
-   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+    webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+    webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
 
     webapp_src_install
 }

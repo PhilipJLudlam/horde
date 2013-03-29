@@ -7,14 +7,13 @@ EAPI=4
 PEAR_PV="6.0.4"
 PHP_PEAR_PKG_NAME="imp"
 
-inherit php-pear-r1
+inherit php-pear-r1 webapp
 
 DESCRIPTION="A web based webmail system"
 HOMEPAGE="pear.horde.org"
 SRC_URI="http://pear.horde.org/get/imp-6.0.4.tgz"
 
 LICENSE="GPL-2.0"
-SLOT="0"
 KEYWORDS="~amd64"
 IUSE="horde-horde_text_filter_csstidy horde-horde_vfs"
 
@@ -62,15 +61,20 @@ src_install() {
     webapp_src_preinst
 
     rm -rf ${WORKDIR}/package.xml ${WORKDIR}/imp-${PV}/bin
-    dodoc ${WORKDIR}/imp-${PV}/README ${WORKDIR}/imp-${PV}/docs
-    rm -rf ${WORKDIR}/imp-${PV}/README ${WORKDIR}/imp-${PV}/docs
+    if [[ -x ${WORKDIR}/imp-${PV}/README ]]; then
+        dodoc ${WORKDIR}/imp-${PV}/README
+    fi
+    find ${WORKDIR}/imp-${PV}/docs/ -type f | xargs dodoc
+    rm -rf ${WORKDIR}/imp-${PV}/README ${WORKDIR}/imp-${PV}/docs/*
     insinto ${MY_HTDOCSDIR}
-    doins -r ${WORKDIR}/webmail-${PV}/*
+    doins -r ${WORKDIR}/imp-${PV}/*
 
-    webapp_serverowned "${MY_HTDOCSDIR}"/config
+    if [[ -x "${MY_HTDOCSDIR}"/config ]]; then
+        webapp_serverowned "${MY_HTDOCSDIR}"/config
+    fi
 
-   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
-   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+    webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+    webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
 
     webapp_src_install
 }

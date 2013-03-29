@@ -7,14 +7,13 @@ EAPI=4
 PEAR_PV="2.0.3"
 PHP_PEAR_PKG_NAME="timeobjects"
 
-inherit php-pear-r1
+inherit php-pear-r1 webapp
 
 DESCRIPTION="Horde timeobjects application"
 HOMEPAGE="pear.horde.org"
 SRC_URI="http://pear.horde.org/get/timeobjects-2.0.3.tgz"
 
 LICENSE="BSD-2-Clause"
-SLOT="0"
 KEYWORDS="~amd64"
 IUSE="horde-horde_service_facebook horde-horde_service_weather"
 
@@ -35,15 +34,20 @@ src_install() {
     webapp_src_preinst
 
     rm -rf ${WORKDIR}/package.xml ${WORKDIR}/timeobjects-${PV}/bin
-    dodoc ${WORKDIR}/timeobjects-${PV}/README ${WORKDIR}/timeobjects-${PV}/docs
-    rm -rf ${WORKDIR}/timeobjects-${PV}/README ${WORKDIR}/timeobjects-${PV}/docs
+    if [[ -x ${WORKDIR}/timeobjects-${PV}/README ]]; then
+        dodoc ${WORKDIR}/timeobjects-${PV}/README
+    fi
+    find ${WORKDIR}/timeobjects-${PV}/docs/ -type f | xargs dodoc
+    rm -rf ${WORKDIR}/timeobjects-${PV}/README ${WORKDIR}/timeobjects-${PV}/docs/*
     insinto ${MY_HTDOCSDIR}
-    doins -r ${WORKDIR}/webmail-${PV}/*
+    doins -r ${WORKDIR}/timeobjects-${PV}/*
 
-    webapp_serverowned "${MY_HTDOCSDIR}"/config
+    if [[ -x "${MY_HTDOCSDIR}"/config ]]; then
+        webapp_serverowned "${MY_HTDOCSDIR}"/config
+    fi
 
-   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
-   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+    webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+    webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
 
     webapp_src_install
 }

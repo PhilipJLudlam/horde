@@ -7,14 +7,13 @@ EAPI=4
 PEAR_PV="5.0.4"
 PHP_PEAR_PKG_NAME="horde"
 
-inherit php-pear-r1
+inherit php-pear-r1 webapp
 
 DESCRIPTION="Horde Application Framework"
 HOMEPAGE="pear.horde.org"
 SRC_URI="http://pear.horde.org/get/horde-5.0.4.tgz"
 
 LICENSE="LGPL-2"
-SLOT="0"
 KEYWORDS="~amd64"
 IUSE="pear-net_dns2 pear-services_weather horde-horde_activesync horde-horde_db horde-horde_feed horde-horde_oauth horde-horde_service_facebook horde-horde_service_twitter horde-horde_service_weather horde-horde_syncml pear-console_getopt pear-console_table pear-file_find pear-file_fstab"
 
@@ -72,15 +71,20 @@ src_install() {
     webapp_src_preinst
 
     rm -rf ${WORKDIR}/package.xml ${WORKDIR}/horde-${PV}/bin
-    dodoc ${WORKDIR}/horde-${PV}/README ${WORKDIR}/horde-${PV}/docs
-    rm -rf ${WORKDIR}/horde-${PV}/README ${WORKDIR}/horde-${PV}/docs
+    if [[ -x ${WORKDIR}/horde-${PV}/README ]]; then
+        dodoc ${WORKDIR}/horde-${PV}/README
+    fi
+    find ${WORKDIR}/horde-${PV}/docs/ -type f | xargs dodoc
+    rm -rf ${WORKDIR}/horde-${PV}/README ${WORKDIR}/horde-${PV}/docs/*
     insinto ${MY_HTDOCSDIR}
-    doins -r ${WORKDIR}/webmail-${PV}/*
+    doins -r ${WORKDIR}/horde-${PV}/*
 
-    webapp_serverowned "${MY_HTDOCSDIR}"/config
+    if [[ -x "${MY_HTDOCSDIR}"/config ]]; then
+        webapp_serverowned "${MY_HTDOCSDIR}"/config
+    fi
 
-   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
-   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+    webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+    webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
 
     webapp_src_install
 }

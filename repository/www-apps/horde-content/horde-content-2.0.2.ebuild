@@ -7,14 +7,13 @@ EAPI=4
 PEAR_PV="2.0.2"
 PHP_PEAR_PKG_NAME="content"
 
-inherit php-pear-r1
+inherit php-pear-r1 webapp
 
 DESCRIPTION="Tagging application"
 HOMEPAGE="pear.horde.org"
 SRC_URI="http://pear.horde.org/get/content-2.0.2.tgz"
 
 LICENSE="BSD-2-Clause"
-SLOT="0"
 KEYWORDS="~amd64"
 IUSE="horde-horde_argv horde-horde_controller horde-horde_elasticsearch"
 
@@ -38,15 +37,20 @@ src_install() {
     webapp_src_preinst
 
     rm -rf ${WORKDIR}/package.xml ${WORKDIR}/content-${PV}/bin
-    dodoc ${WORKDIR}/content-${PV}/README ${WORKDIR}/content-${PV}/docs
-    rm -rf ${WORKDIR}/content-${PV}/README ${WORKDIR}/content-${PV}/docs
+    if [[ -x ${WORKDIR}/content-${PV}/README ]]; then
+        dodoc ${WORKDIR}/content-${PV}/README
+    fi
+    find ${WORKDIR}/content-${PV}/docs/ -type f | xargs dodoc
+    rm -rf ${WORKDIR}/content-${PV}/README ${WORKDIR}/content-${PV}/docs/*
     insinto ${MY_HTDOCSDIR}
-    doins -r ${WORKDIR}/webmail-${PV}/*
+    doins -r ${WORKDIR}/content-${PV}/*
 
-    webapp_serverowned "${MY_HTDOCSDIR}"/config
+    if [[ -x "${MY_HTDOCSDIR}"/config ]]; then
+        webapp_serverowned "${MY_HTDOCSDIR}"/config
+    fi
 
-   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
-   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+    webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+    webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
 
     webapp_src_install
 }

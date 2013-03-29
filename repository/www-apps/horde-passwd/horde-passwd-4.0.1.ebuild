@@ -7,14 +7,13 @@ EAPI=4
 PEAR_PV="4.0.1"
 PHP_PEAR_PKG_NAME="passwd"
 
-inherit php-pear-r1
+inherit php-pear-r1 webapp
 
 DESCRIPTION="Horde password changing application"
 HOMEPAGE="pear.horde.org"
 SRC_URI="http://pear.horde.org/get/passwd-4.0.1.tgz"
 
 LICENSE="GPL-2.0"
-SLOT="0"
 KEYWORDS="~amd64"
 IUSE="horde-horde_db horde-horde_ldap horde-horde_vfs pear-crypt_chap"
 
@@ -39,15 +38,20 @@ src_install() {
     webapp_src_preinst
 
     rm -rf ${WORKDIR}/package.xml ${WORKDIR}/passwd-${PV}/bin
-    dodoc ${WORKDIR}/passwd-${PV}/README ${WORKDIR}/passwd-${PV}/docs
-    rm -rf ${WORKDIR}/passwd-${PV}/README ${WORKDIR}/passwd-${PV}/docs
+    if [[ -x ${WORKDIR}/passwd-${PV}/README ]]; then
+        dodoc ${WORKDIR}/passwd-${PV}/README
+    fi
+    find ${WORKDIR}/passwd-${PV}/docs/ -type f | xargs dodoc
+    rm -rf ${WORKDIR}/passwd-${PV}/README ${WORKDIR}/passwd-${PV}/docs/*
     insinto ${MY_HTDOCSDIR}
-    doins -r ${WORKDIR}/webmail-${PV}/*
+    doins -r ${WORKDIR}/passwd-${PV}/*
 
-    webapp_serverowned "${MY_HTDOCSDIR}"/config
+    if [[ -x "${MY_HTDOCSDIR}"/config ]]; then
+        webapp_serverowned "${MY_HTDOCSDIR}"/config
+    fi
 
-   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
-   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+    webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+    webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
 
     webapp_src_install
 }

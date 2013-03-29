@@ -7,14 +7,13 @@ EAPI=4
 PEAR_PV="1.0.0RC3"
 PHP_PEAR_PKG_NAME="sesha"
 
-inherit php-pear-r1
+inherit php-pear-r1 webapp
 
 DESCRIPTION="A simple Inventory App for Horde"
 HOMEPAGE="pear.horde.org"
 SRC_URI="http://pear.horde.org/get/sesha-1.0.0RC3.tgz"
 
 LICENSE="GPL-2.0"
-SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
@@ -37,15 +36,20 @@ src_install() {
     webapp_src_preinst
 
     rm -rf ${WORKDIR}/package.xml ${WORKDIR}/sesha-${PV}/bin
-    dodoc ${WORKDIR}/sesha-${PV}/README ${WORKDIR}/sesha-${PV}/docs
-    rm -rf ${WORKDIR}/sesha-${PV}/README ${WORKDIR}/sesha-${PV}/docs
+    if [[ -x ${WORKDIR}/sesha-${PV}/README ]]; then
+        dodoc ${WORKDIR}/sesha-${PV}/README
+    fi
+    find ${WORKDIR}/sesha-${PV}/docs/ -type f | xargs dodoc
+    rm -rf ${WORKDIR}/sesha-${PV}/README ${WORKDIR}/sesha-${PV}/docs/*
     insinto ${MY_HTDOCSDIR}
-    doins -r ${WORKDIR}/webmail-${PV}/*
+    doins -r ${WORKDIR}/sesha-${PV}/*
 
-    webapp_serverowned "${MY_HTDOCSDIR}"/config
+    if [[ -x "${MY_HTDOCSDIR}"/config ]]; then
+        webapp_serverowned "${MY_HTDOCSDIR}"/config
+    fi
 
-   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
-   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+    webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+    webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
 
     webapp_src_install
 }
