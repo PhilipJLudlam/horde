@@ -187,7 +187,7 @@ function generate_ebuild($pear_package)
                     $pkgname .= "-" . $version;
                 }
             }
-            echo "  ..$pkgname\n";
+            //echo "  ..$pkgname\n";
             //echo "  __version: ".$version."\n";
             //echo "  __cleanup_version ".cleanup_version($dep["version"])."\n";
 
@@ -288,8 +288,7 @@ function generate_ebuild($pear_package)
         // PEAR packages have mixed case and so do Horde packages
         // Everything else is lower case
     $lowercase = TRUE;
-    if (isset($dep["channel"]) &&
-        ($dep["channel"] == "pear.php.net" || $dep["channel"] == "pear.horde.org"))
+    if ($channelUri == "pear.php.net" || $channelUri == "pear.horde.org")
         $lowercase = FALSE;
 
     $MyPackageName = get_package_name($ename);
@@ -314,7 +313,7 @@ function generate_ebuild($pear_package)
             // If we install a Horde package, the Horde_Role package MUST be installed first,
             // however we don't want any recursive dependancies ;)
         $hordedep="";
-        if ( isset($dep["channel"]) && $dep["channel"] == "pear.horde.org"  && get_package_name($ename, false) != "dev-php/horde-Horde_Role")
+        if ( $channelUri == "pear.horde.org" && $MyPackageNameShort != "dev-php/horde-Horde_Role")
             $hordedep="\n\tdev-php/horde-Horde_Role";
 
     $ebuild = `head -n4 /usr/portage/skel.ebuild`;

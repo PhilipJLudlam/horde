@@ -19,7 +19,8 @@ KEYWORDS="~~amd64"
 IUSE="horde-horde_service_urlshortener horde-horde_service_twitter horde-horde_service_facebook"
 
 DEPEND="dev-lang/php[nls,hash]
-	>=dev-lang/php-5.2.0"
+	>=dev-lang/php-5.2.0
+	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
 	>=dev-php/pear-pear-1.7.0
 	>=www-apps/horde-content-1.0.0

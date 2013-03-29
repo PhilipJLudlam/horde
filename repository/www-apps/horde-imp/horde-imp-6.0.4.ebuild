@@ -19,7 +19,8 @@ KEYWORDS="~~amd64"
 IUSE="horde-horde_text_filter_csstidy horde-horde_vfs"
 
 DEPEND="dev-lang/php[xml,nls,hash,json]
-	>=dev-lang/php-5.3.0"
+	>=dev-lang/php-5.3.0
+	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
 	>=dev-php/pear-pear-1.7.0
 	>=www-apps/horde-horde-5.0.0

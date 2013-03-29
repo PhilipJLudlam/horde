@@ -31,9 +31,9 @@ foreach ( file( $indexpage) as $line)
 
     // 1. Remove PECL-APC ebuild
     //    We expect Gentoo to provide a better ebuild than this one
-passthru( "rm -rf ./repository/dev-php/pecl-apc");
+passthru( "rm -rf /usr/local/horde/repository/dev-php/pecl-APC");
 
     // 2. Remove any PHPUnit builds
     //    as they are not part of our concern
-passthru( "rm -rf ./repository/dev-php/phpunit-*");
+passthru( "rm -rf /usr/local/horde/repository/dev-php/phpunit-*");
 

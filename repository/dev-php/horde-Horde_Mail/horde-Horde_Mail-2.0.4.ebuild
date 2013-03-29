@@ -18,7 +18,8 @@ SLOT="0"
 KEYWORDS="~~amd64"
 IUSE="horde-horde_test pear-net_dns2 pear-net_smtp"
 
-DEPEND=">=dev-lang/php-5.3.0"
+DEPEND=">=dev-lang/php-5.3.0
+	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
 	>=dev-php/pear-pear-1.7.0
 	>=dev-php/horde-horde_exception-2.0.0

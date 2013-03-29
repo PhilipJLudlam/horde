@@ -19,7 +19,8 @@ KEYWORDS="~~amd64"
 IUSE="horde-nag horde-timeobjects horde-horde_activesync horde-horde_db horde-horde_test pear-date_holidays"
 
 DEPEND="dev-lang/php[nls,json,simplexml]
-	>=dev-lang/php-5.3.0"
+	>=dev-lang/php-5.3.0
+	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
 	>=dev-php/pear-pear-1.7.0
 	>=www-apps/horde-content-2.0.0

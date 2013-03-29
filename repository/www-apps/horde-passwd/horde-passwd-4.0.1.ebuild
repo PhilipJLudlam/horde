@@ -19,7 +19,8 @@ KEYWORDS="~~amd64"
 IUSE="horde-horde_db horde-horde_ldap horde-horde_vfs pear-crypt_chap"
 
 DEPEND="dev-lang/php[nls]
-	>=dev-lang/php-5.2.0"
+	>=dev-lang/php-5.2.0
+	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
 	>=dev-php/pear-pear-1.7.0
 	>=www-apps/horde-horde-4.0.0

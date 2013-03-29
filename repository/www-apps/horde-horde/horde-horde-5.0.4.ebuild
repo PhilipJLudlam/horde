@@ -19,7 +19,8 @@ KEYWORDS="~~amd64"
 IUSE="pear-net_dns2 pear-services_weather horde-horde_activesync horde-horde_db horde-horde_feed horde-horde_oauth horde-horde_service_facebook horde-horde_service_twitter horde-horde_service_weather horde-horde_syncml pear-console_getopt pear-console_table pear-file_find pear-file_fstab"
 
 DEPEND="dev-lang/php[filter,nls,hash]
-	>=dev-lang/php-5.3.0"
+	>=dev-lang/php-5.3.0
+	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
 	>=dev-php/pear-pear-1.7.0
 	>=dev-php/horde-horde_alarm-2.0.0

@@ -19,7 +19,8 @@ KEYWORDS="~~amd64"
 IUSE="horde-horde_vfs pear-net_sieve pear-net_socket"
 
 DEPEND="dev-lang/php[nls]
-	>=dev-lang/php-5.3.0"
+	>=dev-lang/php-5.3.0
+	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
 	>=dev-php/pear-pear-1.7.0
 	>=www-apps/horde-horde-5.0.0

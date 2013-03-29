@@ -18,6 +18,7 @@ SLOT="0"
 KEYWORDS="~~amd64"
 IUSE=""
 
-DEPEND=">=dev-lang/php-5.3.0"
+DEPEND=">=dev-lang/php-5.3.0
+	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
 	>=dev-php/pear-pear-1.7.0"

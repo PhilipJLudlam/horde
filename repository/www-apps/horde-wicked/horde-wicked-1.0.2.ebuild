@@ -19,7 +19,8 @@ KEYWORDS="~~amd64"
 IUSE="pear-text_figlet pear-text_wiki_creole pear-text_wiki_mediawiki pear-text_wiki_tiki"
 
 DEPEND="dev-lang/php[nls]
-	>=dev-lang/php-5.2.0"
+	>=dev-lang/php-5.2.0
+	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
 	>=dev-php/pear-pear-1.7.0
 	>=www-apps/horde-horde-4.0.0
