@@ -17,6 +17,9 @@
 
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
 
+// Probably need an array of PEAR and PECL packages provided by Gentoo
+// Something generated automatically
+
 
 
 require_once "PEAR/Config.php";
@@ -75,7 +78,7 @@ function get_channel_prefix($channelUri)
 
 function generate_ebuild($pear_package) 
 {
-    global $OptNoDeps, $OptForce, $OptOptionalAsRequired;
+    global $OptNoDeps, $OptForce, $OptOptionalAsRequired, $ARCH;
 
     echo "Generating ebuild for $pear_package\n";
     $config = PEAR_Config::singleton('', '');
@@ -172,7 +175,7 @@ function generate_ebuild($pear_package)
                     break;
                 case "not":
                     $rel= "!";
-                    $dep["optional"] = "no";  // ensure we export this incompatability
+                    $dep["optional"] = "no";  // ensure we include this incompatability
                     break;
     	    }
 
@@ -274,23 +277,36 @@ function generate_ebuild($pear_package)
 
     $doins = "";
 
-    $prefix = get_channel_prefix($channelUri); 
-
-
-
+    $prefix = get_channel_prefix($channelUri);
     $ename = get_channel_prefix($channelUri) . $pf->getName();
     $myp = $pf->getName();
 
     $euri = str_replace($ename, $myp, $uri);
 
-    // XXX: PJL: TO fix up - make destination directory configurable
-    if (!is_dir("/usr/local/horde/repository/" . strtolower(get_package_name($ename)))) {
-        mkdir("/usr/local/horde/repository/" . strtolower(get_package_name($ename)), 0777, true);
+
+        // Follow Gentoo package naming convention
+        // PEAR packages have mixed case and so do Horde packages
+        // Everything else is lower case
+    $lowercase = TRUE;
+    if (isset($dep["channel"]) &&
+        ($dep["channel"] == "pear.php.net" || $dep["channel"] == "pear.horde.org"))
+        $lowercase = FALSE;
+
+    $MyPackageName = get_package_name($ename);
+    $MyPackageNameShort = get_package_name($ename, false);
+    if ($lowercase == TRUE)
+    {
+        $MyPackageName = strtolower($MyPackageName);
+        $MyPackageNameShort = strtolower($MyPackageNameShort);
     }
 
-    $ebuildname = strtolower("/usr/local/horde/repository/" . get_package_name($ename)  . "/" . 
-        get_package_name($ename, false) . "-" . cleanup_version($pf->getVersion()) .
-	".ebuild");
+        //XXX: PJL: TO fix up - make destination directory configurable
+    if (!is_dir("/usr/local/horde/repository/" . $MyPackageName))
+         mkdir("/usr/local/horde/repository/" . $MyPackageName, 0777, true);
+
+    $ebuildname = "/usr/local/horde/repository/" . $MyPackageName . "/" .
+         $MyPackageNameShort . "-" . cleanup_version($pf->getVersion()) . ".ebuild";
+
 
     if ( !is_file($ebuildname) || $OptForce == TRUE)
     {
@@ -331,8 +347,8 @@ function generate_ebuild($pear_package)
     
     passthru("ebuild $ebuildname manifest");
 
-    file_put_contents( "/tmp/generateHordeEBuilds/keywords", strtolower(get_package_name($ename) . " " . $ARCH . PHP_EOL, FILE_APPEND);
-    file_put_contents( "/tmp/generateHordeEBuilds/keywords_ver", "=" . strtolower(get_package_name($ename)  . "-" . cleanup_version($pf->getVersion())) . " " .$ARCH .  PHP_EOL, FILE_APPEND);
+    file_put_contents( "/tmp/generateHordeEBuilds/keywords", $MyPackageName . " " . $ARCH . PHP_EOL, FILE_APPEND);
+    file_put_contents( "/tmp/generateHordeEBuilds/keywords_ver", "=" . $MyPackageName . "-" . cleanup_version($pf->getVersion()) . " " .$ARCH . PHP_EOL, FILE_APPEND);
     }
 }
 
@@ -357,7 +373,7 @@ $OptOptionalAsRequired = FALSE;
 $OpsWWWApps = FALSE;
 $package = "";
 
-$ARCH="~" . trim(`portageq envvar ARCH`) 
+$ARCH="~" . trim(`portageq envvar ARCH`);
 
 // Handle the Command Line Arguments
 for ($p=1; $p<$argc; $p++)
