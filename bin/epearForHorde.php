@@ -206,28 +206,43 @@ function generate_ebuild($pear_package)
                 }
                 else
                 {
-                    $optdep[$dep["name"]]["key"]   = get_package_name( $prefix . $dep["name"], false);
+                    $optdep[$dep["name"]]["key"]   = strtolower(get_package_name( $prefix . $dep["name"], false));
                     $optdep[$dep["name"]]["value"] = $pkgname;
                 }
 
-            // If we don't care about creating dependancies, then we can stop here
+                // If we don't care about creating dependancies, then we can stop here
+                if ( $OptNoDeps != TRUE)
+                {
                 if ( $dep["channel"] != "pear.horde.org") {
                      // Only generate ebuilds IF it's not a Horde package
 
                     if ( $dep["channel"] . "/" . $dep["name"] != "pear.php.net/PEAR" &&
                          $dep["channel"] . "/" . $dep["name"] != "pecl.php.net/sasl") {
-                //if (!(shell_exec("portageq match / " . escapeshellarg($pkgname)))) {
-                //    echo "  ..Dependency $pkgname not found\n";
-                    // Hmm, this 'if' statement seems to be a cheap way to stop
-                    // the process recursively building a package for PEAR
-                    echo " ..Generating ebuild for " . $dep["channel"] . "/" . $dep["name"] . "\n";
-		            generate_ebuild($dep["channel"] . "/" . $dep["name"]);
+                             
+                            $GentooPackage = get_package_name( get_channel_prefix($dep["channel"]) . $dep["name"], true);
+                            $lowercase = TRUE;
+                            if ($dep["channel"] == "pear.php.net" || $dep["channel"] == "pear.horde.org")
+                                $lowercase = FALSE;
+                            if ($lowercase == TRUE)
+                                $GentooPackage = strtolower($GentooPackage);
+
+                            $Result=exec("ACCEPT_KEYWORDS=\"" . $ARCH . "\" portageq best_visible / ebuild " . $GentooPackage);
+                            echo "  ..GentooPackage = $GentooPackage\n";
+                            echo "  Result = \"".$Result."\"\n";
+                            if (strlen($Result) == 0)
+                            {
+                                    // Portage doesn't know about this package
+                                    // So go and generate the ebuild for it
+                                echo "  ..Generating ebuild for " . $dep["channel"] . "/" . $dep["name"] . "\n";
+        		                generate_ebuild($dep["channel"] . "/" . $dep["name"]);
                     
-                // Also: Make it remember the packages it's built (sans version number)
-		        // So that a quick check can be performed and it doesn't try to build the same dependancy
-		        // multiple times (because multiple packages all require it
-		        // - as in the case of Horde ;)
-                }
+                                    // Also: Make it remember the packages it's built (sans version number)
+        		                    // So that a quick check can be performed and it doesn't try to build the same dependancy
+    	                	        // multiple times (because multiple packages all require it
+                                    // - as in the case of Horde ;)
+                            }
+                        }
+                    }
                 }
                 }
             }
@@ -271,7 +286,7 @@ function generate_ebuild($pear_package)
     {
         $iuse=$iuse ." ". $opt['key'];
         $optdep2=$optdep2 . $opt['key'] ."? ( ". $opt['value'] ." )\n\t";
-        file_put_contents( "/tmp/generateHordeEBuilds/temp_iuse", strtolower($opt['key']) . PHP_EOL, FILE_APPEND);
+        file_put_contents( "/tmp/generateHordeEBuilds/temp_iuse", $opt['key'] . PHP_EOL, FILE_APPEND);
     }
     $iuse=ltrim($iuse);
 
@@ -335,7 +350,7 @@ function generate_ebuild($pear_package)
     $ebuild .= "IUSE=\"" . strtolower($iuse) ."\"\n";
     $ebuild .= "\n";
     $ebuild .= "DEPEND=\"" . $phpdep . $hordedep ."\"\n";
-    $ebuild .= "RDEPEND=\"". trim("\${DEPEND}\n\t" . strtolower($peardep) . "\n\t" . strtolower($optdep2)) . "\"\n";
+    $ebuild .= "RDEPEND=\"". trim("\${DEPEND}\n\t" . $peardep . "\n\t" . $optdep2) . "\"\n";
     if ($postdep) {
         $ebuild .= "PDEPEND=\"$postdep\"\n";
     }

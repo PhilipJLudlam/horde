@@ -21,9 +21,9 @@ IUSE="horde-horde_text_flowed horde-horde_test horde-horde_translation"
 DEPEND=">=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
-	>=dev-php/horde-horde_exception-2.0.0
-	>=dev-php/horde-horde_util-2.0.0
-	horde-horde_text_flowed? ( >=dev-php/horde-horde_text_flowed-2.0.0 )
-	horde-horde_test? ( >=dev-php/horde-horde_test-2.1.0 )
-	horde-horde_translation? ( >=dev-php/horde-horde_translation-2.0.0 )"
+	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-php/horde-Horde_Exception-2.0.0
+	>=dev-php/horde-Horde_Util-2.0.0
+	horde-horde_text_flowed? ( >=dev-php/horde-Horde_Text_Flowed-2.0.0 )
+	horde-horde_test? ( >=dev-php/horde-Horde_Test-2.1.0 )
+	horde-horde_translation? ( >=dev-php/horde-Horde_Translation-2.0.0 )"

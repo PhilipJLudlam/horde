@@ -21,9 +21,9 @@ IUSE="horde-horde_imap_client horde-horde_kolab_server horde-horde_log horde-hor
 DEPEND=">=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
-	>=dev-php/horde-horde_exception-2.0.0
-	horde-horde_imap_client? ( >=dev-php/horde-horde_imap_client-2.0.0 )
-	horde-horde_kolab_server? ( >=dev-php/horde-horde_kolab_server-2.0.0 )
-	horde-horde_log? ( >=dev-php/horde-horde_log-2.0.0 )
-	horde-horde_test? ( >=dev-php/horde-horde_test-2.1.0 )"
+	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-php/horde-Horde_Exception-2.0.0
+	horde-horde_imap_client? ( >=dev-php/horde-Horde_Imap_Client-2.0.0 )
+	horde-horde_kolab_server? ( >=dev-php/horde-Horde_Kolab_Server-2.0.0 )
+	horde-horde_log? ( >=dev-php/horde-Horde_Log-2.0.0 )
+	horde-horde_test? ( >=dev-php/horde-Horde_Test-2.1.0 )"

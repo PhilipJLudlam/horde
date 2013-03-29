@@ -21,14 +21,14 @@ IUSE="horde-horde_kolab_storage horde-horde_test"
 DEPEND=">=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
-	>=dev-php/horde-horde_db-2.0.0
-	>=dev-php/horde-horde_exception-2.0.0
-	>=dev-php/horde-horde_group-2.0.0
-	>=dev-php/horde-horde_perms-2.1.0
-	>=dev-php/horde-horde_support-2.0.0
-	>=dev-php/horde-horde_translation-2.0.0
-	>=dev-php/horde-horde_url-2.0.0
-	>=dev-php/horde-horde_util-2.0.0
-	horde-horde_kolab_storage? ( >=dev-php/horde-horde_kolab_storage-2.0.0 )
-	horde-horde_test? ( >=dev-php/horde-horde_test-2.1.0 )"
+	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-php/horde-Horde_Db-2.0.0
+	>=dev-php/horde-Horde_Exception-2.0.0
+	>=dev-php/horde-Horde_Group-2.0.0
+	>=dev-php/horde-Horde_Perms-2.1.0
+	>=dev-php/horde-Horde_Support-2.0.0
+	>=dev-php/horde-Horde_Translation-2.0.0
+	>=dev-php/horde-Horde_Url-2.0.0
+	>=dev-php/horde-Horde_Util-2.0.0
+	horde-horde_kolab_storage? ( >=dev-php/horde-Horde_Kolab_Storage-2.0.0 )
+	horde-horde_test? ( >=dev-php/horde-Horde_Test-2.1.0 )"

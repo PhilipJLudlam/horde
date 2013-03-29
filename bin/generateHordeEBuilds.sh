@@ -3,7 +3,7 @@
 ##If same age as downloaded version, then quit
 ##Download the index page
 
-###rm -rf /tmp/generateHordeEBuilds/temp_*
+rm -rf /tmp/generateHordeEBuilds/temp_*
 mkdir -p /tmp/generateHordeEBuilds
 
 echo "Downloading index information from the Horde website"
@@ -20,7 +20,7 @@ do
         category="--wwwapps"
     fi
 
-    ###/usr/bin/php ./epearForHorde.php --nodeps --force $category $hordepackage
+    /usr/bin/php ./epearForHorde.php --force $category $hordepackage
 
 done
 

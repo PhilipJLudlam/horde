@@ -22,8 +22,8 @@ DEPEND="dev-lang/php[xml]
 	>=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
-	>=dev-php/horde-horde_exception-2.0.0
-	>=dev-php/horde-horde_http-2.0.0
-	>=dev-php/horde-horde_xml_element-2.0.0
-	horde-horde_test? ( >=dev-php/horde-horde_test-2.1.0 )"
+	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-php/horde-Horde_Exception-2.0.0
+	>=dev-php/horde-Horde_Http-2.0.0
+	>=dev-php/horde-Horde_Xml_Element-2.0.0
+	horde-horde_test? ( >=dev-php/horde-Horde_Test-2.1.0 )"

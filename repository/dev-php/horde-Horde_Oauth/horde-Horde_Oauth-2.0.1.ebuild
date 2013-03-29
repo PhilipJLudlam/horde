@@ -22,6 +22,6 @@ DEPEND="dev-lang/php[hash,ssl]
 	>=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
-	>=dev-php/horde-horde_exception-2.0.0
-	>=dev-php/horde-horde_http-2.0.0"
+	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-php/horde-Horde_Exception-2.0.0
+	>=dev-php/horde-Horde_Http-2.0.0"

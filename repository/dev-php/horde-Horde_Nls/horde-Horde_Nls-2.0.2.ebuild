@@ -21,8 +21,8 @@ IUSE="pear-net_dns2 pecl-geoip"
 DEPEND=">=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
-	>=dev-php/horde-horde_translation-2.0.0
-	>=dev-php/horde-horde_util-2.0.0
-	pear-net_dns2? ( dev-php/pear-net_dns2 )
+	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-php/horde-Horde_Translation-2.0.0
+	>=dev-php/horde-Horde_Util-2.0.0
+	pear-net_dns2? ( dev-php/PEAR-Net_DNS2 )
 	pecl-geoip? ( dev-php/pecl-geoip )"

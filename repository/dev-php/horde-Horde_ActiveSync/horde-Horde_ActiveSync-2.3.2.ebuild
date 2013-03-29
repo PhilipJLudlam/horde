@@ -21,15 +21,15 @@ IUSE="horde-horde_db horde-horde_imap_client horde-horde_mail horde-horde_text_f
 DEPEND=">=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
-	>=dev-php/horde-horde_date-2.0.0
-	>=dev-php/horde-horde_exception-2.0.0
-	>=dev-php/horde-horde_icalendar-2.0.0
-	>=dev-php/horde-horde_mime-2.0.0
-	>=dev-php/horde-horde_support-2.0.0
-	>=dev-php/horde-horde_util-2.0.0
-	horde-horde_db? ( >=dev-php/horde-horde_db-2.0.0 )
-	horde-horde_imap_client? ( >=dev-php/horde-horde_imap_client-2.1.3 )
-	horde-horde_mail? ( >=dev-php/horde-horde_mail-2.0.0 )
-	horde-horde_text_filter? ( >=dev-php/horde-horde_text_filter-2.0.0 )
-	horde-horde_test? ( >=dev-php/horde-horde_test-2.1.0 )"
+	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-php/horde-Horde_Date-2.0.0
+	>=dev-php/horde-Horde_Exception-2.0.0
+	>=dev-php/horde-Horde_Icalendar-2.0.0
+	>=dev-php/horde-Horde_Mime-2.0.0
+	>=dev-php/horde-Horde_Support-2.0.0
+	>=dev-php/horde-Horde_Util-2.0.0
+	horde-horde_db? ( >=dev-php/horde-Horde_Db-2.0.0 )
+	horde-horde_imap_client? ( >=dev-php/horde-Horde_Imap_Client-2.1.3 )
+	horde-horde_mail? ( >=dev-php/horde-Horde_Mail-2.0.0 )
+	horde-horde_text_filter? ( >=dev-php/horde-Horde_Text_Filter-2.0.0 )
+	horde-horde_test? ( >=dev-php/horde-Horde_Test-2.1.0 )"

@@ -21,7 +21,7 @@ IUSE=""
 DEPEND=">=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
+	>=dev-php/PEAR-PEAR-1.7.0
 	!www-apps/horde-groupware
 	>=www-apps/horde-content-2.0.2
 	>=www-apps/horde-horde-5.0.4

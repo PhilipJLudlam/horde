@@ -21,9 +21,9 @@ IUSE=""
 DEPEND=">=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
-	>=dev-php/horde-horde_controller-2.0.0
-	>=dev-php/horde-horde_exception-2.0.0
-	>=dev-php/horde-horde_http-2.0.0
-	>=dev-php/horde-horde_oauth-2.0.0
-	>=dev-php/horde-horde_url-2.0.0"
+	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-php/horde-Horde_Controller-2.0.0
+	>=dev-php/horde-Horde_Exception-2.0.0
+	>=dev-php/horde-Horde_Http-2.0.0
+	>=dev-php/horde-Horde_Oauth-2.0.0
+	>=dev-php/horde-Horde_Url-2.0.0"

@@ -20,4 +20,4 @@ IUSE=""
 
 DEPEND=">=dev-lang/php-4"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.4.0_beta1"
+	>=dev-php/PEAR-PEAR-1.4.0_beta1"

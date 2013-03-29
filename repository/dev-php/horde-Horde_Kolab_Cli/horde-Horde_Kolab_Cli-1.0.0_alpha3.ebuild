@@ -21,13 +21,13 @@ IUSE="horde-horde_support horde-horde_util horde-horde_yaml"
 DEPEND=">=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
-	>=dev-php/horde-horde_autoloader-1.0.0
-	>=dev-php/horde-horde_cli-1.0.0
-	>=dev-php/horde-horde_cli_modular-1.0.0
-	>=dev-php/horde-horde_imap_client-1.0.0
-	>=dev-php/horde-horde_kolab_storage-1.1.0
-	>=dev-php/horde-horde_log-1.0.0
-	horde-horde_support? ( >=dev-php/horde-horde_support-1.0.0 )
-	horde-horde_util? ( >=dev-php/horde-horde_util-1.0.0 )
-	horde-horde_yaml? ( >=dev-php/horde-horde_yaml-1.0.0 )"
+	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-php/horde-Horde_Autoloader-1.0.0
+	>=dev-php/horde-Horde_Cli-1.0.0
+	>=dev-php/horde-Horde_Cli_Modular-1.0.0
+	>=dev-php/horde-Horde_Imap_Client-1.0.0
+	>=dev-php/horde-Horde_Kolab_Storage-1.1.0
+	>=dev-php/horde-Horde_Log-1.0.0
+	horde-horde_support? ( >=dev-php/horde-Horde_Support-1.0.0 )
+	horde-horde_util? ( >=dev-php/horde-Horde_Util-1.0.0 )
+	horde-horde_yaml? ( >=dev-php/horde-Horde_Yaml-1.0.0 )"

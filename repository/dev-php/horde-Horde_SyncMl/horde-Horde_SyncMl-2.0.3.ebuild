@@ -21,14 +21,14 @@ IUSE="horde-horde_auth horde-horde_core pear-mdb2"
 DEPEND=">=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
-	>=dev-php/horde-horde_date-2.0.0
-	>=dev-php/horde-horde_icalendar-2.0.0
-	>=dev-php/horde-horde_log-2.0.0
-	>=dev-php/horde-horde_support-2.0.0
-	>=dev-php/horde-horde_util-2.0.0
-	>=dev-php/horde-horde_xml_wbxml-2.0.0
-	>=dev-php/horde-horde_translation-2.0.0
-	horde-horde_auth? ( >=dev-php/horde-horde_auth-2.0.0 )
-	horde-horde_core? ( >=dev-php/horde-horde_core-2.0.0 )
-	pear-mdb2? ( dev-php/pear-mdb2 )"
+	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-php/horde-Horde_Date-2.0.0
+	>=dev-php/horde-Horde_Icalendar-2.0.0
+	>=dev-php/horde-Horde_Log-2.0.0
+	>=dev-php/horde-Horde_Support-2.0.0
+	>=dev-php/horde-Horde_Util-2.0.0
+	>=dev-php/horde-Horde_Xml_Wbxml-2.0.0
+	>=dev-php/horde-Horde_Translation-2.0.0
+	horde-horde_auth? ( >=dev-php/horde-Horde_Auth-2.0.0 )
+	horde-horde_core? ( >=dev-php/horde-Horde_Core-2.0.0 )
+	pear-mdb2? ( dev-php/PEAR-MDB2 )"

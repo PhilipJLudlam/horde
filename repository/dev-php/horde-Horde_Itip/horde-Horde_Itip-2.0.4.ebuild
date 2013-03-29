@@ -21,8 +21,8 @@ IUSE="horde-horde_prefs horde-horde_test"
 DEPEND=">=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
-	>=dev-php/horde-horde_icalendar-2.0.0
-	>=dev-php/horde-horde_mime-2.0.0
-	horde-horde_prefs? ( >=dev-php/horde-horde_prefs-2.3.0 )
-	horde-horde_test? ( >=dev-php/horde-horde_test-2.1.0 )"
+	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-php/horde-Horde_Icalendar-2.0.0
+	>=dev-php/horde-Horde_Mime-2.0.0
+	horde-horde_prefs? ( >=dev-php/horde-Horde_Prefs-2.3.0 )
+	horde-horde_test? ( >=dev-php/horde-Horde_Test-2.1.0 )"

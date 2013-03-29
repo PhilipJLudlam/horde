@@ -21,15 +21,15 @@ IUSE="horde-horde_auth horde-horde_core horde-horde_db horde-horde_kolab_session
 DEPEND=">=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
-	>=dev-php/horde-horde_exception-2.0.0
-	>=dev-php/horde-horde_translation-2.0.0
-	>=dev-php/horde-horde_util-2.0.0
-	horde-horde_auth? ( >=dev-php/horde-horde_auth-2.0.0 )
-	horde-horde_core? ( >=dev-php/horde-horde_core-2.0.0 )
-	horde-horde_db? ( >=dev-php/horde-horde_db-2.0.0 )
-	horde-horde_kolab_session? ( >=dev-php/horde-horde_kolab_session-2.0.0 )
-	horde-horde_mime? ( >=dev-php/horde-horde_mime-2.0.0 )
-	horde-horde_perms? ( >=dev-php/horde-horde_perms-2.0.0 )
-	horde-horde_test? ( >=dev-php/horde-horde_test-2.1.0 )
+	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-php/horde-Horde_Exception-2.0.0
+	>=dev-php/horde-Horde_Translation-2.0.0
+	>=dev-php/horde-Horde_Util-2.0.0
+	horde-horde_auth? ( >=dev-php/horde-Horde_Auth-2.0.0 )
+	horde-horde_core? ( >=dev-php/horde-Horde_Core-2.0.0 )
+	horde-horde_db? ( >=dev-php/horde-Horde_Db-2.0.0 )
+	horde-horde_kolab_session? ( >=dev-php/horde-Horde_Kolab_Session-2.0.0 )
+	horde-horde_mime? ( >=dev-php/horde-Horde_Mime-2.0.0 )
+	horde-horde_perms? ( >=dev-php/horde-Horde_Perms-2.0.0 )
+	horde-horde_test? ( >=dev-php/horde-Horde_Test-2.1.0 )
 	pecl-ssh2? ( >=dev-php/pecl-ssh2-0.10 )"

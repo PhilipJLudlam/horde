@@ -21,9 +21,9 @@ IUSE="horde-horde_cli horde-horde_log"
 DEPEND=">=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
-	>=dev-php/horde-horde_support-2.0.0
-	>=dev-php/horde-horde_util-2.0.0
-	horde-horde_cli? ( >=dev-php/horde-horde_cli-2.0.0 )
-	horde-horde_log? ( >=dev-php/horde-horde_log-2.0.0 )"
+	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-php/horde-Horde_Support-2.0.0
+	>=dev-php/horde-Horde_Util-2.0.0
+	horde-horde_cli? ( >=dev-php/horde-Horde_Cli-2.0.0 )
+	horde-horde_log? ( >=dev-php/horde-Horde_Log-2.0.0 )"
 PDEPEND=">=dev-php/phpunit-PHPUnit-3.5.0"

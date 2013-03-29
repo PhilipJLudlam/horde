@@ -22,17 +22,17 @@ DEPEND="dev-lang/php[hash]
 	>=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
-	>=dev-php/horde-horde_exception-2.0.0
-	>=dev-php/horde-horde_util-2.0.0
-	horde-horde_db? ( >=dev-php/horde-horde_db-2.0.0 )
-	horde-horde_history? ( >=dev-php/horde-horde_history-2.0.0 )
-	horde-horde_lock? ( >=dev-php/horde-horde_lock-2.0.0 )
-	horde-horde_imap_client? ( >=dev-php/horde-horde_imap_client-2.0.0 )
-	horde-horde_kolab_session? ( >=dev-php/horde-horde_kolab_session-2.0.0 )
-	horde-horde_ldap? ( >=dev-php/horde-horde_ldap-2.0.0 )
-	horde-horde_imsp? ( >=dev-php/horde-horde_imsp-2.0.0 )
-	horde-horde_http? ( >=dev-php/horde-horde_http-2.0.0 )
-	horde-horde_test? ( >=dev-php/horde-horde_test-2.1.0 )
+	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-php/horde-Horde_Exception-2.0.0
+	>=dev-php/horde-Horde_Util-2.0.0
+	horde-horde_db? ( >=dev-php/horde-Horde_Db-2.0.0 )
+	horde-horde_history? ( >=dev-php/horde-Horde_History-2.0.0 )
+	horde-horde_lock? ( >=dev-php/horde-Horde_Lock-2.0.0 )
+	horde-horde_imap_client? ( >=dev-php/horde-Horde_Imap_Client-2.0.0 )
+	horde-horde_kolab_session? ( >=dev-php/horde-Horde_Kolab_Session-2.0.0 )
+	horde-horde_ldap? ( >=dev-php/horde-Horde_Ldap-2.0.0 )
+	horde-horde_imsp? ( >=dev-php/horde-Horde_Imsp-2.0.0 )
+	horde-horde_http? ( >=dev-php/horde-Horde_Http-2.0.0 )
+	horde-horde_test? ( >=dev-php/horde-Horde_Test-2.1.0 )
 	pecl-pam? ( dev-php/pecl-pam )
 	pecl-sasl? ( dev-php/pecl-sasl )"

@@ -21,12 +21,12 @@ IUSE="horde-horde_test"
 DEPEND=">=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
-	>=dev-php/horde-horde_exception-2.0.0
-	>=dev-php/horde-horde_http-2.0.0
-	>=dev-php/horde-horde_mail-2.0.0
-	>=dev-php/horde-horde_mime-2.0.0
-	>=dev-php/horde-horde_rpc-2.0.0
-	>=dev-php/horde-horde_serialize-2.0.0
-	>=dev-php/horde-horde_util-2.0.0
-	horde-horde_test? ( >=dev-php/horde-horde_test-2.1.0 )"
+	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-php/horde-Horde_Exception-2.0.0
+	>=dev-php/horde-Horde_Http-2.0.0
+	>=dev-php/horde-Horde_Mail-2.0.0
+	>=dev-php/horde-Horde_Mime-2.0.0
+	>=dev-php/horde-Horde_Rpc-2.0.0
+	>=dev-php/horde-Horde_Serialize-2.0.0
+	>=dev-php/horde-Horde_Util-2.0.0
+	horde-horde_test? ( >=dev-php/horde-Horde_Test-2.1.0 )"

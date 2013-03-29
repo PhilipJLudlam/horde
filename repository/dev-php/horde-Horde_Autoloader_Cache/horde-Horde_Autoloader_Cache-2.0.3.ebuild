@@ -22,7 +22,7 @@ DEPEND="dev-lang/php[json]
 	>=dev-lang/php-5.3.0
 	dev-php/horde-Horde_Role"
 RDEPEND="${DEPEND}
-	>=dev-php/pear-pear-1.7.0
-	>=dev-php/horde-horde_autoloader-2.0.0
+	>=dev-php/PEAR-PEAR-1.7.0
+	>=dev-php/horde-Horde_Autoloader-2.0.0
 	horde-horde_lz4? ( dev-php/horde-horde_lz4 )
 	pecl-lzf? ( >=dev-php/pecl-lzf-1.5.2 )"
