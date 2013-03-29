@@ -6,6 +6,10 @@
 
 $indexpage = "/var/lib/epear/pear.horde.org-index.html";
 
+if (is_dir( "/tmp/generateHordeEBuilds"))
+    rmdir( "/tmp/generateHordeEBuilds");
+mkdir( "/tmp/generateHordeEBuilds");
+
 foreach ( file( $indexpage) as $line) 
 {
     $start = strpos( $line, "<h3>");
@@ -28,9 +32,11 @@ foreach ( file( $indexpage) as $line)
 
     // 1. Remove PECL-APC ebuild
     //    We expect Gentoo to provide a better ebuild than this one
-rmdir( "./repository/dev-php/pecl-apc");
+if (is_dir( "./repository/dev-php/pecl-apc"))
+    rmdir( "./repository/dev-php/pecl-apc");
 
     // 2. Remove any PHPUnit builds
     //    as they are not part of our concern
-rmdir( "./repository/dev-php/phpunit-*";
+if (is_dir( "./repository/dev-php/phpunit-*"))
+    rmdir( "./repository/dev-php/phpunit-*");
 

@@ -170,16 +170,21 @@ function generate_ebuild($pear_package)
                 case "has":
                     $rel = "";
                     break;
+                case "not":
+                    $rel= "!";
+                    $dep["optional"] = "no";  // ensure we export this incompatability
+                    break;
     	    }
 
             $pkgname = $rel . get_package_name($prefix . $dep["name"]);
-            if ($rel != "")
+            if ($rel != "" && isset($dep["version"]))
             {
                 $version = cleanup_version($dep["version"]);
                 if ($version) {
                     $pkgname .= "-" . $version;
                 }
             }
+            echo "  ..$pkgname\n";
             //echo "  __version: ".$version."\n";
             //echo "  __cleanup_version ".cleanup_version($dep["version"])."\n";
 
@@ -187,9 +192,11 @@ function generate_ebuild($pear_package)
             //PDEPEND
             if ($dep["name"] == "PHPUnit") {
                 $postDeps[$dep["name"]] = $pkgname;
-	        } else {
+            } else {
+                if (isset($dep["optional"])) {
+                    // The optionality of this requirement has been defined
 
-                if ( (isset($dep["optional"]) && $dep["optional"] == "no") || $OptOptionalAsRequired == TRUE) 
+                if ( $dep["optional"] == "no" || $OptOptionalAsRequired == TRUE) 
                 {
                     //The key is used to prevent duplicates
 		            $pearDeps[$dep["name"]] = $pkgname;
@@ -201,12 +208,13 @@ function generate_ebuild($pear_package)
                 }
 
             // If we don't care about creating dependancies, then we can stop here
-                {
-                    if ( $dep["channel"] != "pear.horde.org") {
-                        // Only generate ebuilds IF it's not a Horde package
+                if ( $dep["channel"] != "pear.horde.org") {
+                     // Only generate ebuilds IF it's not a Horde package
 
-                if (!(shell_exec("portageq match / " . escapeshellarg($pkgname)))) {
-                    echo "  ..Dependency $pkgname not found\n";
+                    if ( $dep["channel"] . "/" . $dep["name"] != "pear.php.net/PEAR" &&
+                         $dep["channel"] . "/" . $dep["name"] != "pecl.php.net/SASL") {
+                //if (!(shell_exec("portageq match / " . escapeshellarg($pkgname)))) {
+                //    echo "  ..Dependency $pkgname not found\n";
                     // Hmm, this 'if' statement seems to be a cheap way to stop
                     // the process recursively building a package for PEAR
                     echo " ..Generating ebuild for " . $dep["channel"] . "/" . $dep["name"] . "\n";
@@ -218,7 +226,7 @@ function generate_ebuild($pear_package)
 		        // - as in the case of Horde ;)
                 }
                 }
-            }
+                }
             }
             
             break;
@@ -247,7 +255,8 @@ function generate_ebuild($pear_package)
         $phpdep  = str_replace($search, $replace, $phpdep2);
     }
 
-    $phpdep .= ">=dev-lang/php-$phpver";
+    if (isset($phpver))
+        $phpdep .= ">=dev-lang/php-$phpver";
 
 
     $peardep = implode("\n\t", $pearDeps);
@@ -259,6 +268,7 @@ function generate_ebuild($pear_package)
     {
         $iuse=$iuse ." ". $opt['key'];
         $optdep2=$optdep2 . $opt['key'] ."? ( ". $opt['value'] ." )\n\t";
+        file_put_contents( "/tmp/generateHordeEBuilds/iuse", $opt['key'] . PHP_EOL, FILE_APPEND);
     }
     $iuse=ltrim($iuse);
 
@@ -304,13 +314,12 @@ function generate_ebuild($pear_package)
     $ebuild .= "HOMEPAGE=\"" . $parsedName['channel'] . "\"\n";
     $ebuild .= "SRC_URI=\"" . $euri . "\"\n";
     $ebuild .= "\n";
-    $ebuild .= "LICENSE=\"" . str_replace(" License", "", $pf->getLicense()) .
-        "\"\n";
+    $ebuild .= "LICENSE=\"" . str_replace(" License", "", $pf->getLicense()) . "\"\n";
     $ebuild .= "SLOT=\"0\"\n";
     $ebuild .= "KEYWORDS=\"~" . trim(`portageq envvar ARCH`) . "\"\n";
     $ebuild .= "IUSE=\"" . strtolower($iuse) ."\"\n";
     $ebuild .= "\n";
-    $ebuild .= "DEPEND=\"" . $phpdep . $hordedep . "\"\n";
+    $ebuild .= "DEPEND=\"" . $phpdep . $hordedep ."\"\n";
     $ebuild .= "RDEPEND=\"". trim("\${DEPEND}\n\t" . strtolower($peardep) . "\n\t" . strtolower($optdep2)) . "\"\n";
     if ($postdep) {
         $ebuild .= "PDEPEND=\"$postdep\"\n";
@@ -321,6 +330,9 @@ function generate_ebuild($pear_package)
     echo "Ebuild written to $ebuildname\n";
     
     passthru("ebuild $ebuildname manifest");
+
+    file_put_contents( "/tmp/generateHordeEBuilds/keywords", strtolower(get_package_name($ename)  . "/" . get_package_name($ename, false)) . " ~amd64" . PHP_EOL, FILE_APPEND);
+    file_put_contents( "/tmp/generateHordeEBuilds/keywords_ver", "=" . strtolower(get_package_name($ename)  . "/" . get_package_name($ename, false) . "-" . cleanup_version($pf->getVersion())) . " ~amd64" . PHP_EOL, FILE_APPEND);
     }
 }
 
