@@ -15,7 +15,7 @@ SRC_URI="http://pear.php.net/get/Text_LanguageDetect-0.3.0.tgz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=">=dev-lang/php-5.3"

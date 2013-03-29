@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/Horde_Imap_Client-2.8.1.tgz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-horde_cache horde-horde_secret horde-horde_stream_filter horde-horde_test"
 
 DEPEND="dev-lang/php[hash]

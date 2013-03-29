@@ -15,7 +15,7 @@ SRC_URI="http://pear.php.net/get/File_Fstab-2.0.3.tgz"
 
 LICENSE="PHP v3.0"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=">=dev-lang/php-4.0.0"

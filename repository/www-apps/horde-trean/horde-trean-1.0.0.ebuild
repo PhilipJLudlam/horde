@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/trean-1.0.0.tgz"
 
 LICENSE="BSD-2-Clause"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-horde_browser horde-horde_cache horde-horde_queue"
 
 DEPEND="dev-lang/php[nls,json]
@@ -40,3 +40,31 @@ RDEPEND="${DEPEND}
 	horde-horde_browser? ( >=dev-php/horde-Horde_Browser-2.0.0 )
 	horde-horde_cache? ( >=dev-php/horde-Horde_Cache-2.0.0 )
 	horde-horde_queue? ( >=dev-php/horde-Horde_Queue-1.0.0_alpha1 )"
+
+src_install() {
+    webapp_src_preinst
+
+    rm -rf ${WORKDIR}/package.xml ${WORKDIR}/trean-${PV}/bin
+    dodoc ${WORKDIR}/trean-${PV}/README ${WORKDIR}/trean-${PV}/docs
+    rm -rf ${WORKDIR}/trean-${PV}/README ${WORKDIR}/trean-${PV}/docs
+    insinto ${MY_HTDOCSDIR}
+    doins -r ${WORKDIR}/webmail-${PV}/*
+
+    webapp_serverowned "${MY_HTDOCSDIR}"/config
+
+   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+
+    webapp_src_install
+}
+
+pkg_postinst() {
+    einfo "[1;32m**************************************************[00m"
+    einfo
+    einfo "To see the post install instructions, do"
+    einfo "  webapp-config --show-postinst ${PN} ${PVR}"
+    einfo "or for the post upgrade instructions, do"
+    einfo "  webapp-config --show-postupgrade ${PN} ${PVR}"
+    einfo
+    einfo "[1;32m**************************************************[00m"
+}

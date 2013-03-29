@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/Horde_Oauth-2.0.1.tgz"
 
 LICENSE="BSD-2-Clause"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="dev-lang/php[hash,ssl]

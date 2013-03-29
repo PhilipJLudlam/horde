@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/Horde_Vfs-2.0.4.tgz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-horde_auth horde-horde_core horde-horde_db horde-horde_kolab_session horde-horde_mime horde-horde_perms horde-horde_test pecl-ssh2"
 
 DEPEND=">=dev-lang/php-5.3.0

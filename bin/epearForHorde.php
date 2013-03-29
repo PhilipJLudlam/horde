@@ -76,6 +76,62 @@ function get_channel_prefix($channelUri)
     return $prefix;
 }
 
+
+function hordeapp( $EbuildName, $PackageAtom, $ShortName)
+{
+
+    $additional = <<< EOF
+
+src_install() {
+    webapp_src_preinst
+
+    rm -rf \${WORKDIR}/package.xml \${WORKDIR}/$ShortName-\${PV}/bin
+    dodoc \${WORKDIR}/$ShortName-\${PV}/README \${WORKDIR}/$ShortName-\${PV}/docs
+    rm -rf \${WORKDIR}/$ShortName-\${PV}/README \${WORKDIR}/$ShortName-\${PV}/docs
+    insinto \${MY_HTDOCSDIR}
+    doins -r \${WORKDIR}/webmail-\${PV}/*
+
+    webapp_serverowned "\${MY_HTDOCSDIR}"/config
+
+   webapp_postinst_txt en "\${FILESDIR}"/postinstall.txt
+   webapp_postupgrade_txt en "\${FILESDIR}"/postupgrade.txt
+
+    webapp_src_install
+}
+
+pkg_postinst() {
+    einfo "\033[1;32m**************************************************\033[00m"
+    einfo
+    einfo "To see the post install instructions, do"
+    einfo "  webapp-config --show-postinst \${PN} \${PVR}"
+    einfo "or for the post upgrade instructions, do"
+    einfo "  webapp-config --show-postupgrade \${PN} \${PVR}"
+    einfo
+    einfo "\033[1;32m**************************************************\033[00m"
+}
+
+EOF;
+    // */
+    file_put_contents ($EbuildName, $additional, FILE_APPEND);
+
+    if (!is_dir("/usr/local/horde/repository/" . $PackageAtom . "/files"))
+         mkdir("/usr/local/horde/repository/" . $PackageAtom . "/files", 0777, true);
+
+    $postinstall = <<< EOF
+
+EOF;
+    file_put_contents ("/usr/local/horde/repository/" . $PackageAtom . "/files/postinstall.txt", $postinstall);
+
+
+    $postupgrade = <<< EOF
+
+
+EOF;
+    file_put_contents ("/usr/local/horde/repository/" . $PackageAtom . "/files/postupgrade.txt", $postupgrade);
+
+}
+
+
 function generate_ebuild($pear_package) 
 {
     global $OptNoDeps, $OptForce, $OptOptionalAsRequired, $ARCH;
@@ -227,13 +283,13 @@ function generate_ebuild($pear_package)
                                 $GentooPackage = strtolower($GentooPackage);
 
                             $Result=exec("ACCEPT_KEYWORDS=\"" . $ARCH . "\" portageq best_visible / ebuild " . $GentooPackage);
-                            echo "  ..GentooPackage = $GentooPackage\n";
-                            echo "  Result = \"".$Result."\"\n";
+                            //echo "  ..GentooPackage = $GentooPackage\n";
+                            //echo "  Result = \"".$Result."\"\n";
                             if (strlen($Result) == 0)
                             {
                                     // Portage doesn't know about this package
                                     // So go and generate the ebuild for it
-                                echo "  ..Generating ebuild for " . $dep["channel"] . "/" . $dep["name"] . "\n";
+                                //echo "  ..Generating ebuild for " . $dep["channel"] . "/" . $dep["name"] . "\n";
         		                generate_ebuild($dep["channel"] . "/" . $dep["name"]);
                     
                                     // Also: Make it remember the packages it's built (sans version number)
@@ -328,7 +384,7 @@ function generate_ebuild($pear_package)
             // If we install a Horde package, the Horde_Role package MUST be installed first,
             // however we don't want any recursive dependancies ;)
         $hordedep="";
-        if ( $channelUri == "pear.horde.org" && $MyPackageNameShort != "dev-php/horde-Horde_Role")
+        if ( $channelUri == "pear.horde.org" && $MyPackageName != "dev-php/horde-Horde_Role")
             $hordedep="\n\tdev-php/horde-Horde_Role";
 
     $ebuild = `head -n4 /usr/portage/skel.ebuild`;
@@ -346,7 +402,7 @@ function generate_ebuild($pear_package)
     $ebuild .= "\n";
     $ebuild .= "LICENSE=\"" . str_replace(" License", "", $pf->getLicense()) . "\"\n";
     $ebuild .= "SLOT=\"0\"\n";
-    $ebuild .= "KEYWORDS=\"~" . $ARCH . "\"\n";
+    $ebuild .= "KEYWORDS=\"" . $ARCH . "\"\n";
     $ebuild .= "IUSE=\"" . strtolower($iuse) ."\"\n";
     $ebuild .= "\n";
     $ebuild .= "DEPEND=\"" . $phpdep . $hordedep ."\"\n";
@@ -355,7 +411,11 @@ function generate_ebuild($pear_package)
         $ebuild .= "PDEPEND=\"$postdep\"\n";
     }
 
-    file_put_contents($ebuildname, $ebuild);
+    file_put_contents( $ebuildname, $ebuild);
+
+    //echo "  ..".substr( $MyPackageName, strrpos($MyPackageName, "-") +1)."\n";
+    if ($channelUri == "pear.horde.org" && substr( $MyPackageName, 0, 8) == "www-apps" )
+        hordeapp( $ebuildname, $MyPackageName, substr( $MyPackageName, strrpos($MyPackageName, "-") +1));
 
     echo "Ebuild written to $ebuildname\n";
     

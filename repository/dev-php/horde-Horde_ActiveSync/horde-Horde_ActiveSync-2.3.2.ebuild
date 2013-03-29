@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/Horde_ActiveSync-2.3.2.tgz"
 
 LICENSE="GPL-2.0"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-horde_db horde-horde_imap_client horde-horde_mail horde-horde_text_filter horde-horde_test"
 
 DEPEND=">=dev-lang/php-5.3.0

@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/kronolith-4.0.4.tgz"
 
 LICENSE="GPL-2.0"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-nag horde-timeobjects horde-horde_activesync horde-horde_db horde-horde_test pear-date_holidays"
 
 DEPEND="dev-lang/php[nls,json,simplexml]
@@ -60,3 +60,31 @@ RDEPEND="${DEPEND}
 	horde-horde_db? ( >=dev-php/horde-Horde_Db-2.0.0 )
 	horde-horde_test? ( >=dev-php/horde-Horde_Test-2.0.0 )
 	pear-date_holidays? ( >=dev-php/PEAR-Date_Holidays-0.21.0 )"
+
+src_install() {
+    webapp_src_preinst
+
+    rm -rf ${WORKDIR}/package.xml ${WORKDIR}/kronolith-${PV}/bin
+    dodoc ${WORKDIR}/kronolith-${PV}/README ${WORKDIR}/kronolith-${PV}/docs
+    rm -rf ${WORKDIR}/kronolith-${PV}/README ${WORKDIR}/kronolith-${PV}/docs
+    insinto ${MY_HTDOCSDIR}
+    doins -r ${WORKDIR}/webmail-${PV}/*
+
+    webapp_serverowned "${MY_HTDOCSDIR}"/config
+
+   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+
+    webapp_src_install
+}
+
+pkg_postinst() {
+    einfo "[1;32m**************************************************[00m"
+    einfo
+    einfo "To see the post install instructions, do"
+    einfo "  webapp-config --show-postinst ${PN} ${PVR}"
+    einfo "or for the post upgrade instructions, do"
+    einfo "  webapp-config --show-postupgrade ${PN} ${PVR}"
+    einfo
+    einfo "[1;32m**************************************************[00m"
+}

@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/ansel-2.0.2.tgz"
 
 LICENSE="GPL-2.0"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-horde_service_urlshortener horde-horde_service_twitter horde-horde_service_facebook"
 
 DEPEND="dev-lang/php[nls,hash]
@@ -49,3 +49,31 @@ RDEPEND="${DEPEND}
 	horde-horde_service_urlshortener? ( >=dev-php/horde-Horde_Service_UrlShortener-1.0.0 )
 	horde-horde_service_twitter? ( >=dev-php/horde-Horde_Service_Twitter-1.0.0 )
 	horde-horde_service_facebook? ( >=dev-php/horde-Horde_Service_Facebook-1.0.0 )"
+
+src_install() {
+    webapp_src_preinst
+
+    rm -rf ${WORKDIR}/package.xml ${WORKDIR}/ansel-${PV}/bin
+    dodoc ${WORKDIR}/ansel-${PV}/README ${WORKDIR}/ansel-${PV}/docs
+    rm -rf ${WORKDIR}/ansel-${PV}/README ${WORKDIR}/ansel-${PV}/docs
+    insinto ${MY_HTDOCSDIR}
+    doins -r ${WORKDIR}/webmail-${PV}/*
+
+    webapp_serverowned "${MY_HTDOCSDIR}"/config
+
+   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+
+    webapp_src_install
+}
+
+pkg_postinst() {
+    einfo "[1;32m**************************************************[00m"
+    einfo
+    einfo "To see the post install instructions, do"
+    einfo "  webapp-config --show-postinst ${PN} ${PVR}"
+    einfo "or for the post upgrade instructions, do"
+    einfo "  webapp-config --show-postupgrade ${PN} ${PVR}"
+    einfo
+    einfo "[1;32m**************************************************[00m"
+}

@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/Horde_Prefs-2.3.2.tgz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-horde_autoloader horde-horde_db horde-horde_image horde-horde_imsp horde-horde_kolab_storage horde-horde_test"
 
 DEPEND="dev-lang/php[json]

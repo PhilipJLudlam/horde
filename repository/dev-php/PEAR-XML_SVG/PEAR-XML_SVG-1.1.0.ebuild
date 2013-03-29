@@ -15,7 +15,7 @@ SRC_URI="http://pear.php.net/get/XML_SVG-1.1.0.tgz"
 
 LICENSE="LGPL"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=">=dev-lang/php-4.2.0"

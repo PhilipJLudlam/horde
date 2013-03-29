@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/imp-6.0.4.tgz"
 
 LICENSE="GPL-2.0"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-horde_text_filter_csstidy horde-horde_vfs"
 
 DEPEND="dev-lang/php[xml,nls,hash,json]
@@ -57,3 +57,31 @@ RDEPEND="${DEPEND}
 	>=dev-php/horde-Horde_View-2.0.0
 	horde-horde_text_filter_csstidy? ( >=dev-php/horde-Horde_Text_Filter_Csstidy-2.0.0 )
 	horde-horde_vfs? ( >=dev-php/horde-Horde_Vfs-2.0.0 )"
+
+src_install() {
+    webapp_src_preinst
+
+    rm -rf ${WORKDIR}/package.xml ${WORKDIR}/imp-${PV}/bin
+    dodoc ${WORKDIR}/imp-${PV}/README ${WORKDIR}/imp-${PV}/docs
+    rm -rf ${WORKDIR}/imp-${PV}/README ${WORKDIR}/imp-${PV}/docs
+    insinto ${MY_HTDOCSDIR}
+    doins -r ${WORKDIR}/webmail-${PV}/*
+
+    webapp_serverowned "${MY_HTDOCSDIR}"/config
+
+   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+
+    webapp_src_install
+}
+
+pkg_postinst() {
+    einfo "[1;32m**************************************************[00m"
+    einfo
+    einfo "To see the post install instructions, do"
+    einfo "  webapp-config --show-postinst ${PN} ${PVR}"
+    einfo "or for the post upgrade instructions, do"
+    einfo "  webapp-config --show-postupgrade ${PN} ${PVR}"
+    einfo
+    einfo "[1;32m**************************************************[00m"
+}

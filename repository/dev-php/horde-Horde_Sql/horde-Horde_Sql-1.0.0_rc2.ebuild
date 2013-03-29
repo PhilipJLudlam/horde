@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/Horde_Sql-1.0.0RC2.tgz"
 
 LICENSE="LGPL"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=">=dev-lang/php-5.2.0

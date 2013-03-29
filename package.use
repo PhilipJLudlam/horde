@@ -235,7 +235,6 @@ horde-horde_vfs
 horde-horde_vfs
 pear-net_sieve
 pear-net_socket
-pear-console_getargs
 horde-nag
 horde-timeobjects
 horde-horde_activesync

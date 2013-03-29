@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/ingo-3.0.3.tgz"
 
 LICENSE="ASL"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-horde_vfs pear-net_sieve pear-net_socket"
 
 DEPEND="dev-lang/php[nls]
@@ -38,3 +38,31 @@ RDEPEND="${DEPEND}
 	horde-horde_vfs? ( >=dev-php/horde-Horde_Vfs-2.0.0 )
 	pear-net_sieve? ( >=dev-php/PEAR-Net_Sieve-1.3.1 )
 	pear-net_socket? ( dev-php/PEAR-Net_Socket )"
+
+src_install() {
+    webapp_src_preinst
+
+    rm -rf ${WORKDIR}/package.xml ${WORKDIR}/ingo-${PV}/bin
+    dodoc ${WORKDIR}/ingo-${PV}/README ${WORKDIR}/ingo-${PV}/docs
+    rm -rf ${WORKDIR}/ingo-${PV}/README ${WORKDIR}/ingo-${PV}/docs
+    insinto ${MY_HTDOCSDIR}
+    doins -r ${WORKDIR}/webmail-${PV}/*
+
+    webapp_serverowned "${MY_HTDOCSDIR}"/config
+
+   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+
+    webapp_src_install
+}
+
+pkg_postinst() {
+    einfo "[1;32m**************************************************[00m"
+    einfo
+    einfo "To see the post install instructions, do"
+    einfo "  webapp-config --show-postinst ${PN} ${PVR}"
+    einfo "or for the post upgrade instructions, do"
+    einfo "  webapp-config --show-postupgrade ${PN} ${PVR}"
+    einfo
+    einfo "[1;32m**************************************************[00m"
+}

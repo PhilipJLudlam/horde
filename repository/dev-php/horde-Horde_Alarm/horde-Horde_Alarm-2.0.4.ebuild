@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/Horde_Alarm-2.0.4.tgz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-horde_db horde-horde_log horde-horde_mail horde-horde_mime horde-horde_notification horde-horde_perms horde-horde_prefs horde-horde_test"
 
 DEPEND=">=dev-lang/php-5.3.0

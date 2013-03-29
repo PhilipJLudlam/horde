@@ -15,7 +15,7 @@ SRC_URI="http://pear.php.net/get/Text_Wiki_Tiki-0.1.0.tgz"
 
 LICENSE="LGPL"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=">=dev-lang/php-4.0.0"

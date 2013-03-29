@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/Horde_Util-2.2.1.tgz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-horde_imap_client horde-horde_test"
 
 DEPEND="dev-lang/php[xml]

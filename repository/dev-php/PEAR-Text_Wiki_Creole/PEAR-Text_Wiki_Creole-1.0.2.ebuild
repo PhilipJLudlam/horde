@@ -15,7 +15,7 @@ SRC_URI="http://pear.php.net/get/Text_Wiki_Creole-1.0.2.tgz"
 
 LICENSE="LGPL"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=">=dev-lang/php-4.0.0"

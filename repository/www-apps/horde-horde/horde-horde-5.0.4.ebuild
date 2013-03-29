@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/horde-5.0.4.tgz"
 
 LICENSE="LGPL-2"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="pear-net_dns2 pear-services_weather horde-horde_activesync horde-horde_db horde-horde_feed horde-horde_oauth horde-horde_service_facebook horde-horde_service_twitter horde-horde_service_weather horde-horde_syncml pear-console_getopt pear-console_table pear-file_find pear-file_fstab"
 
 DEPEND="dev-lang/php[filter,nls,hash]
@@ -67,3 +67,31 @@ RDEPEND="${DEPEND}
 	pear-console_table? ( dev-php/PEAR-Console_Table )
 	pear-file_find? ( dev-php/PEAR-File_Find )
 	pear-file_fstab? ( dev-php/PEAR-File_Fstab )"
+
+src_install() {
+    webapp_src_preinst
+
+    rm -rf ${WORKDIR}/package.xml ${WORKDIR}/horde-${PV}/bin
+    dodoc ${WORKDIR}/horde-${PV}/README ${WORKDIR}/horde-${PV}/docs
+    rm -rf ${WORKDIR}/horde-${PV}/README ${WORKDIR}/horde-${PV}/docs
+    insinto ${MY_HTDOCSDIR}
+    doins -r ${WORKDIR}/webmail-${PV}/*
+
+    webapp_serverowned "${MY_HTDOCSDIR}"/config
+
+   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+
+    webapp_src_install
+}
+
+pkg_postinst() {
+    einfo "[1;32m**************************************************[00m"
+    einfo
+    einfo "To see the post install instructions, do"
+    einfo "  webapp-config --show-postinst ${PN} ${PVR}"
+    einfo "or for the post upgrade instructions, do"
+    einfo "  webapp-config --show-postupgrade ${PN} ${PVR}"
+    einfo
+    einfo "[1;32m**************************************************[00m"
+}

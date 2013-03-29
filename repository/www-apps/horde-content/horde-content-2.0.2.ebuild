@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/content-2.0.2.tgz"
 
 LICENSE="BSD-2-Clause"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-horde_argv horde-horde_controller horde-horde_elasticsearch"
 
 DEPEND="dev-lang/php[nls,json]
@@ -33,3 +33,31 @@ RDEPEND="${DEPEND}
 	horde-horde_argv? ( >=dev-php/horde-Horde_Argv-2.0.0 )
 	horde-horde_controller? ( >=dev-php/horde-Horde_Controller-2.0.0 )
 	horde-horde_elasticsearch? ( >=dev-php/horde-Horde_ElasticSearch-1.0.0 )"
+
+src_install() {
+    webapp_src_preinst
+
+    rm -rf ${WORKDIR}/package.xml ${WORKDIR}/content-${PV}/bin
+    dodoc ${WORKDIR}/content-${PV}/README ${WORKDIR}/content-${PV}/docs
+    rm -rf ${WORKDIR}/content-${PV}/README ${WORKDIR}/content-${PV}/docs
+    insinto ${MY_HTDOCSDIR}
+    doins -r ${WORKDIR}/webmail-${PV}/*
+
+    webapp_serverowned "${MY_HTDOCSDIR}"/config
+
+   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+
+    webapp_src_install
+}
+
+pkg_postinst() {
+    einfo "[1;32m**************************************************[00m"
+    einfo
+    einfo "To see the post install instructions, do"
+    einfo "  webapp-config --show-postinst ${PN} ${PVR}"
+    einfo "or for the post upgrade instructions, do"
+    einfo "  webapp-config --show-postupgrade ${PN} ${PVR}"
+    einfo
+    einfo "[1;32m**************************************************[00m"
+}

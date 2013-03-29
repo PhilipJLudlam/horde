@@ -15,7 +15,7 @@ SRC_URI="http://pear.php.net/get/Date_Holidays-0.21.8.tgz"
 
 LICENSE="PHP"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="pear-console_getargs"
 
 DEPEND=">=dev-lang/php-5.0.0"

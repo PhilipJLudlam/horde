@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/Horde_Ldap-2.0.2.tgz"
 
 LICENSE="LGPL-3.0"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-horde_test"
 
 DEPEND="dev-lang/php[ldap]

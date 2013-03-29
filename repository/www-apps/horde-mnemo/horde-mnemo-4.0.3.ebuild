@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/mnemo-4.0.3.tgz"
 
 LICENSE="ASL"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-horde_cli horde-horde_crypt horde-horde_db horde-horde_pdf horde-horde_test"
 
 DEPEND="dev-lang/php[nls]
@@ -44,3 +44,31 @@ RDEPEND="${DEPEND}
 	horde-horde_db? ( >=dev-php/horde-Horde_Db-2.0.0 )
 	horde-horde_pdf? ( >=dev-php/horde-Horde_Pdf-2.0.0 )
 	horde-horde_test? ( >=dev-php/horde-Horde_Test-2.0.0 )"
+
+src_install() {
+    webapp_src_preinst
+
+    rm -rf ${WORKDIR}/package.xml ${WORKDIR}/mnemo-${PV}/bin
+    dodoc ${WORKDIR}/mnemo-${PV}/README ${WORKDIR}/mnemo-${PV}/docs
+    rm -rf ${WORKDIR}/mnemo-${PV}/README ${WORKDIR}/mnemo-${PV}/docs
+    insinto ${MY_HTDOCSDIR}
+    doins -r ${WORKDIR}/webmail-${PV}/*
+
+    webapp_serverowned "${MY_HTDOCSDIR}"/config
+
+   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+
+    webapp_src_install
+}
+
+pkg_postinst() {
+    einfo "[1;32m**************************************************[00m"
+    einfo
+    einfo "To see the post install instructions, do"
+    einfo "  webapp-config --show-postinst ${PN} ${PVR}"
+    einfo "or for the post upgrade instructions, do"
+    einfo "  webapp-config --show-postupgrade ${PN} ${PVR}"
+    einfo
+    einfo "[1;32m**************************************************[00m"
+}

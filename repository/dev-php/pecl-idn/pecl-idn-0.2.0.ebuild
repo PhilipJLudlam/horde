@@ -15,7 +15,7 @@ SRC_URI="http://pecl.php.net/get/idn-0.2.0.tgz"
 
 LICENSE="PHP"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=">=dev-lang/php-4"

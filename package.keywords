@@ -10,11 +10,7 @@ The second list is for the specific package atoms supplied in this repository.
 
 Please review the list before using it.
 
-dev-php/PEAR-Date_Holidays ~amd64
-dev-php/PEAR-File_Fstab ~amd64
 dev-php/PEAR-Text_LanguageDetect ~amd64
-dev-php/PEAR-Text_Wiki_Creole ~amd64
-dev-php/PEAR-Text_Wiki_Tiki ~amd64
 dev-php/PEAR-XML_SVG ~amd64
 dev-php/horde-Horde_ActiveSync ~amd64
 dev-php/horde-Horde_Alarm ~amd64
@@ -139,11 +135,7 @@ www-apps/horde-wicked ~amd64
 
 Below is the second list for the specific package atoms supplied in this repository.
 
-=dev-php/PEAR-Date_Holidays-0.21.8 ~amd64
-=dev-php/PEAR-File_Fstab-2.0.3 ~amd64
 =dev-php/PEAR-Text_LanguageDetect-0.3.0 ~amd64
-=dev-php/PEAR-Text_Wiki_Creole-1.0.2 ~amd64
-=dev-php/PEAR-Text_Wiki_Tiki-0.1.0 ~amd64
 =dev-php/PEAR-XML_SVG-1.1.0 ~amd64
 =dev-php/horde-Horde_ActiveSync-2.3.2 ~amd64
 =dev-php/horde-Horde_Alarm-2.0.4 ~amd64

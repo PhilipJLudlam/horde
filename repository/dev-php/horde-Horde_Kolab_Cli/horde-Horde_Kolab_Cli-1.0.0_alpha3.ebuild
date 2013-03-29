@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/Horde_Kolab_Cli-1.0.0alpha3.tgz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-horde_support horde-horde_util horde-horde_yaml"
 
 DEPEND=">=dev-lang/php-5.3.0

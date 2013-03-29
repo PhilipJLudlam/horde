@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/Horde_Auth-2.0.4.tgz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-horde_db horde-horde_history horde-horde_lock horde-horde_imap_client horde-horde_kolab_session horde-horde_ldap horde-horde_imsp horde-horde_http horde-horde_test pecl-pam pecl-sasl"
 
 DEPEND="dev-lang/php[hash]

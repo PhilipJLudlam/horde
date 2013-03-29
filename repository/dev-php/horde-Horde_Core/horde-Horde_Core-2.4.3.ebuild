@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/Horde_Core-2.4.3.tgz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE="horde-horde_activesync horde-horde_crypt horde-horde_db horde-horde_editor horde-horde_elasticsearch horde-horde_form horde-horde_http horde-horde_icalendar horde-horde_image horde-horde_imap_client horde-horde_kolab_server horde-horde_kolab_session horde-horde_kolab_storage horde-horde_ldap horde-horde_mail horde-horde_nls horde-horde_oauth horde-horde_queue horde-horde_routes horde-horde_service_twitter horde-horde_spellchecker horde-horde_test horde-horde_tree horde-horde_vfs pear-net_dns2 pear-text_captcha pear-text_figlet pear-text_languagedetect"
 
 DEPEND="dev-lang/php[session]

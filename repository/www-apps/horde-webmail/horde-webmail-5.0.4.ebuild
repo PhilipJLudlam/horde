@@ -15,7 +15,7 @@ SRC_URI="http://pear.horde.org/get/webmail-5.0.4.tgz"
 
 LICENSE="OSI certified"
 SLOT="0"
-KEYWORDS="~~amd64"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=">=dev-lang/php-5.3.0
@@ -32,3 +32,31 @@ RDEPEND="${DEPEND}
 	>=www-apps/horde-nag-4.0.2
 	>=www-apps/horde-timeobjects-2.0.3
 	>=www-apps/horde-turba-4.0.3"
+
+src_install() {
+    webapp_src_preinst
+
+    rm -rf ${WORKDIR}/package.xml ${WORKDIR}/webmail-${PV}/bin
+    dodoc ${WORKDIR}/webmail-${PV}/README ${WORKDIR}/webmail-${PV}/docs
+    rm -rf ${WORKDIR}/webmail-${PV}/README ${WORKDIR}/webmail-${PV}/docs
+    insinto ${MY_HTDOCSDIR}
+    doins -r ${WORKDIR}/webmail-${PV}/*
+
+    webapp_serverowned "${MY_HTDOCSDIR}"/config
+
+   webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
+   webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
+
+    webapp_src_install
+}
+
+pkg_postinst() {
+    einfo "[1;32m**************************************************[00m"
+    einfo
+    einfo "To see the post install instructions, do"
+    einfo "  webapp-config --show-postinst ${PN} ${PVR}"
+    einfo "or for the post upgrade instructions, do"
+    einfo "  webapp-config --show-postupgrade ${PN} ${PVR}"
+    einfo
+    einfo "[1;32m**************************************************[00m"
+}
