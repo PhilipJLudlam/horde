@@ -215,7 +215,7 @@ function generate_ebuild($pear_package)
                      // Only generate ebuilds IF it's not a Horde package
 
                     if ( $dep["channel"] . "/" . $dep["name"] != "pear.php.net/PEAR" &&
-                         $dep["channel"] . "/" . $dep["name"] != "pecl.php.net/SASL") {
+                         $dep["channel"] . "/" . $dep["name"] != "pecl.php.net/sasl") {
                 //if (!(shell_exec("portageq match / " . escapeshellarg($pkgname)))) {
                 //    echo "  ..Dependency $pkgname not found\n";
                     // Hmm, this 'if' statement seems to be a cheap way to stop
@@ -271,7 +271,7 @@ function generate_ebuild($pear_package)
     {
         $iuse=$iuse ." ". $opt['key'];
         $optdep2=$optdep2 . $opt['key'] ."? ( ". $opt['value'] ." )\n\t";
-        file_put_contents( "/tmp/generateHordeEBuilds/iuse", strtolower($opt['key']) . PHP_EOL, FILE_APPEND);
+        file_put_contents( "/tmp/generateHordeEBuilds/temp_iuse", strtolower($opt['key']) . PHP_EOL, FILE_APPEND);
     }
     $iuse=ltrim($iuse);
 
@@ -346,8 +346,8 @@ function generate_ebuild($pear_package)
     
     passthru("ebuild $ebuildname manifest");
 
-    file_put_contents( "/tmp/generateHordeEBuilds/keywords", $MyPackageName . " " . $ARCH . PHP_EOL, FILE_APPEND);
-    file_put_contents( "/tmp/generateHordeEBuilds/keywords_ver", "=" . $MyPackageName . "-" . cleanup_version($pf->getVersion()) . " " .$ARCH . PHP_EOL, FILE_APPEND);
+    file_put_contents( "/tmp/generateHordeEBuilds/temp_keywords", $MyPackageName . " " . $ARCH . PHP_EOL, FILE_APPEND);
+    file_put_contents( "/tmp/generateHordeEBuilds/temp_keywords_with_version", "=" . $MyPackageName . "-" . cleanup_version($pf->getVersion()) . " " .$ARCH . PHP_EOL, FILE_APPEND);
     }
 }
 
