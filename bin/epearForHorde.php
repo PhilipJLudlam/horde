@@ -73,12 +73,40 @@ function get_channel_prefix($channelUri)
 }
 
 
-function doHordeApp( $EbuildName, $PackageAtom, $ShortName)
+function doHordeApp( $EbuildName, $PackageAtom, $ShortName, $HordeReqs = "")
 {
 
+        // First bit for all horde applications
     $additional = <<< EOF
 
 src_install() {
+EOF;
+    file_put_contents ($EbuildName, $additional, FILE_APPEND);
+
+        // Second bit only for groupware or webmail
+    if ($ShortName == "webmail" || $ShortName == "groupware") {
+        $additional = <<< EOF
+        // Horde-webmail and horde-groupware are nothing more than small downloads 
+        // that include a couple of configuration files hooks and a library.
+        // Webapp-config will not allow multiple web applications to be installed
+        // into the same directory, so we package up the latest versions of the
+        // run-time dependancies into this install.
+
+        for i in 'horde-content horde-horde horde-imp horde-ingo horde-kronolith horde-mnemo horde-nag horde-timeobjects horde-turba'
+        do
+            echo \$i
+            j=`ls \${ROOT}/usr/share/webapps/\${i} -t1 | head -n1`
+            cp -r \${j}/htdocs \${WORKDIR}/$ShortName-\${PV}
+        done
+
+        // horde-webmail and horde-groupware and specific work done.
+
+EOF;
+        file_put_contents ($EbuildName, $additional, FILE_APPEND);
+    }
+
+        // Third bit for all horde applications
+    $additional = <<< EOF
     webapp_src_preinst
 
     rm -rf \${WORKDIR}/package.xml \${WORKDIR}/$ShortName-\${PV}/bin
@@ -210,6 +238,8 @@ function generate_ebuild($pear_package)
     $usedep["dom"] = "xml";
     $usedep["mbstring"] = "unicode";
 
+    // Look at splitting out dependancy handling
+    // and return something (an object/array?) 
     foreach ($pf->getDeps() as $dep) {
         // if ($dep["optional"] == "yes") continue;
 
@@ -278,9 +308,6 @@ function generate_ebuild($pear_package)
                 if ( $dep["channel"] != "pear.horde.org") {
                      // Only generate ebuilds IF it's not a Horde package
 
-                    //if ( $dep["channel"] . "/" . $dep["name"] != "pear.php.net/PEAR" &&
-                    //     $dep["channel"] . "/" . $dep["name"] != "pecl.php.net/sasl") {
-                             
                             $GentooPackage = get_package_name( get_channel_prefix($dep["channel"]) . $dep["name"], true);
                             if ($deplowercase == TRUE)
                                 $GentooPackage = strtolower($GentooPackage);
@@ -299,7 +326,6 @@ function generate_ebuild($pear_package)
         		                    // so that a quick check can be performed and it doesn't try to create the same ebuild many times
                             }
                         }
-                    //}
                 }
                 }
             }
@@ -396,6 +422,11 @@ function generate_ebuild($pear_package)
 
     $ebuild .= "EAPI=4\n";
     $ebuild .= "\n";
+    // If this is a PECL package, we should be using php-ext-pecl-r2
+    // Also look at the other PECL packages for any good defaults to incorporate
+    //
+    // Look at splitting this out so that we have one version for a horde webapp
+    // another for PECL and a catch-all for everything else.
     $ebuild .= "PEAR_PV=\"" . $pf->getVersion() . "\"\n";
     $ebuild .= "PHP_PEAR_PKG_NAME=\"" . $pf->getName() . "\"\n";
     $ebuild .= "\n";
@@ -414,6 +445,7 @@ function generate_ebuild($pear_package)
     $ebuild .= "KEYWORDS=\"" . $ARCH . "\"\n";
     $ebuild .= "IUSE=\"" . strtolower($iuse) ."\"\n";
     $ebuild .= "\n";
+    // If this is for webmail or groupware, then $peardep should be part of DEPEND and not RDEPEND
     $ebuild .= "DEPEND=\"" . $phpdep . $hordedep ."\"\n";
     $ebuild .= "RDEPEND=\"". trim("\${DEPEND}\n\t" . $peardep . "\n\t" . $optdep2) . "\"\n";
     if ($postdep) {
@@ -423,7 +455,7 @@ function generate_ebuild($pear_package)
     file_put_contents( $ebuildname, $ebuild);
 
     if ($hordeapp == TRUE)
-        doHordeApp( $ebuildname, $MyPackageName, substr( $MyPackageName, strrpos($MyPackageName, "-") +1));
+        doHordeApp( $ebuildname, $MyPackageName, substr( $MyPackageName, strrpos($MyPackageName, "-") +1), $pearDeps);
 
     echo "Ebuild written to $ebuildname\n";
     

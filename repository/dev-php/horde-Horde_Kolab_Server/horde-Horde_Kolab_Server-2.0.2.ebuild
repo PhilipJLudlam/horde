@@ -28,4 +28,4 @@ RDEPEND="${DEPEND}
 	horde-horde_date? ( >=dev-php/horde-Horde_Date-2.0.0 )
 	horde-horde_ldap? ( >=dev-php/horde-Horde_Ldap-2.0.0 )
 	horde-horde_test? ( >=dev-php/horde-Horde_Test-2.1.0 )
-	phpunit-phpunit_story? ( dev-php/phpunit-PHPUnit_Story )"
+	phpunit-phpunit_story? ( dev-php/phpunit-phpunit_story )"

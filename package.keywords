@@ -10,8 +10,6 @@ The second list is for the specific package atoms supplied in this repository.
 
 Please review the list before using it.
 
-dev-php/PEAR-Text_LanguageDetect ~amd64
-dev-php/PEAR-XML_SVG ~amd64
 dev-php/horde-Horde_ActiveSync ~amd64
 dev-php/horde-Horde_Alarm ~amd64
 dev-php/horde-Horde_Argv ~amd64
@@ -111,8 +109,6 @@ dev-php/horde-Horde_Xml_Element ~amd64
 dev-php/horde-Horde_Xml_Wbxml ~amd64
 dev-php/horde-Horde_Yaml ~amd64
 dev-php/horde-horde_lz4 ~amd64
-dev-php/pecl-idn ~amd64
-dev-php/pecl-intl ~amd64
 www-apps/horde-ansel ~amd64
 www-apps/horde-content ~amd64
 www-apps/horde-gollem ~amd64
@@ -135,8 +131,6 @@ www-apps/horde-wicked ~amd64
 
 Below is the second list for the specific package atoms supplied in this repository.
 
-=dev-php/PEAR-Text_LanguageDetect-0.3.0 ~amd64
-=dev-php/PEAR-XML_SVG-1.1.0 ~amd64
 =dev-php/horde-Horde_ActiveSync-2.3.2 ~amd64
 =dev-php/horde-Horde_Alarm-2.0.4 ~amd64
 =dev-php/horde-Horde_Argv-2.0.5 ~amd64
@@ -236,8 +230,6 @@ Below is the second list for the specific package atoms supplied in this reposit
 =dev-php/horde-Horde_Xml_Wbxml-2.0.1 ~amd64
 =dev-php/horde-Horde_Yaml-2.0.2 ~amd64
 =dev-php/horde-horde_lz4-1.0.0_beta2 ~amd64
-=dev-php/pecl-idn-0.2.0 ~amd64
-=dev-php/pecl-intl-3.0.0_beta1 ~amd64
 =www-apps/horde-ansel-2.0.2 ~amd64
 =www-apps/horde-content-2.0.2 ~amd64
 =www-apps/horde-gollem-3.0.0 ~amd64
