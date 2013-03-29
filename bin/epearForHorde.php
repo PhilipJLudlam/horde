@@ -278,8 +278,8 @@ function generate_ebuild($pear_package)
                 if ( $dep["channel"] != "pear.horde.org") {
                      // Only generate ebuilds IF it's not a Horde package
 
-                    if ( $dep["channel"] . "/" . $dep["name"] != "pear.php.net/PEAR" &&
-                         $dep["channel"] . "/" . $dep["name"] != "pecl.php.net/sasl") {
+                    //if ( $dep["channel"] . "/" . $dep["name"] != "pear.php.net/PEAR" &&
+                    //     $dep["channel"] . "/" . $dep["name"] != "pecl.php.net/sasl") {
                              
                             $GentooPackage = get_package_name( get_channel_prefix($dep["channel"]) . $dep["name"], true);
                             if ($deplowercase == TRUE)
@@ -299,7 +299,7 @@ function generate_ebuild($pear_package)
         		                    // so that a quick check can be performed and it doesn't try to create the same ebuild many times
                             }
                         }
-                    }
+                    //}
                 }
                 }
             }
