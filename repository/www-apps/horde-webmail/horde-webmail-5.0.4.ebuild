@@ -33,25 +33,25 @@ RDEPEND="${DEPEND}
 	>=www-apps/horde-turba-4.0.3"
 
 src_install() {
-        // Horde-Webmail and Horde-Groupware are nothing more than small downloads 
-        // that include a couple of configuration filesi, hooks and a library.
-        // Webapp-config will not allow multiple web applications to be installed
-        // into the same directory, so we package up the latest versions of the
-        // run-time dependancies into this install.
+        # Horde-Webmail and Horde-Groupware are nothing more than small downloads 
+        # that include a couple of configuration filesi, hooks and a library.
+        # Webapp-config will not allow multiple web applications to be installed
+        # into the same directory, so we package up the latest versions of the
+        # run-time dependancies into this install.
 
-        for i in horde-content horde-horde horde-imp horde-ingo horde-kronolith horde-mnemo horde-nag horde-timeobjects horde-turba
-        do
-            if [ "${i}" == "horde-horde" ]; then
-                _end=""
-            else
-                _end="/${i:6}"
-                mkdir -p ${WORKDIR}/webmail-${PV}${_end}
-            fi
-            j=`ls ${ROOT}usr/share/webapps/${i} -t1 | head -n1`
-            rsync -r ${ROOT}usr/share/webapps/${i}/${j}/htdocs/ ${WORKDIR}/webmail-${PV}${_end}
-        done
+    for i in horde-content horde-horde horde-imp horde-ingo horde-kronolith horde-mnemo horde-nag horde-timeobjects horde-turba
+    do
+        if [ "${i}" == "horde-horde" ]; then
+            _end=""
+        else
+            _end="/${i:6}"
+            mkdir -p ${WORKDIR}/webmail-${PV}${_end}
+       fi
+       j=`ls ${ROOT}usr/share/webapps/${i} -t1 | head -n1`
+       rsync -r ${ROOT}usr/share/webapps/${i}/${j}/htdocs/ ${WORKDIR}/webmail-${PV}${_end}
+   done
 
-        // horde-webmail and horde-groupware and specific work done.
+        # horde-webmail and horde-groupware and specific work done.
     webapp_src_preinst
 
     rm -rf ${WORKDIR}/package.xml ${WORKDIR}/webmail-${PV}/bin

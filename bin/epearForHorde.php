@@ -92,25 +92,31 @@ EOF;
         }
         $HordeReq = trim($HordeReq);
         $additional = <<< EOF
-        // Horde-Webmail and Horde-Groupware are nothing more than small downloads 
-        // that include a couple of configuration filesi, hooks and a library.
-        // Webapp-config will not allow multiple web applications to be installed
-        // into the same directory, so we package up the latest versions of the
-        // run-time dependancies into this install.
+        # Horde-Webmail and Horde-Groupware are nothing more than small downloads 
+        # that include a couple of configuration files, hooks and a library.
+        # Webapp-config will not allow multiple web applications to be installed
+        # into the same directory, so we package up the latest versions of the
+        # Horde build-time dependancies into this install.
 
-        for i in $HordeReq
-        do
-            if [ "\${i}" == "horde-horde" ]; then
-                _end=""
-            else
-                _end="/\${i:6}"
-                mkdir -p \${WORKDIR}/$ShortName-\${PV}\${_end}
-            fi
-            j=`ls \${ROOT}usr/share/webapps/\${i} -t1 | head -n1`
-            rsync -r \${ROOT}usr/share/webapps/\${i}/\${j}/htdocs/ \${WORKDIR}/$ShortName-\${PV}\${_end}
-        done
+    for i in $HordeReq
+    do
+        if [ "\${i}" == "horde-horde" ]; then
+            _end=""
+        else
+            _end="/\${i:6}"
+            mkdir -p \${WORKDIR}/$ShortName-\${PV}\${_end}
+        fi
+        j=`ls \${ROOT}usr/share/webapps/\${i} -t1 | head -n1`
+        rsync -r \${ROOT}usr/share/webapps/\${i}/\${j}/htdocs/ \${WORKDIR}/$ShortName-\${PV}\${_end}
+    done
 
-        // horde-webmail and horde-groupware and specific work done.
+        # Copy the files from the Horde_Core package into the webapp root
+    rsync -r \${ROOT}usr/lib*/php*/lib/pear/www/horde/ \${WORKDIR}/$ShortName-\${PV}/
+
+        # Copy the configuration file
+    cp \${ROOT}usr/share/webapps/\${i}/\${j}/htdocs/config/conf.php.dist \${ROOT}usr/share/webapps/\${i}/\${j}/htdocs/config/conf.php
+
+        # horde-webmail and horde-groupware and specific work done.
 
 EOF;
         file_put_contents ($EbuildName, $additional, FILE_APPEND);
@@ -121,7 +127,7 @@ EOF;
     webapp_src_preinst
 
     rm -rf \${WORKDIR}/package.xml \${WORKDIR}/$ShortName-\${PV}/bin
-    if [[ -x \${WORKDIR}/$ShortName-\${PV}/README ]]; then
+    if [[ -e \${WORKDIR}/$ShortName-\${PV}/README ]]; then
         dodoc \${WORKDIR}/$ShortName-\${PV}/README
     fi
     find \${WORKDIR}/$ShortName-\${PV}/docs/ -type f | xargs dodoc
@@ -129,9 +135,8 @@ EOF;
     insinto \${MY_HTDOCSDIR}
     doins -r \${WORKDIR}/$ShortName-\${PV}/*
 
-    if [[ -x "\${MY_HTDOCSDIR}"/config ]]; then
-        webapp_serverowned "\${MY_HTDOCSDIR}"/config
-    fi
+    find \${MY_HTDOCSDIR} -type d -name "config" | xargs webapp_serverowned
+    find \${MY_HTDOCSDIR} -type f -name "conf.php" | xargs webapp_serverowned
 
     webapp_postinst_txt en "\${FILESDIR}"/postinstall.txt
     webapp_postupgrade_txt en "\${FILESDIR}"/postupgrade.txt
@@ -158,13 +163,36 @@ EOF;
          mkdir("/usr/local/horde/repository/" . $PackageAtom . "/files", 0777, true);
 
     $postinstall = <<< EOF
+Post-Install Instructions
+=========================
+for $PackageAtom
+
+Login on to:
+  http://http://${VHOST_HOSTNAME}/${VHOST_APPDIR}/admin/config/index.php
+
+  1. Go to for Horde -> Database
+       to set the database configuation for Horde
+
+  2. Click on 'Generate Horde Configuration'
+
 
 EOF;
     file_put_contents ("/usr/local/horde/repository/" . $PackageAtom . "/files/postinstall.txt", $postinstall);
 
 
     $postupgrade = <<< EOF
+Post-Upgrade Instructions
+=========================
+for $PackageAtom
 
+1. Edit ${VHOST_ROOT}/${PN}-${PVR}/config.php and set database settings.
+
+2. Login on
+http://${VHOST_HOSTNAME}/${VHOST_APPDIR}/admin/install/install.php
+     http://http://${VHOST_HOSTNAME}/${VHOST_APPDIR}/admin/config/index.php
+  and follow the directions.
+
+3. Don't forget to delete the admin/install directory when you're done!
 
 EOF;
     file_put_contents ("/usr/local/horde/repository/" . $PackageAtom . "/files/postupgrade.txt", $postupgrade);
