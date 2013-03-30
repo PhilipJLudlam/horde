@@ -85,6 +85,7 @@ EOF;
 
         // Second bit only for groupware or webmail
     if ($ShortName == "webmail" || $ShortName == "groupware") {
+        $HordeReq = "";
         foreach ($HordeReqs as $t)
         {
             if (substr( $t,0,16) == ">=www-apps/horde")
@@ -168,7 +169,7 @@ Post-Install Instructions
 for $PackageAtom
 
 Login on to:
-  http://http://${VHOST_HOSTNAME}/${VHOST_APPDIR}/admin/config/index.php
+  http://\${VHOST_HOSTNAME}/\${VHOST_APPDIR}/admin/config/index.php
 
   1. Go to for Horde -> Database
        to set the database configuation for Horde
@@ -185,11 +186,9 @@ Post-Upgrade Instructions
 =========================
 for $PackageAtom
 
-1. Edit ${VHOST_ROOT}/${PN}-${PVR}/config.php and set database settings.
-
 2. Login on
-http://${VHOST_HOSTNAME}/${VHOST_APPDIR}/admin/install/install.php
-     http://http://${VHOST_HOSTNAME}/${VHOST_APPDIR}/admin/config/index.php
+http://\${VHOST_HOSTNAME}/\${VHOST_APPDIR}/admin/install/install.php
+     http://\${VHOST_HOSTNAME}/\${VHOST_APPDIR}/admin/config/index.php
   and follow the directions.
 
 3. Don't forget to delete the admin/install directory when you're done!

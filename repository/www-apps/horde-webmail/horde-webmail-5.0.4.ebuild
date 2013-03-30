@@ -34,10 +34,10 @@ RDEPEND="${DEPEND}
 
 src_install() {
         # Horde-Webmail and Horde-Groupware are nothing more than small downloads 
-        # that include a couple of configuration filesi, hooks and a library.
+        # that include a couple of configuration files, hooks and a library.
         # Webapp-config will not allow multiple web applications to be installed
         # into the same directory, so we package up the latest versions of the
-        # run-time dependancies into this install.
+        # Horde build-time dependancies into this install.
 
     for i in horde-content horde-horde horde-imp horde-ingo horde-kronolith horde-mnemo horde-nag horde-timeobjects horde-turba
     do
@@ -46,16 +46,22 @@ src_install() {
         else
             _end="/${i:6}"
             mkdir -p ${WORKDIR}/webmail-${PV}${_end}
-       fi
-       j=`ls ${ROOT}usr/share/webapps/${i} -t1 | head -n1`
-       rsync -r ${ROOT}usr/share/webapps/${i}/${j}/htdocs/ ${WORKDIR}/webmail-${PV}${_end}
-   done
+        fi
+        j=`ls ${ROOT}usr/share/webapps/${i} -t1 | head -n1`
+        rsync -r ${ROOT}usr/share/webapps/${i}/${j}/htdocs/ ${WORKDIR}/webmail-${PV}${_end}
+    done
+
+        # Copy the files from the Horde_Core package into the webapp root
+    rsync -r ${ROOT}usr/lib*/php*/lib/pear/www/horde/ ${WORKDIR}/webmail-${PV}/
+
+        # Copy the configuration file
+    cp ${ROOT}usr/share/webapps/${i}/${j}/htdocs/config/conf.php.dist ${ROOT}usr/share/webapps/${i}/${j}/htdocs/config/conf.php
 
         # horde-webmail and horde-groupware and specific work done.
     webapp_src_preinst
 
     rm -rf ${WORKDIR}/package.xml ${WORKDIR}/webmail-${PV}/bin
-    if [[ -x ${WORKDIR}/webmail-${PV}/README ]]; then
+    if [[ -e ${WORKDIR}/webmail-${PV}/README ]]; then
         dodoc ${WORKDIR}/webmail-${PV}/README
     fi
     find ${WORKDIR}/webmail-${PV}/docs/ -type f | xargs dodoc
@@ -63,9 +69,8 @@ src_install() {
     insinto ${MY_HTDOCSDIR}
     doins -r ${WORKDIR}/webmail-${PV}/*
 
-    if [[ -x "${MY_HTDOCSDIR}"/config ]]; then
-        webapp_serverowned "${MY_HTDOCSDIR}"/config
-    fi
+    find ${MY_HTDOCSDIR} -type d -name "config" | xargs webapp_serverowned
+    find ${MY_HTDOCSDIR} -type f -name "conf.php" | xargs webapp_serverowned
 
     webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
     webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
