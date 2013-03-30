@@ -85,10 +85,15 @@ EOF;
 
         // Second bit only for groupware or webmail
     if ($ShortName == "webmail" || $ShortName == "groupware") {
-        $HordeReq = implode(" ", $HordeReqs);
+        foreach ($HordeReqs as $t)
+        {
+            if (substr( $t,0,16) == ">=www-apps/horde")
+                $HordeReq = $HordeReq . " " . substr( $t, 11, strrpos( $t, "-") -11);
+        }
+        $HordeReq = trim($HordeReq);
         $additional = <<< EOF
-        // Horde-webmail and horde-groupware are nothing more than small downloads 
-        // that include a couple of configuration files hooks and a library.
+        // Horde-Webmail and Horde-Groupware are nothing more than small downloads 
+        // that include a couple of configuration filesi, hooks and a library.
         // Webapp-config will not allow multiple web applications to be installed
         // into the same directory, so we package up the latest versions of the
         // run-time dependancies into this install.
