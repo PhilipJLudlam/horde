@@ -55,7 +55,7 @@ src_install() {
     rsync -r ${ROOT}usr/lib*/php*/lib/pear/www/horde/ ${WORKDIR}/webmail-${PV}/
 
         # Copy the configuration file
-    cp ${ROOT}usr/share/webapps/${i}/${j}/htdocs/config/conf.php.dist ${ROOT}usr/share/webapps/${i}/${j}/htdocs/config/conf.php
+    cp ${WORKDIR}/webmail-${PV}/config/conf.php.dist ${WORKDIR}/webmail-${PV}/config/conf.php
 
         # horde-webmail and horde-groupware and specific work done.
     webapp_src_preinst

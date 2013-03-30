@@ -115,7 +115,7 @@ EOF;
     rsync -r \${ROOT}usr/lib*/php*/lib/pear/www/horde/ \${WORKDIR}/$ShortName-\${PV}/
 
         # Copy the configuration file
-    cp \${ROOT}usr/share/webapps/\${i}/\${j}/htdocs/config/conf.php.dist \${ROOT}usr/share/webapps/\${i}/\${j}/htdocs/config/conf.php
+    cp \${WORKDIR}/$ShortName-\${PV}/config/conf.php.dist \${WORKDIR}/$ShortName-\${PV}/config/conf.php
 
         # horde-webmail and horde-groupware and specific work done.
 
