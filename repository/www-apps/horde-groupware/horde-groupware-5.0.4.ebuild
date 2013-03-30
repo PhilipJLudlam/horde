@@ -31,10 +31,35 @@ RDEPEND="${DEPEND}
 	>=www-apps/horde-turba-4.0.3"
 
 src_install() {
+        # Horde-Webmail and Horde-Groupware are nothing more than small downloads 
+        # that include a couple of configuration files, hooks and a library.
+        # Webapp-config will not allow multiple web applications to be installed
+        # into the same directory, so we package up the latest versions of the
+        # Horde build-time dependancies into this install.
+
+    for i in horde-content horde-horde horde-kronolith horde-mnemo horde-nag horde-timeobjects horde-turba
+    do
+        if [ "${i}" == "horde-horde" ]; then
+            _end=""
+        else
+            _end="/${i:6}"
+            mkdir -p ${WORKDIR}/groupware-${PV}${_end}
+        fi
+        j=`ls ${ROOT}usr/share/webapps/${i} -t1 | head -n1`
+        rsync -r ${ROOT}usr/share/webapps/${i}/${j}/htdocs/ ${WORKDIR}/groupware-${PV}${_end}
+    done
+
+        # Copy the files from the Horde_Core package into the webapp root
+    rsync -r ${ROOT}usr/lib*/php*/lib/pear/www/horde/ ${WORKDIR}/groupware-${PV}/
+
+        # Copy the configuration file
+    cp ${WORKDIR}/groupware-${PV}/config/conf.php.dist ${WORKDIR}/groupware-${PV}/config/conf.php
+
+        # horde-webmail and horde-groupware and specific work done.
     webapp_src_preinst
 
     rm -rf ${WORKDIR}/package.xml ${WORKDIR}/groupware-${PV}/bin
-    if [[ -x ${WORKDIR}/groupware-${PV}/README ]]; then
+    if [[ -e ${WORKDIR}/groupware-${PV}/README ]]; then
         dodoc ${WORKDIR}/groupware-${PV}/README
     fi
     find ${WORKDIR}/groupware-${PV}/docs/ -type f | xargs dodoc
@@ -42,9 +67,15 @@ src_install() {
     insinto ${MY_HTDOCSDIR}
     doins -r ${WORKDIR}/groupware-${PV}/*
 
-    if [[ -x "${MY_HTDOCSDIR}"/config ]]; then
-        webapp_serverowned "${MY_HTDOCSDIR}"/config
-    fi
+    l=`expr length "${WORKDIR}/groupware-${PV}"`
+    for i in `find ${WORKDIR}/groupware-${PV} -type d -name "config"`
+    do
+        webapp_serverowned ${MY_HTDOCSDIR}${i:$l}
+    done
+    for i in `find ${WORKDIR}/groupware-${PV} -type f -name "conf.php"`
+    do
+        webapp_serverowned ${MY_HTDOCSDIR}${i:$l}
+    done
 
     webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
     webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
@@ -55,10 +86,8 @@ src_install() {
 pkg_postinst() {
     einfo "[1;32m**************************************************[00m"
     einfo
-    einfo "To see the post install instructions, do"
-    einfo "  webapp-config --show-postinst ${PN} ${PVR}"
-    einfo "or for the post upgrade instructions, do"
-    einfo "  webapp-config --show-postupgrade ${PN} ${PVR}"
+    einfo "For 'vhost' users, install using:"
+    einfo "  webapp-config -I -h <hostname> horde-groupware ${PV} -d <dir>"
     einfo
     einfo "[1;32m**************************************************[00m"
 }

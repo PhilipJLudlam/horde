@@ -136,8 +136,15 @@ EOF;
     insinto \${MY_HTDOCSDIR}
     doins -r \${WORKDIR}/$ShortName-\${PV}/*
 
-    find \${MY_HTDOCSDIR} -type d -name "config" | xargs webapp_serverowned
-    find \${MY_HTDOCSDIR} -type f -name "conf.php" | xargs webapp_serverowned
+    l=`expr length "\${WORKDIR}/$ShortName-\${PV}"`
+    for i in `find \${WORKDIR}/$ShortName-\${PV} -type d -name "config"`
+    do
+        webapp_serverowned \${MY_HTDOCSDIR}\${i:\$l}
+    done
+    for i in `find \${WORKDIR}/$ShortName-\${PV} -type f -name "conf.php"`
+    do
+        webapp_serverowned \${MY_HTDOCSDIR}\${i:\$l}
+    done
 
     webapp_postinst_txt en "\${FILESDIR}"/postinstall.txt
     webapp_postupgrade_txt en "\${FILESDIR}"/postupgrade.txt
@@ -148,10 +155,8 @@ EOF;
 pkg_postinst() {
     einfo "\033[1;32m**************************************************\033[00m"
     einfo
-    einfo "To see the post install instructions, do"
-    einfo "  webapp-config --show-postinst \${PN} \${PVR}"
-    einfo "or for the post upgrade instructions, do"
-    einfo "  webapp-config --show-postupgrade \${PN} \${PVR}"
+    einfo "For 'vhost' users, install using:"
+    einfo "  webapp-config -I -h <hostname> horde-$ShortName \${PV} -d <dir>"
     einfo
     einfo "\033[1;32m**************************************************\033[00m"
 }
@@ -171,10 +176,12 @@ for $PackageAtom
 Login on to:
   http://\${VHOST_HOSTNAME}/\${VHOST_APPDIR}/admin/config/index.php
 
-  1. Go to for Horde -> Database
-       to set the database configuation for Horde
-
-  2. Click on 'Generate Horde Configuration'
+Click on "Horde (horde) \${PV}"
+Select the 'Database' tab
+Choose a database backend.
+  N.B. This is to set the default values for any database driven backends
+Set the other settings on this page as appropriate
+Click on 'Generate Horde Configuration'
 
 
 EOF;
