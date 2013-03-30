@@ -32,18 +32,29 @@ RDEPEND="${DEPEND}
 	>=www-apps/horde-timeobjects-2.0.3
 	>=www-apps/horde-turba-4.0.3"
 
-src_install() {        // Horde-webmail and horde-groupware are nothing more than small downloads 
+src_install() {
+		// Horde-webmail and horde-groupware are nothing more than small downloads 
         // that include a couple of configuration files hooks and a library.
         // Webapp-config will not allow multiple web applications to be installed
         // into the same directory, so we package up the latest versions of the
         // run-time dependancies into this install.
 
-        for i in 'horde-content horde-horde horde-imp horde-ingo horde-kronolith horde-mnemo horde-nag horde-timeobjects horde-turba'
+		echo "  ..Doing magic here"
+        for i in horde-content horde-horde horde-imp horde-ingo horde-kronolith horde-mnemo horde-nag horde-timeobjects horde-turba
         do
             echo $i
-            j=`ls ${ROOT}/usr/share/webapps/${i} -t1 | head -n1`
-            cp -r ${j}/htdocs ${WORKDIR}/webmail-${PV}
+            if [ "${i}" == "horde-horde" ]; then
+		        _end=""
+            else
+                _end="/${i:6}"
+                mkdir -p ${WORKDIR}/$ShortName-${PV}${_end}
+            fi
+			ls /usr/share/webapps/${i}
+            j=`ls /usr/share/webapps/${i} -t1 | head -n1`
+			echo rsync -r ${ROOT}usr/share/webapps/${i}/${j}/htdocs/ ${WORKDIR}/webmail-${PV}${_end}
+			rsync -r ${ROOT}usr/share/webapps/${i}/${j}/htdocs/ ${WORKDIR}/webmail-${PV}${_end}
         done
+		echo "  ..Finished doing magic here"
 
         // horde-webmail and horde-groupware and specific work done.
     webapp_src_preinst

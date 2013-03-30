@@ -75,16 +75,17 @@ function get_channel_prefix($channelUri)
 
 function doHordeApp( $EbuildName, $PackageAtom, $ShortName, $HordeReqs = "")
 {
-
         // First bit for all horde applications
     $additional = <<< EOF
 
 src_install() {
+
 EOF;
     file_put_contents ($EbuildName, $additional, FILE_APPEND);
 
         // Second bit only for groupware or webmail
     if ($ShortName == "webmail" || $ShortName == "groupware") {
+        $HordeReq = implode(" ", $HordeReqs);
         $additional = <<< EOF
         // Horde-webmail and horde-groupware are nothing more than small downloads 
         // that include a couple of configuration files hooks and a library.
@@ -92,11 +93,16 @@ EOF;
         // into the same directory, so we package up the latest versions of the
         // run-time dependancies into this install.
 
-        for i in 'horde-content horde-horde horde-imp horde-ingo horde-kronolith horde-mnemo horde-nag horde-timeobjects horde-turba'
+        for i in $HordeReq
         do
-            echo \$i
-            j=`ls \${ROOT}/usr/share/webapps/\${i} -t1 | head -n1`
-            cp -r \${j}/htdocs \${WORKDIR}/$ShortName-\${PV}
+            if [ "\${i}" == "horde-horde" ]; then
+                _end=""
+            else
+                _end="/\${i:6}"
+                mkdir -p \${WORKDIR}/$ShortName-\${PV}\${_end}
+            fi
+            j=`ls \${ROOT}usr/share/webapps/\${i} -t1 | head -n1`
+            rsync -r \${ROOT}usr/share/webapps/\${i}/\${j}/htdocs/ \${WORKDIR}/$ShortName-\${PV}\${_end}
         done
 
         // horde-webmail and horde-groupware and specific work done.
@@ -413,6 +419,8 @@ function generate_ebuild($pear_package)
         $hordedep="";
         if ( $channelUri == "pear.horde.org" && $MyPackageName != "dev-php/horde-Horde_Role")
             $hordedep="\n\tdev-php/horde-Horde_Role";
+        // Also for Horde_Role, we need to use the php-pear-lib-r1 eclass
+        // and the function php-pear-lib-r1_pkg_setup to add the pear.horde.org channel
 
     $hordeapp = FALSE;
     if ($channelUri == "pear.horde.org" && substr( $MyPackageName, 0, 8) == "www-apps" )
@@ -427,6 +435,10 @@ function generate_ebuild($pear_package)
     //
     // Look at splitting this out so that we have one version for a horde webapp
     // another for PECL and a catch-all for everything else.
+    //
+    // Make an educated guess about what eclass to inherit
+    // I suspect that the Horde dev-php packages are actually libraries
+    // and that they should be using the php-pear-lib-r1 eclass!
     $ebuild .= "PEAR_PV=\"" . $pf->getVersion() . "\"\n";
     $ebuild .= "PHP_PEAR_PKG_NAME=\"" . $pf->getName() . "\"\n";
     $ebuild .= "\n";
