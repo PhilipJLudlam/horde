@@ -1,0 +1,19 @@
+./epearForHorde.php --force horde/ansel
+./epearForHorde.php --force horde/content
+./epearForHorde.php --force horde/gollem
+./epearForHorde.php --force horde/groupware
+./epearForHorde.php --force horde/horde
+./epearForHorde.php --force horde/imp
+./epearForHorde.php --force horde/ingo
+./epearForHorde.php --force horde/kronolith
+./epearForHorde.php --force horde/mnemo
+./epearForHorde.php --force horde/nag
+./epearForHorde.php --force horde/passwd
+./epearForHorde.php --force horde/sesha
+./epearForHorde.php --force horde/timeobjects
+./epearForHorde.php --force horde/trean
+./epearForHorde.php --force horde/turba
+./epearForHorde.php --force horde/webmail
+./epearForHorde.php --force horde/whups
+./epearForHorde.php --force horde/wicked
+
