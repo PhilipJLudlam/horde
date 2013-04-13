@@ -4,14 +4,16 @@
 
 EAPI=4
 
-PEAR_PV="2.0.4"
+PEAR_PV="2.0.5"
 PHP_PEAR_PKG_NAME="Horde_Mail"
 
-inherit php-pear-r1
+inherit php-pear-lib-r1
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
+
 
 DESCRIPTION="Horde Mail Library"
 HOMEPAGE="pear.horde.org"
-SRC_URI="http://pear.horde.org/get/Horde_Mail-2.0.4.tgz"
+SRC_URI="http://pear.horde.org/get/Horde_Mail-2.0.5.tgz"
 
 LICENSE="BSD-2-Clause"
 SLOT="0"

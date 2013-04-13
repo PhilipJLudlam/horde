@@ -7,7 +7,9 @@ EAPI=4
 PEAR_PV="1.0.0alpha4"
 PHP_PEAR_PKG_NAME="Horde_Pear"
 
-inherit php-pear-r1
+inherit php-pear-lib-r1
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
+
 
 DESCRIPTION="A library for handling a subset of the PEAR formats and specifications"
 HOMEPAGE="pear.horde.org"

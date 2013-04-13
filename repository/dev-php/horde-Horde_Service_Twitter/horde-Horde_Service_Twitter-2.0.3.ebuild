@@ -4,14 +4,16 @@
 
 EAPI=4
 
-PEAR_PV="2.0.2"
+PEAR_PV="2.0.3"
 PHP_PEAR_PKG_NAME="Horde_Service_Twitter"
 
-inherit php-pear-r1
+inherit php-pear-lib-r1
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
+
 
 DESCRIPTION="Horde Twitter client"
 HOMEPAGE="pear.horde.org"
-SRC_URI="http://pear.horde.org/get/Horde_Service_Twitter-2.0.2.tgz"
+SRC_URI="http://pear.horde.org/get/Horde_Service_Twitter-2.0.3.tgz"
 
 LICENSE="BSD-2-Clause"
 SLOT="0"

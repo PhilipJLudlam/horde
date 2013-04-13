@@ -7,7 +7,9 @@ EAPI=4
 PEAR_PV="2.0.4"
 PHP_PEAR_PKG_NAME="Horde_Service_Weather"
 
-inherit php-pear-r1
+inherit php-pear-lib-r1
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
+
 
 DESCRIPTION="Horde Weather Provider."
 HOMEPAGE="pear.horde.org"

@@ -7,7 +7,8 @@ EAPI=4
 PEAR_PV="1.0.0"
 PHP_PEAR_PKG_NAME="trean"
 
-inherit php-pear-r1 webapp
+inherit webapp
+
 
 DESCRIPTION="Web-based bookmarks application"
 HOMEPAGE="pear.horde.org"
@@ -44,7 +45,7 @@ src_install() {
     webapp_src_preinst
 
     rm -rf ${WORKDIR}/package.xml ${WORKDIR}/trean-${PV}/bin
-    if [[ -x ${WORKDIR}/trean-${PV}/README ]]; then
+    if [[ -e ${WORKDIR}/trean-${PV}/README ]]; then
         dodoc ${WORKDIR}/trean-${PV}/README
     fi
     find ${WORKDIR}/trean-${PV}/docs/ -type f | xargs dodoc
@@ -52,9 +53,15 @@ src_install() {
     insinto ${MY_HTDOCSDIR}
     doins -r ${WORKDIR}/trean-${PV}/*
 
-    if [[ -x "${MY_HTDOCSDIR}"/config ]]; then
-        webapp_serverowned "${MY_HTDOCSDIR}"/config
-    fi
+    l=`expr length "${WORKDIR}/trean-${PV}"`
+    for i in `find ${WORKDIR}/trean-${PV} -type d -name "config"`
+    do
+        webapp_serverowned ${MY_HTDOCSDIR}${i:$l}
+    done
+    for i in `find ${WORKDIR}/trean-${PV} -type f -name "conf.php"`
+    do
+        webapp_serverowned ${MY_HTDOCSDIR}${i:$l}
+    done
 
     webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
     webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
@@ -65,10 +72,8 @@ src_install() {
 pkg_postinst() {
     einfo "[1;32m**************************************************[00m"
     einfo
-    einfo "To see the post install instructions, do"
-    einfo "  webapp-config --show-postinst ${PN} ${PVR}"
-    einfo "or for the post upgrade instructions, do"
-    einfo "  webapp-config --show-postupgrade ${PN} ${PVR}"
+    einfo "For 'vhost' users, install using:"
+    einfo "  webapp-config -I -h <hostname> horde-trean ${PV} -d <dir>"
     einfo
     einfo "[1;32m**************************************************[00m"
 }

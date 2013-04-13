@@ -7,7 +7,8 @@ EAPI=4
 PEAR_PV="4.0.2"
 PHP_PEAR_PKG_NAME="nag"
 
-inherit php-pear-r1 webapp
+inherit webapp
+
 
 DESCRIPTION="A web based task list manager"
 HOMEPAGE="pear.horde.org"
@@ -53,7 +54,7 @@ src_install() {
     webapp_src_preinst
 
     rm -rf ${WORKDIR}/package.xml ${WORKDIR}/nag-${PV}/bin
-    if [[ -x ${WORKDIR}/nag-${PV}/README ]]; then
+    if [[ -e ${WORKDIR}/nag-${PV}/README ]]; then
         dodoc ${WORKDIR}/nag-${PV}/README
     fi
     find ${WORKDIR}/nag-${PV}/docs/ -type f | xargs dodoc
@@ -61,9 +62,15 @@ src_install() {
     insinto ${MY_HTDOCSDIR}
     doins -r ${WORKDIR}/nag-${PV}/*
 
-    if [[ -x "${MY_HTDOCSDIR}"/config ]]; then
-        webapp_serverowned "${MY_HTDOCSDIR}"/config
-    fi
+    l=`expr length "${WORKDIR}/nag-${PV}"`
+    for i in `find ${WORKDIR}/nag-${PV} -type d -name "config"`
+    do
+        webapp_serverowned ${MY_HTDOCSDIR}${i:$l}
+    done
+    for i in `find ${WORKDIR}/nag-${PV} -type f -name "conf.php"`
+    do
+        webapp_serverowned ${MY_HTDOCSDIR}${i:$l}
+    done
 
     webapp_postinst_txt en "${FILESDIR}"/postinstall.txt
     webapp_postupgrade_txt en "${FILESDIR}"/postupgrade.txt
@@ -74,10 +81,8 @@ src_install() {
 pkg_postinst() {
     einfo "[1;32m**************************************************[00m"
     einfo
-    einfo "To see the post install instructions, do"
-    einfo "  webapp-config --show-postinst ${PN} ${PVR}"
-    einfo "or for the post upgrade instructions, do"
-    einfo "  webapp-config --show-postupgrade ${PN} ${PVR}"
+    einfo "For 'vhost' users, install using:"
+    einfo "  webapp-config -I -h <hostname> horde-nag ${PV} -d <dir>"
     einfo
     einfo "[1;32m**************************************************[00m"
 }

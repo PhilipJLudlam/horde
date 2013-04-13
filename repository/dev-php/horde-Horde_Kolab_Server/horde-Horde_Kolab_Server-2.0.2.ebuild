@@ -7,7 +7,9 @@ EAPI=4
 PEAR_PV="2.0.2"
 PHP_PEAR_PKG_NAME="Horde_Kolab_Server"
 
-inherit php-pear-r1
+inherit php-pear-lib-r1
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
+
 
 DESCRIPTION="A package for manipulating the Kolab user database"
 HOMEPAGE="pear.horde.org"

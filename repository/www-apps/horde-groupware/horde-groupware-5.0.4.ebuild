@@ -7,7 +7,8 @@ EAPI=4
 PEAR_PV="5.0.4"
 PHP_PEAR_PKG_NAME="groupware"
 
-inherit php-pear-r1 webapp
+inherit webapp
+
 
 DESCRIPTION="Horde Groupware"
 HOMEPAGE="pear.horde.org"

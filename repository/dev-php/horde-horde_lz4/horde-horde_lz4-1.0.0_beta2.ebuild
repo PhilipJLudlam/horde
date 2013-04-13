@@ -7,7 +7,9 @@ EAPI=4
 PEAR_PV="1.0.0beta2"
 PHP_PEAR_PKG_NAME="horde_lz4"
 
-inherit php-pear-r1
+inherit php-pear-lib-r1
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
+
 
 DESCRIPTION="Horde LZ4 Compression Extension"
 HOMEPAGE="pear.horde.org"

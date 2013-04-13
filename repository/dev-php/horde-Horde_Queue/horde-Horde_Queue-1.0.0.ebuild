@@ -7,7 +7,9 @@ EAPI=4
 PEAR_PV="1.0.0"
 PHP_PEAR_PKG_NAME="Horde_Queue"
 
-inherit php-pear-r1
+inherit php-pear-lib-r1
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
+
 
 DESCRIPTION="Horde Queue"
 HOMEPAGE="pear.horde.org"

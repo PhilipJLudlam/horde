@@ -7,7 +7,9 @@ EAPI=4
 PEAR_PV="1.0.0alpha3"
 PHP_PEAR_PKG_NAME="Horde_Kolab_Cli"
 
-inherit php-pear-r1
+inherit php-pear-lib-r1
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
+
 
 DESCRIPTION="A command line interface to the Kolab storage system"
 HOMEPAGE="pear.horde.org"

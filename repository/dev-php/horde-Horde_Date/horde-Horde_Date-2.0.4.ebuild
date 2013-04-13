@@ -8,7 +8,6 @@ PEAR_PV="2.0.4"
 PHP_PEAR_PKG_NAME="Horde_Date"
 
 inherit php-pear-lib-r1
-php-pear-lib-r1_pkg_setup pear.horde.org
 S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 

@@ -14,7 +14,6 @@ horde-horde_autoloader
 horde-horde_browser
 horde-horde_cache
 horde-horde_cli
-horde-horde_compress_fast
 horde-horde_controller
 horde-horde_core
 horde-horde_crypt

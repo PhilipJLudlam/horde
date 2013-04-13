@@ -7,7 +7,9 @@ EAPI=4
 PEAR_PV="1.2.0"
 PHP_PEAR_PKG_NAME="Horde_Stream"
 
-inherit php-pear-r1
+inherit php-pear-lib-r1
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
+
 
 DESCRIPTION="Horde stream handler"
 HOMEPAGE="pear.horde.org"

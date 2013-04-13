@@ -7,7 +7,9 @@ EAPI=4
 PEAR_PV="2.2.1"
 PHP_PEAR_PKG_NAME="Horde_Util"
 
-inherit php-pear-r1
+inherit php-pear-lib-r1
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
+
 
 DESCRIPTION="Horde Utility Libraries"
 HOMEPAGE="pear.horde.org"

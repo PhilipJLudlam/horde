@@ -4,14 +4,16 @@
 
 EAPI=4
 
-PEAR_PV="2.0.4"
+PEAR_PV="2.1.0"
 PHP_PEAR_PKG_NAME="Horde_Mime"
 
-inherit php-pear-r1
+inherit php-pear-lib-r1
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
+
 
 DESCRIPTION="Horde MIME Library"
 HOMEPAGE="pear.horde.org"
-SRC_URI="http://pear.horde.org/get/Horde_Mime-2.0.4.tgz"
+SRC_URI="http://pear.horde.org/get/Horde_Mime-2.1.0.tgz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
@@ -25,7 +27,7 @@ RDEPEND="${DEPEND}
 	>=dev-php/horde-Horde_Exception-2.0.0
 	>=dev-php/horde-Horde_Mail-2.0.0
 	>=dev-php/horde-Horde_Stream_Filter-2.0.0
-	>=dev-php/horde-Horde_Support-2.0.0
+	>=dev-php/horde-Horde_Support-2.1.0
 	>=dev-php/horde-Horde_Text_Flowed-2.0.0
 	>=dev-php/horde-Horde_Translation-2.0.0
 	>=dev-php/horde-Horde_Util-2.0.0

@@ -173,15 +173,15 @@ Post-Install Instructions
 =========================
 for $PackageAtom
 
-Login on to:
-  http://\${VHOST_HOSTNAME}/\${VHOST_APPDIR}/admin/config/index.php
+1. Login on to:
+     http://\${VHOST_HOSTNAME}/\${VHOST_APPDIR}/admin/config/index.php
 
-Click on "Horde (horde) \${PV}"
-Select the 'Database' tab
-Choose a database backend.
-  N.B. This is to set the default values for any database driven backends
-Set the other settings on this page as appropriate
-Click on 'Generate Horde Configuration'
+2. Click on "Horde (horde) \${PV}"
+3. Select the "Database" tab
+4. Choose a suitable database backend
+     N.B. This is to set the default values for any database driven backends
+5. Set the other settings on this page as appropriate
+6. Click on 'Generate Horde Configuration'
 
 
 EOF;
@@ -193,12 +193,9 @@ Post-Upgrade Instructions
 =========================
 for $PackageAtom
 
-2. Login on
-http://\${VHOST_HOSTNAME}/\${VHOST_APPDIR}/admin/install/install.php
-     http://\${VHOST_HOSTNAME}/\${VHOST_APPDIR}/admin/config/index.php
-  and follow the directions.
+Login on to:
+  http://\${VHOST_HOSTNAME}/\${VHOST_APPDIR}/admin/config/index.php
 
-3. Don't forget to delete the admin/install directory when you're done!
 
 EOF;
     file_put_contents ("/usr/local/horde/repository/" . $PackageAtom . "/files/postupgrade.txt", $postupgrade);
@@ -497,7 +494,6 @@ function generate_ebuild($pear_package)
         $ebuild .= "inherit php-pear-r1\n";
     }
 
-    $ebuild .= "\n";
     $ebuild .= "\n";
     $ebuild .= "DESCRIPTION=\"" . $pf->getSummary() . "\"\n";
     $ebuild .= "HOMEPAGE=\"" . $parsedName['channel'] . "\"\n";

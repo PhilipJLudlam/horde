@@ -8,7 +8,6 @@ PEAR_PV="2.0.1"
 PHP_PEAR_PKG_NAME="Horde_Controller"
 
 inherit php-pear-lib-r1
-php-pear-lib-r1_pkg_setup pear.horde.org
 S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 
