@@ -7,7 +7,10 @@ EAPI=4
 PEAR_PV="1.0.2"
 PHP_PEAR_PKG_NAME="Horde_Crypt_Blowfish"
 
-inherit php-pear-r1
+inherit php-pear-lib-r1
+php-pear-lib-r1_pkg_setup pear.horde.org
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
+
 
 DESCRIPTION="Blowfish Encryption Library"
 HOMEPAGE="pear.horde.org"

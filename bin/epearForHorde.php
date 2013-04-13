@@ -478,12 +478,28 @@ function generate_ebuild($pear_package)
     // Make an educated guess about what eclass to inherit
     // I suspect that the Horde dev-php packages are actually libraries
     // and that they should be using the php-pear-lib-r1 eclass!
+
     $ebuild .= "PEAR_PV=\"" . $pf->getVersion() . "\"\n";
     $ebuild .= "PHP_PEAR_PKG_NAME=\"" . $pf->getName() . "\"\n";
     $ebuild .= "\n";
-    $ebuild .= "inherit php-pear-r1";
-    if ($hordeapp == TRUE)
-        $ebuild .= " webapp";
+    if ($channelUri == "pear.horde.org") {
+        if ($hordeapp == TRUE) {
+            // This is Horde WebApp
+            $ebuild .= "inherit webapp\n";
+        }
+        else {
+            // This is a Horde library
+            $ebuild .= "inherit php-pear-lib-r1\n";
+            $ebuild .= "php-pear-lib-r1_pkg_setup pear.horde.org\n";
+            $ebuild .= "S=\"\${WORKDIR}/\${PHP_PEAR_PKG_NAME}-\${PEAR_PV}\"\n";
+        }
+    }
+    else
+    {
+        // Nothing special to do here:
+        $ebuild .= "inherit php-pear-r1\n";
+    }
+
     $ebuild .= "\n";
     $ebuild .= "\n";
     $ebuild .= "DESCRIPTION=\"" . $pf->getSummary() . "\"\n";
@@ -562,10 +578,6 @@ if ($package == "")
     help();
 
 generate_ebuild($package);
-
-// For all generated ebuild, generate a package.keywords file
-// One with a general exception for all versions of the atoms generated
-// Another for the specific version of the atom/ebuild generated
 
 // An Option:
 // To generate some packages as dev-php (default) and others as www-apps
