@@ -458,8 +458,6 @@ function generate_ebuild($pear_package)
         $hordedep="";
         if ( $channelUri == "pear.horde.org" && $MyPackageName != "dev-php/horde-Horde_Role")
             $hordedep="\n\tdev-php/horde-Horde_Role";
-        // Also for Horde_Role, we need to use the php-pear-lib-r1 eclass
-        // and the function php-pear-lib-r1_pkg_setup to add the pear.horde.org channel
 
     $hordeapp = FALSE;
     if ($channelUri == "pear.horde.org" && substr( $MyPackageName, 0, 8) == "www-apps" )
@@ -490,7 +488,6 @@ function generate_ebuild($pear_package)
         else {
             // This is a Horde library
             $ebuild .= "inherit php-pear-lib-r1\n";
-            $ebuild .= "php-pear-lib-r1_pkg_setup pear.horde.org\n";
             $ebuild .= "S=\"\${WORKDIR}/\${PHP_PEAR_PKG_NAME}-\${PEAR_PV}\"\n";
         }
     }
@@ -518,6 +515,21 @@ function generate_ebuild($pear_package)
     if ($postdep) {
         $ebuild .= "PDEPEND=\"$postdep\"\n";
     }
+
+    if ( $channelUri == "pear.horde.org" && $MyPackageName == "dev-php/horde-Horde_Role" ){
+        $ebuild .= "# Functions needed to add/remove the Horde PEAR channel";
+        $ebuild .= "pkg_setup()\n";
+        $ebuild .= "{\n";
+        $ebuild .= "  pear channel-discover \"pear.horde.org\"\n";
+        $ebuild .= "}\n\n";
+        $ebuild .= "pkg_postrm()\n";
+        $ebuild .= "{\n";
+        $ebuild .= "  pear channel-delete \"pear.horde.org\"\n";
+        $ebuild .= "}\n";
+    }
+
+
+
 
     file_put_contents( $ebuildname, $ebuild);
 
