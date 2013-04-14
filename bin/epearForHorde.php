@@ -488,6 +488,10 @@ function generate_ebuild($pear_package)
             $ebuild .= "S=\"\${WORKDIR}/\${PHP_PEAR_PKG_NAME}-\${PEAR_PV}\"\n";
         }
     }
+    elseif ($channelUri == "pecl.php.net")
+    {
+        $ebuild .= "inherit php-ext-pecl-r2\n";
+    }
     else
     {
         // Nothing special to do here:
@@ -502,7 +506,7 @@ function generate_ebuild($pear_package)
     $ebuild .= "LICENSE=\"" . str_replace(" License", "", $pf->getLicense()) . "\"\n";
     if ($hordeapp == FALSE)
         $ebuild .= "SLOT=\"0\"\n";
-    $ebuild .= "KEYWORDS=\"" . $ARCH . "\"\n";
+    $ebuild .= "KEYWORDS=\"~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86\"\n";
     $ebuild .= "IUSE=\"" . strtolower($iuse) ."\"\n";
     $ebuild .= "\n";
     // If this is for webmail or groupware, then $peardep should be part of DEPEND and not RDEPEND
