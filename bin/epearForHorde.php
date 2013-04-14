@@ -165,8 +165,8 @@ EOF;
     // */
     file_put_contents ($EbuildName, $additional, FILE_APPEND);
 
-    if (!is_dir("/usr/local/horde/repository/" . $PackageAtom . "/files"))
-         mkdir("/usr/local/horde/repository/" . $PackageAtom . "/files", 0777, true);
+    if (!is_dir("/usr/local/horde/portage/" . $PackageAtom . "/files"))
+         mkdir("/usr/local/horde/portage/" . $PackageAtom . "/files", 0777, true);
 
     $postinstall = <<< EOF
 Post-Install Instructions
@@ -185,7 +185,7 @@ for $PackageAtom
 
 
 EOF;
-    file_put_contents ("/usr/local/horde/repository/" . $PackageAtom . "/files/postinstall.txt", $postinstall);
+    file_put_contents ("/usr/local/horde/portage/" . $PackageAtom . "/files/postinstall.txt", $postinstall);
 
 
     $postupgrade = <<< EOF
@@ -198,7 +198,7 @@ Login on to:
 
 
 EOF;
-    file_put_contents ("/usr/local/horde/repository/" . $PackageAtom . "/files/postupgrade.txt", $postupgrade);
+    file_put_contents ("/usr/local/horde/portage/" . $PackageAtom . "/files/postupgrade.txt", $postupgrade);
 
 }
 
@@ -440,10 +440,10 @@ function generate_ebuild($pear_package)
     }
 
         //XXX: PJL: TO fix up - make destination directory configurable
-    if (!is_dir("/usr/local/horde/repository/" . $MyPackageName))
-         mkdir("/usr/local/horde/repository/" . $MyPackageName, 0777, true);
+    if (!is_dir("/usr/local/horde/portage/" . $MyPackageName))
+         mkdir("/usr/local/horde/portage/" . $MyPackageName, 0777, true);
 
-    $ebuildname = "/usr/local/horde/repository/" . $MyPackageName . "/" .
+    $ebuildname = "/usr/local/horde/portage/" . $MyPackageName . "/" .
          $MyPackageNameShort . "-" . cleanup_version($pf->getVersion()) . ".ebuild";
 
 
@@ -478,7 +478,14 @@ function generate_ebuild($pear_package)
     $ebuild .= "PHP_PEAR_PKG_NAME=\"" . $pf->getName() . "\"\n";
     $ebuild .= "\n";
     if ($channelUri == "pear.horde.org") {
-        if ($hordeapp == TRUE) {
+        if ($pf->getName() == "horde_lz4")
+        {
+              // This is actually a PECL module
+            $ebuild .= "inherit php-ext-pecl-r2\n";
+            $ebuild .= "S=\"\${WORKDIR}/\${PHP_PEAR_PKG_NAME}-\${PEAR_PV}\"\n";
+            $hordedep = "";  // Don't require 'dev-php/horde-Horde_Role' for this
+        }
+        elseif ($hordeapp == TRUE) {
             // This is Horde WebApp
             $ebuild .= "inherit webapp\n";
         }

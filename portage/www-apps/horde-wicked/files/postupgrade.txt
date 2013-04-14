@@ -1,0 +1,7 @@
+Post-Upgrade Instructions
+=========================
+for www-apps/horde-wicked
+
+Login on to:
+  http://${VHOST_HOSTNAME}/${VHOST_APPDIR}/admin/config/index.php
+

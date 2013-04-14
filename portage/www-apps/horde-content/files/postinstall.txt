@@ -1,0 +1,14 @@
+Post-Install Instructions
+=========================
+for www-apps/horde-content
+
+1. Login on to:
+     http://${VHOST_HOSTNAME}/${VHOST_APPDIR}/admin/config/index.php
+
+2. Click on "Horde (horde) ${PV}"
+3. Select the "Database" tab
+4. Choose a suitable database backend
+     N.B. This is to set the default values for any database driven backends
+5. Set the other settings on this page as appropriate
+6. Click on 'Generate Horde Configuration'
+
