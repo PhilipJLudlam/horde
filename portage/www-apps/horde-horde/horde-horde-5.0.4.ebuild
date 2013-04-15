@@ -8,6 +8,7 @@ PEAR_PV="5.0.4"
 PHP_PEAR_PKG_NAME="horde"
 
 inherit webapp
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 DESCRIPTION="Horde Application Framework"
 HOMEPAGE="pear.horde.org"

@@ -8,9 +8,9 @@ PEAR_PV="1.0.0beta2"
 PHP_PEAR_PKG_NAME="horde_lz4"
 
 inherit php-ext-pecl-r2
-S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 PHP_EXT_S=$S
 PHP_EXT_NAME=${PHP_PEAR_PKG_NAME}
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 DESCRIPTION="Horde LZ4 Compression Extension"
 HOMEPAGE="pear.horde.org"

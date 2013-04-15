@@ -8,6 +8,7 @@ PEAR_PV="2.0.2"
 PHP_PEAR_PKG_NAME="content"
 
 inherit webapp
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 DESCRIPTION="Tagging application"
 HOMEPAGE="pear.horde.org"

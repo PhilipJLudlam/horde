@@ -8,6 +8,7 @@ PEAR_PV="1.0.0"
 PHP_PEAR_PKG_NAME="trean"
 
 inherit webapp
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 DESCRIPTION="Web-based bookmarks application"
 HOMEPAGE="pear.horde.org"

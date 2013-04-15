@@ -8,6 +8,7 @@ PEAR_PV="1.0.2"
 PHP_PEAR_PKG_NAME="wicked"
 
 inherit webapp
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 DESCRIPTION="Wiki application"
 HOMEPAGE="pear.horde.org"

@@ -8,6 +8,7 @@ PEAR_PV="4.0.3"
 PHP_PEAR_PKG_NAME="turba"
 
 inherit webapp
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 DESCRIPTION="A web based address book"
 HOMEPAGE="pear.horde.org"

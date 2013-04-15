@@ -8,6 +8,7 @@ PEAR_PV="4.0.2"
 PHP_PEAR_PKG_NAME="nag"
 
 inherit webapp
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 DESCRIPTION="A web based task list manager"
 HOMEPAGE="pear.horde.org"

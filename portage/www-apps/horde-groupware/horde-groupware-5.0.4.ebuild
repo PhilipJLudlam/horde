@@ -8,6 +8,7 @@ PEAR_PV="5.0.4"
 PHP_PEAR_PKG_NAME="groupware"
 
 inherit webapp
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 DESCRIPTION="Horde Groupware"
 HOMEPAGE="pear.horde.org"

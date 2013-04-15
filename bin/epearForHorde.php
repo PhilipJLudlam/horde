@@ -482,7 +482,6 @@ function generate_ebuild($pear_package)
         {
               // This is actually a PECL module
             $ebuild .= "inherit php-ext-pecl-r2\n";
-            $ebuild .= "S=\"\${WORKDIR}/\${PHP_PEAR_PKG_NAME}-\${PEAR_PV}\"\n";
             $ebuild .= "PHP_EXT_S=\$S\n";
             $ebuild .= "PHP_EXT_NAME=\${PHP_PEAR_PKG_NAME}\n";
             $hordedep = "";  // Don't require 'dev-php/horde-Horde_Role' for this
@@ -494,8 +493,8 @@ function generate_ebuild($pear_package)
         else {
             // This is a Horde library
             $ebuild .= "inherit php-pear-lib-r1\n";
-            $ebuild .= "S=\"\${WORKDIR}/\${PHP_PEAR_PKG_NAME}-\${PEAR_PV}\"\n";
         }
+        $ebuild .= "S=\"\${WORKDIR}/\${PHP_PEAR_PKG_NAME}-\${PEAR_PV}\"\n";
     }
     elseif ($channelUri == "pecl.php.net")
     {

@@ -8,6 +8,7 @@ PEAR_PV="4.0.1"
 PHP_PEAR_PKG_NAME="passwd"
 
 inherit webapp
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 DESCRIPTION="Horde password changing application"
 HOMEPAGE="pear.horde.org"

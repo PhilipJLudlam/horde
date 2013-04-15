@@ -8,6 +8,7 @@ PEAR_PV="2.0.2"
 PHP_PEAR_PKG_NAME="ansel"
 
 inherit webapp
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 DESCRIPTION="Photo management application"
 HOMEPAGE="pear.horde.org"

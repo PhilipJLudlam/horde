@@ -8,6 +8,7 @@ PEAR_PV="4.0.4"
 PHP_PEAR_PKG_NAME="kronolith"
 
 inherit webapp
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 DESCRIPTION="A web based calendar"
 HOMEPAGE="pear.horde.org"

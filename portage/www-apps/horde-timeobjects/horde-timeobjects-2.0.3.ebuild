@@ -8,6 +8,7 @@ PEAR_PV="2.0.3"
 PHP_PEAR_PKG_NAME="timeobjects"
 
 inherit webapp
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 DESCRIPTION="Horde timeobjects application"
 HOMEPAGE="pear.horde.org"

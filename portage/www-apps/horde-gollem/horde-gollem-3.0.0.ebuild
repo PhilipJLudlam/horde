@@ -8,6 +8,7 @@ PEAR_PV="3.0.0"
 PHP_PEAR_PKG_NAME="gollem"
 
 inherit webapp
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 DESCRIPTION="Web-based file manager"
 HOMEPAGE="pear.horde.org"

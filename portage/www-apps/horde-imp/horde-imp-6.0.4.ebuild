@@ -8,6 +8,7 @@ PEAR_PV="6.0.4"
 PHP_PEAR_PKG_NAME="imp"
 
 inherit webapp
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 DESCRIPTION="A web based webmail system"
 HOMEPAGE="pear.horde.org"

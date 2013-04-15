@@ -8,6 +8,7 @@ PEAR_PV="3.0.3"
 PHP_PEAR_PKG_NAME="ingo"
 
 inherit webapp
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 DESCRIPTION="An email filter rules manager"
 HOMEPAGE="pear.horde.org"
