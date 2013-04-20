@@ -165,8 +165,8 @@ EOF;
     // */
     file_put_contents ($EbuildName, $additional, FILE_APPEND);
 
-    if (!is_dir("/usr/local/horde/portage/" . $PackageAtom . "/files"))
-         mkdir("/usr/local/horde/portage/" . $PackageAtom . "/files", 0777, true);
+    if (!is_dir("/usr/local/horde/horde/" . $PackageAtom . "/files"))
+         mkdir("/usr/local/horde/horde/" . $PackageAtom . "/files", 0777, true);
 
     $postinstall = <<< EOF
 1. Login on to:
@@ -183,7 +183,7 @@ EOF;
 
 FYI: See the document http://wiki.horde.org/FAQ/Admin/Config
 EOF;
-    file_put_contents ("/usr/local/horde/portage/" . $PackageAtom . "/files/postinstall.txt", $postinstall);
+    file_put_contents ("/usr/local/horde/horde/" . $PackageAtom . "/files/postinstall.txt", $postinstall);
 
 
     $postupgrade = <<< EOF
@@ -196,7 +196,7 @@ EOF;
 
 FYI: See the document http://www.horde.org/apps/imp/docs/UPGRADING
 EOF;
-    file_put_contents ("/usr/local/horde/portage/" . $PackageAtom . "/files/postupgrade.txt", $postupgrade);
+    file_put_contents ("/usr/local/horde/horde/" . $PackageAtom . "/files/postupgrade.txt", $postupgrade);
 
 }
 
@@ -438,10 +438,10 @@ function generate_ebuild($pear_package)
     }
 
         //XXX: PJL: TO fix up - make destination directory configurable
-    if (!is_dir("/usr/local/horde/portage/" . $MyPackageName))
-         mkdir("/usr/local/horde/portage/" . $MyPackageName, 0777, true);
+    if (!is_dir("/usr/local/horde/horde/" . $MyPackageName))
+         mkdir("/usr/local/horde/horde/" . $MyPackageName, 0777, true);
 
-    $ebuildname = "/usr/local/horde/portage/" . $MyPackageName . "/" .
+    $ebuildname = "/usr/local/horde/horde/" . $MyPackageName . "/" .
          $MyPackageNameShort . "-" . cleanup_version($pf->getVersion()) . ".ebuild";
 
 
@@ -476,7 +476,6 @@ function generate_ebuild($pear_package)
     $ebuild .= "PHP_PEAR_PKG_NAME=\"" . $pf->getName() . "\"\n";
     $ebuild .= "\n";
     if ($channelUri == "pear.horde.org") {
-        $ebuild .= "S=\"\${WORKDIR}/\${PHP_PEAR_PKG_NAME}-\${PEAR_PV}\"\n";
         if ($pf->getName() == "horde_lz4")
         {
               // This is actually a PECL module

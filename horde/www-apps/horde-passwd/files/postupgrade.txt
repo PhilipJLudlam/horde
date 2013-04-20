@@ -1,7 +1,8 @@
-Post-Upgrade Instructions
-=========================
-for www-apps/horde-passwd
+1. Login on to:
+     http://${VHOST_HOSTNAME}/${VHOST_APPDIR}/admin/config/index.php
+2. Click "Update all DB schemas"
+3. Click "Update all Configuration"
+4. Configure Horde and the other applications as required
+5. Click on "Generate Horde Configuration" to save your settings
 
-Login on to:
-  http://${VHOST_HOSTNAME}/${VHOST_APPDIR}/admin/config/index.php
-
+FYI: See the document http://www.horde.org/apps/imp/docs/UPGRADING

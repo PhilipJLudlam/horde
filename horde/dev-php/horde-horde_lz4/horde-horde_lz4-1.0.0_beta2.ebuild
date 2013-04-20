@@ -8,7 +8,7 @@ PEAR_PV="1.0.0beta2"
 PHP_PEAR_PKG_NAME="horde_lz4"
 
 inherit php-ext-pecl-r2
-PHP_EXT_S=$S
+PHP_EXT_S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 PHP_EXT_NAME=${PHP_PEAR_PKG_NAME}
 S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 

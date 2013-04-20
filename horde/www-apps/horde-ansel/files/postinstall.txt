@@ -1,14 +1,13 @@
-Post-Install Instructions
-=========================
-for www-apps/horde-ansel
-
 1. Login on to:
      http://${VHOST_HOSTNAME}/${VHOST_APPDIR}/admin/config/index.php
 
 2. Click on "Horde (horde) ${PV}"
 3. Select the "Database" tab
-4. Choose a suitable database backend
-     N.B. This is to set the default values for any database driven backends
+4. Choose a suitable backend
+     (this will allow settings and preferences to be saved)
 5. Set the other settings on this page as appropriate
-6. Click on 'Generate Horde Configuration'
+6. Click on "Generate Horde Configuration"
+7. Continue configuring Horde and the other applications as required
+8. Click on "Generate Horde Configuration" to save your settings
 
+FYI: See the document http://wiki.horde.org/FAQ/Admin/Config

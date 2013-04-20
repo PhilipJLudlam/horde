@@ -1,20 +1,15 @@
 #!/bin/bash
-##Check how recent index page is
-##If same age as downloaded version, then quit
-##Download the index page
 
 rm -rf /tmp/generateHordeEBuilds/temp_*
 mkdir -p /tmp/generateHordeEBuilds
 
-echo "Downloading information from the Horde website"
 indexpage="/tmp/generateHordeEBuilds/pear.horde.org-index.html"
-/usr/bin/wget -q -O ${indexpage}_new http://pear.horde.org/
-diff -qN ${indexpage}_new ${indexpage} > /dev/null
-if [ "${?}" -eq 0 ]; then
-    echo "No changes since the last download; not remaking the ebuilds."
-    exit 0
+
+if [ ! -e ${indexpage} ]; then
+    echo "Information from the Horde website has not been downloaded."
+    echo "Please run generateHordeEBuilds.sh first."
+    exit 1
 fi
-mv -f ${indexpage}_new ${indexpage}
 
 tot=`grep -o "<h3>[A-Za-z0-9_]*" $indexpage | wc -l`
 pos=0
@@ -27,7 +22,7 @@ do
     if [ "$k" != "horde_" ]; then
         category="--wwwapps"
     fi
-    
+
     pos=$(($pos+1))
     echo "Creating ebuild for $hordepackage ($pos of $tot)"
     /usr/bin/php ./epearForHorde.php --force $category $hordepackage

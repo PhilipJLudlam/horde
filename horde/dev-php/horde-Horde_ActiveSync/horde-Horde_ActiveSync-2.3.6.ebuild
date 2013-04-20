@@ -4,7 +4,7 @@
 
 EAPI=4
 
-PEAR_PV="2.3.4"
+PEAR_PV="2.3.6"
 PHP_PEAR_PKG_NAME="Horde_ActiveSync"
 
 inherit php-pear-lib-r1
@@ -12,7 +12,7 @@ S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PEAR_PV}"
 
 DESCRIPTION="Horde ActiveSync Server Library"
 HOMEPAGE="pear.horde.org"
-SRC_URI="http://pear.horde.org/get/Horde_ActiveSync-2.3.4.tgz"
+SRC_URI="http://pear.horde.org/get/Horde_ActiveSync-2.3.6.tgz"
 
 LICENSE="GPL-2.0"
 SLOT="0"
