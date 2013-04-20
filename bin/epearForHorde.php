@@ -169,34 +169,32 @@ EOF;
          mkdir("/usr/local/horde/portage/" . $PackageAtom . "/files", 0777, true);
 
     $postinstall = <<< EOF
-Post-Install Instructions
-=========================
-for $PackageAtom
-
 1. Login on to:
      http://\${VHOST_HOSTNAME}/\${VHOST_APPDIR}/admin/config/index.php
 
 2. Click on "Horde (horde) \${PV}"
 3. Select the "Database" tab
-4. Choose a suitable database backend
-     N.B. This is to set the default values for any database driven backends
+4. Choose a suitable backend
+     (this will allow settings and preferences to be saved)
 5. Set the other settings on this page as appropriate
-6. Click on 'Generate Horde Configuration'
+6. Click on "Generate Horde Configuration"
+7. Continue configuring Horde and the other applications as required
+8. Click on "Generate Horde Configuration" to save your settings
 
-
+FYI: See the document http://wiki.horde.org/FAQ/Admin/Config
 EOF;
     file_put_contents ("/usr/local/horde/portage/" . $PackageAtom . "/files/postinstall.txt", $postinstall);
 
 
     $postupgrade = <<< EOF
-Post-Upgrade Instructions
-=========================
-for $PackageAtom
+1. Login on to:
+     http://\${VHOST_HOSTNAME}/\${VHOST_APPDIR}/admin/config/index.php
+2. Click "Update all DB schemas"
+3. Click "Update all Configuration"
+4. Configure Horde and the other applications as required
+5. Click on "Generate Horde Configuration" to save your settings
 
-Login on to:
-  http://\${VHOST_HOSTNAME}/\${VHOST_APPDIR}/admin/config/index.php
-
-
+FYI: See the document http://www.horde.org/apps/imp/docs/UPGRADING
 EOF;
     file_put_contents ("/usr/local/horde/portage/" . $PackageAtom . "/files/postupgrade.txt", $postupgrade);
 
@@ -478,11 +476,12 @@ function generate_ebuild($pear_package)
     $ebuild .= "PHP_PEAR_PKG_NAME=\"" . $pf->getName() . "\"\n";
     $ebuild .= "\n";
     if ($channelUri == "pear.horde.org") {
+        $ebuild .= "S=\"\${WORKDIR}/\${PHP_PEAR_PKG_NAME}-\${PEAR_PV}\"\n";
         if ($pf->getName() == "horde_lz4")
         {
               // This is actually a PECL module
             $ebuild .= "inherit php-ext-pecl-r2\n";
-            $ebuild .= "PHP_EXT_S=\$S\n";
+            $ebuild .= "PHP_EXT_S=\"\${WORKDIR}/\${PHP_PEAR_PKG_NAME}-\${PEAR_PV}\"\n";
             $ebuild .= "PHP_EXT_NAME=\${PHP_PEAR_PKG_NAME}\n";
             $hordedep = "";  // Don't require 'dev-php/horde-Horde_Role' for this
         }
