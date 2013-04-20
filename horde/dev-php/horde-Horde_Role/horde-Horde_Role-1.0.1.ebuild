@@ -22,7 +22,8 @@ IUSE=""
 DEPEND=">=dev-lang/php-5.3.0"
 RDEPEND="${DEPEND}
 	>=dev-php/PEAR-PEAR-1.7.0"
-# Functions needed to add/remove the Horde PEAR channelpkg_setup()
+# Functions needed to add/remove the Horde PEAR channel
+pkg_setup()
 {
   pear channel-discover "pear.horde.org"
 }

@@ -523,7 +523,7 @@ function generate_ebuild($pear_package)
     }
 
     if ( $channelUri == "pear.horde.org" && $MyPackageName == "dev-php/horde-Horde_Role" ){
-        $ebuild .= "# Functions needed to add/remove the Horde PEAR channel";
+        $ebuild .= "# Functions needed to add/remove the Horde PEAR channel\n";
         $ebuild .= "pkg_setup()\n";
         $ebuild .= "{\n";
         $ebuild .= "  pear channel-discover \"pear.horde.org\"\n";
