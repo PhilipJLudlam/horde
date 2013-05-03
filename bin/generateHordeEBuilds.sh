@@ -6,14 +6,15 @@
 rm -rf /tmp/generateHordeEBuilds/temp_*
 mkdir -p /tmp/generateHordeEBuilds
 
-echo "Downloading information from the Horde website"
+echo "Downloading information from the Horde website ..."
 indexpage="/tmp/generateHordeEBuilds/pear.horde.org-index.html"
 /usr/bin/wget -q -O ${indexpage}_new http://pear.horde.org/
 diff -qN ${indexpage}_new ${indexpage} > /dev/null
 if [ "${?}" -eq 0 ]; then
-    echo "No changes since the last download; not remaking the ebuilds."
+    echo "  No changes since the last download; not remaking the ebuilds."
     exit 0
 fi
+echo "  There have been changes since the last download; initiating a remake of the ebuilds."
 mv -f ${indexpage}_new ${indexpage}
 
 tot=`grep -o "<h3>[A-Za-z0-9_]*" $indexpage | wc -l`
