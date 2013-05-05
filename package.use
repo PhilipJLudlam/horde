@@ -14,6 +14,7 @@ horde-horde_autoloader
 horde-horde_browser
 horde-horde_cache
 horde-horde_cli
+horde-horde_compress_fast
 horde-horde_controller
 horde-horde_core
 horde-horde_crypt
@@ -39,6 +40,7 @@ horde-horde_lz4
 horde-horde_mail
 horde-horde_memcache
 horde-horde_mime
+horde-horde_mongo
 horde-horde_nls
 horde-horde_notification
 horde-horde_oauth
