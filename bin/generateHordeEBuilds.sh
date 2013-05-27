@@ -12,7 +12,7 @@ indexpage="/tmp/generateHordeEBuilds/pear.horde.org-index.html"
 diff -qN ${indexpage}_new ${indexpage} > /dev/null
 if [ "${?}" -eq 0 ]; then
     echo "  No changes since the last download; not remaking the ebuilds."
-    exit 0
+#    exit 0
 fi
 echo "  There have been changes since the last download; initiating a remake of the ebuilds."
 mv -f ${indexpage}_new ${indexpage}

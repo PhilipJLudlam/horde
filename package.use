@@ -19,6 +19,7 @@ horde-horde_controller
 horde-horde_core
 horde-horde_crypt
 horde-horde_date
+horde-horde_dav
 horde-horde_db
 horde-horde_editor
 horde-horde_elasticsearch
