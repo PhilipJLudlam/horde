@@ -100,4 +100,15 @@ cat >> ./../package.keywords << EOF
 ----
 EOF
 
+    # 3. Remove RC and BETA ebuilds
+    # 3.a. Delete the files
+find /usr/local/horde -name "*_beta*" | xargs rm -rf
+find /usr/local/horde -name "*_rc*" | xargs rm -rf
+
+    # 3.b. And remove them from the manifest
+for i in `find /usr/local/horde -name Manifest`; do
+  grep -v "_beta" ${i} | grep -v "_rc" > ${i}.1
+  mv ${i}.1 ${i}
+done
+
 
