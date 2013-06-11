@@ -25,6 +25,7 @@ horde-horde_editor
 horde-horde_elasticsearch
 horde-horde_feed
 horde-horde_form
+horde-horde_hashtable
 horde-horde_history
 horde-horde_http
 horde-horde_icalendar
