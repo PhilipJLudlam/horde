@@ -168,8 +168,8 @@ Below is the second list for the specific package atoms supplied in this reposit
 =dev-php/horde-Horde_Http-2.0.3 ~amd64
 =dev-php/horde-Horde_Icalendar-2.0.5 ~amd64
 =dev-php/horde-Horde_Image-2.0.4 ~amd64
-=dev-php/horde-Horde_Imap_Client-2.11.4 ~amd64
-=dev-php/horde-Horde_Imsp-2.0.3 ~amd64
+=dev-php/horde-Horde_Imap_Client-2.11.5 ~amd64
+=dev-php/horde-Horde_Imsp-2.0.4 ~amd64
 =dev-php/horde-Horde_Injector-2.0.1 ~amd64
 =dev-php/horde-Horde_Itip-2.0.5 ~amd64
 =dev-php/horde-Horde_Kolab_Cli-1.0.0_alpha3 ~amd64
@@ -238,20 +238,20 @@ Below is the second list for the specific package atoms supplied in this reposit
 =dev-php/horde-horde_lz4-1.0.0 ~amd64
 =www-apps/horde-ansel-2.0.2 ~amd64
 =www-apps/horde-content-2.0.2 ~amd64
-=www-apps/horde-gollem-3.0.0 ~amd64
+=www-apps/horde-gollem-3.0.1 ~amd64
 =www-apps/horde-groupware-5.1.0 ~amd64
 =www-apps/horde-horde-5.1.0 ~amd64
-=www-apps/horde-imp-6.1.0 ~amd64
-=www-apps/horde-ingo-3.1.0 ~amd64
+=www-apps/horde-imp-6.1.1 ~amd64
+=www-apps/horde-ingo-3.1.1 ~amd64
 =www-apps/horde-kronolith-4.1.0 ~amd64
 =www-apps/horde-mnemo-4.1.0 ~amd64
 =www-apps/horde-nag-4.1.0 ~amd64
 =www-apps/horde-passwd-5.0.0 ~amd64
 =www-apps/horde-sesha-1.0.0_rc3 ~amd64
 =www-apps/horde-timeobjects-2.0.3 ~amd64
-=www-apps/horde-trean-1.0.1 ~amd64
+=www-apps/horde-trean-1.0.2 ~amd64
 =www-apps/horde-turba-4.1.0 ~amd64
 =www-apps/horde-webmail-5.1.0 ~amd64
 =www-apps/horde-whups-2.0.2 ~amd64
-=www-apps/horde-wicked-1.0.2 ~amd64
+=www-apps/horde-wicked-2.0.0_beta1 ~amd64
 ----
