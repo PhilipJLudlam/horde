@@ -186,7 +186,7 @@ Below is the second list for the specific package atoms supplied in this reposit
 =dev-php/horde-Horde_Memcache-2.0.2 ~amd64
 =dev-php/horde-Horde_Mime-2.2.1 ~amd64
 =dev-php/horde-Horde_Mime_Viewer-2.0.5 ~amd64
-=dev-php/horde-Horde_Mongo-1.0.0 ~amd64
+=dev-php/horde-Horde_Mongo-1.0.1 ~amd64
 =dev-php/horde-Horde_Nls-2.0.3 ~amd64
 =dev-php/horde-Horde_Notification-2.0.1 ~amd64
 =dev-php/horde-Horde_Oauth-2.0.1 ~amd64
