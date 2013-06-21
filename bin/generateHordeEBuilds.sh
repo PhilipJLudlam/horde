@@ -1,7 +1,4 @@
 #!/bin/bash
-##Check how recent index page is
-##If same age as downloaded version, then quit
-##Download the index page
 
 rm -rf /tmp/generateHordeEBuilds/temp_*
 mkdir -p /tmp/generateHordeEBuilds
@@ -16,6 +13,12 @@ if [ "${?}" -eq 0 ]; then
 fi
 echo "  There have been changes since the last download; initiating a remake of the ebuilds."
 mv -f ${indexpage}_new ${indexpage}
+
+
+## These PEAR channels need to be added before PEAR will work with them
+pear channel-discover "pear.horde.org"
+pear channel-discover "pear.nrk.io"
+
 
 tot=`grep -o "<h3>[A-Za-z0-9_]*" $indexpage | wc -l`
 pos=0

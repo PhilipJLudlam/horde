@@ -206,7 +206,7 @@ function generate_ebuild($pear_package)
 {
     global $OptNoDeps, $OptForce, $OptOptionalAsRequired, $ARCH;
 
-    echo "Generating ebuild for $pear_package\n";
+    echo "Generating ebuild for PEAR package: $pear_package\n";
     $config = PEAR_Config::singleton('', '');
 
     $packageFile = new PEAR_PackageFile($config);
@@ -216,6 +216,10 @@ function generate_ebuild($pear_package)
     $parsedName = $config->getRegistry()->parsePackageName(
         $pear_package, $channelName
     );
+
+    if (PEAR::isError($parsedName)) {
+        die("Channel ".$channelName." uknown. Has 'pear channel-discover ".$channelName."' been run?\n");
+    }
 
     $channelUri = $parsedName["channel"];
 
@@ -235,13 +239,12 @@ function generate_ebuild($pear_package)
 
     $state = 'alpha';
 
-
     $url = $rest->getDownloadUrl(
         $base, $parsedName, $state, false, $parsedName['channel']
     );
 
     if (PEAR::isError($url)) {
-        die("Failed to obtain url for $channelUri\n");
+        die("Failed to obtain url for '".$channelUri."'.\nDoes the PEAR package '".$parsedName['package']."' exist?\n");
 
     }
 
@@ -263,12 +266,16 @@ function generate_ebuild($pear_package)
     }
 
     $pf = $packageFile->fromAnyFile($filename, PEAR_VALIDATE_NORMAL);
+    if (PEAR::isError($pf)) {
+        die("Failed with PEAR error.\n".$pf->toString()."\nIt is unlikely that PEAR would install this package in the first place.\n");
+    }
 
+     
     $filelist = $pf->getInstallationFileList();
     $fullfilelist = $pf->getFileList();
-
+    
     $rmfiles = array_diff_key($fullfilelist, $filelist);
-
+    
 
     $phpflags = array();
     $php53flags = array();
@@ -278,6 +285,7 @@ function generate_ebuild($pear_package)
 
     $usedep["dom"] = "xml";
     $usedep["mbstring"] = "unicode";
+
 
     // Look at splitting out dependancy handling
     // and return something (an object/array?) 
@@ -361,8 +369,12 @@ function generate_ebuild($pear_package)
                                     // Portage doesn't know about this package
                                     // So go and generate the ebuild for it
                                 //echo "  ..Generating ebuild for " . $dep["channel"] . "/" . $dep["name"] . "\n";
+
+                              // There are a few package PEAR won't work with,
+                              // so skip them
+                              if ( !( $dep["channel"] . "/" . $dep["name"] == "pear.nrk.io/Predis" )) {
         		                generate_ebuild($dep["channel"] . "/" . $dep["name"]);
-                    
+                              }
                                     // Also: Make it remember the ebuilds it's created (sans version number)
         		                    // so that a quick check can be performed and it doesn't try to create the same ebuild many times
                             }
@@ -387,7 +399,8 @@ function generate_ebuild($pear_package)
         case "php":
             $phpver = $dep["version"];
         }
-    }
+    } // foreach
+
 
     $phpdep = "";
     if (!empty($phpflags)) {
@@ -528,10 +541,12 @@ function generate_ebuild($pear_package)
         $ebuild .= "pkg_setup()\n";
         $ebuild .= "{\n";
         $ebuild .= "  pear channel-discover \"pear.horde.org\"\n";
+        $ebuild .= "  pear channel-discover \"pear.nrk.io\"\n";
         $ebuild .= "}\n\n";
         $ebuild .= "pkg_postrm()\n";
         $ebuild .= "{\n";
         $ebuild .= "  pear channel-delete \"pear.horde.org\"\n";
+        $ebuild .= "  pear channel-delete \"pear.nrk.io\"\n";
         $ebuild .= "}\n";
     }
 
