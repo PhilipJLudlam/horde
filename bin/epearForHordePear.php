@@ -65,6 +65,7 @@ function get_channel_prefix($channelUri)
     if ($channelUri == "pear.symfony-project.com") $prefix = "symfony-";
     if ($channelUri == "pecl.php.net") $prefix = "pecl-";
     if ($channelUri == "pear.horde.org") $prefix = "horde-";
+    if ($channelUri == "pear.nrk.io") $prefix = "nrk-";
 
     if ($prefix == "") {
         echo "  Warning: Channels should have prefix, however none are defined for $channelUri" . "\n";
