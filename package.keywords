@@ -134,7 +134,7 @@ www-apps/horde-wicked ~amd64
 
 Below is the second list for the specific package atoms supplied in this repository.
 
-=dev-php/horde-Horde_ActiveSync-2.5.0 ~amd64
+=dev-php/horde-Horde_ActiveSync-2.5.2 ~amd64
 =dev-php/horde-Horde_Alarm-2.0.4 ~amd64
 =dev-php/horde-Horde_Argv-2.0.7 ~amd64
 =dev-php/horde-Horde_Auth-2.0.4 ~amd64
@@ -149,7 +149,7 @@ Below is the second list for the specific package atoms supplied in this reposit
 =dev-php/horde-Horde_Constraint-2.0.1 ~amd64
 =dev-php/horde-Horde_Controller-2.0.1 ~amd64
 =dev-php/horde-Horde_Core-2.6.0 ~amd64
-=dev-php/horde-Horde_Crypt-2.2.0 ~amd64
+=dev-php/horde-Horde_Crypt-2.2.1 ~amd64
 =dev-php/horde-Horde_Crypt_Blowfish-1.0.2 ~amd64
 =dev-php/horde-Horde_Css_Parser-1.0.0 ~amd64
 =dev-php/horde-Horde_Data-2.0.4 ~amd64
@@ -162,7 +162,7 @@ Below is the second list for the specific package atoms supplied in this reposit
 =dev-php/horde-Horde_ElasticSearch-1.0.2 ~amd64
 =dev-php/horde-Horde_Exception-2.0.3 ~amd64
 =dev-php/horde-Horde_Feed-2.0.1 ~amd64
-=dev-php/horde-Horde_Form-2.0.4 ~amd64
+=dev-php/horde-Horde_Form-2.0.5 ~amd64
 =dev-php/horde-Horde_Group-2.0.2 ~amd64
 =dev-php/horde-Horde_History-2.1.0 ~amd64
 =dev-php/horde-Horde_Http-2.0.3 ~amd64
@@ -229,7 +229,7 @@ Below is the second list for the specific package atoms supplied in this reposit
 =dev-php/horde-Horde_Translation-2.0.1 ~amd64
 =dev-php/horde-Horde_Tree-2.0.2 ~amd64
 =dev-php/horde-Horde_Url-2.2.0 ~amd64
-=dev-php/horde-Horde_Util-2.2.2 ~amd64
+=dev-php/horde-Horde_Util-2.3.0 ~amd64
 =dev-php/horde-Horde_Vfs-2.1.0 ~amd64
 =dev-php/horde-Horde_View-2.0.2 ~amd64
 =dev-php/horde-Horde_Xml_Element-2.0.1 ~amd64
