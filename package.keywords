@@ -134,7 +134,7 @@ www-apps/horde-wicked ~amd64
 
 Below is the second list for the specific package atoms supplied in this repository.
 
-=dev-php/horde-Horde_ActiveSync-2.5.2 ~amd64
+=dev-php/horde-Horde_ActiveSync-2.5.3 ~amd64
 =dev-php/horde-Horde_Alarm-2.0.4 ~amd64
 =dev-php/horde-Horde_Argv-2.0.7 ~amd64
 =dev-php/horde-Horde_Auth-2.0.4 ~amd64
@@ -205,11 +205,11 @@ Below is the second list for the specific package atoms supplied in this reposit
 =dev-php/horde-Horde_Secret-2.0.2 ~amd64
 =dev-php/horde-Horde_Serialize-2.0.2 ~amd64
 =dev-php/horde-Horde_Service_Facebook-2.0.4 ~amd64
-=dev-php/horde-Horde_Service_Twitter-2.1.0 ~amd64
+=dev-php/horde-Horde_Service_Twitter-2.1.1 ~amd64
 =dev-php/horde-Horde_Service_UrlShortener-2.0.1 ~amd64
 =dev-php/horde-Horde_Service_Weather-2.0.5 ~amd64
 =dev-php/horde-Horde_SessionHandler-2.2.0 ~amd64
-=dev-php/horde-Horde_Share-2.0.3 ~amd64
+=dev-php/horde-Horde_Share-2.0.4 ~amd64
 =dev-php/horde-Horde_SpellChecker-2.1.0 ~amd64
 =dev-php/horde-Horde_Sql-1.0.0_rc2 ~amd64
 =dev-php/horde-Horde_Stream-1.2.0 ~amd64
