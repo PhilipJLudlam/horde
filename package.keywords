@@ -134,7 +134,7 @@ www-apps/horde-wicked ~amd64
 
 Below is the second list for the specific package atoms supplied in this repository.
 
-=dev-php/horde-Horde_ActiveSync-2.5.3 ~amd64
+=dev-php/horde-Horde_ActiveSync-2.5.4 ~amd64
 =dev-php/horde-Horde_Alarm-2.0.4 ~amd64
 =dev-php/horde-Horde_Argv-2.0.7 ~amd64
 =dev-php/horde-Horde_Auth-2.0.4 ~amd64
@@ -148,7 +148,7 @@ Below is the second list for the specific package atoms supplied in this reposit
 =dev-php/horde-Horde_Compress_Fast-1.0.1 ~amd64
 =dev-php/horde-Horde_Constraint-2.0.1 ~amd64
 =dev-php/horde-Horde_Controller-2.0.1 ~amd64
-=dev-php/horde-Horde_Core-2.6.0 ~amd64
+=dev-php/horde-Horde_Core-2.6.1 ~amd64
 =dev-php/horde-Horde_Crypt-2.2.1 ~amd64
 =dev-php/horde-Horde_Crypt_Blowfish-1.0.2 ~amd64
 =dev-php/horde-Horde_Css_Parser-1.0.0 ~amd64
@@ -167,7 +167,7 @@ Below is the second list for the specific package atoms supplied in this reposit
 =dev-php/horde-Horde_History-2.1.0 ~amd64
 =dev-php/horde-Horde_Http-2.0.3 ~amd64
 =dev-php/horde-Horde_Icalendar-2.0.6 ~amd64
-=dev-php/horde-Horde_Image-2.0.4 ~amd64
+=dev-php/horde-Horde_Image-2.0.5 ~amd64
 =dev-php/horde-Horde_Imap_Client-2.11.6 ~amd64
 =dev-php/horde-Horde_Imsp-2.0.5 ~amd64
 =dev-php/horde-Horde_Injector-2.0.2 ~amd64
@@ -183,7 +183,7 @@ Below is the second list for the specific package atoms supplied in this reposit
 =dev-php/horde-Horde_Log-2.0.1 ~amd64
 =dev-php/horde-Horde_LoginTasks-2.0.2 ~amd64
 =dev-php/horde-Horde_Mail-2.0.5 ~amd64
-=dev-php/horde-Horde_Memcache-2.0.2 ~amd64
+=dev-php/horde-Horde_Memcache-2.0.3 ~amd64
 =dev-php/horde-Horde_Mime-2.2.2 ~amd64
 =dev-php/horde-Horde_Mime_Viewer-2.0.5 ~amd64
 =dev-php/horde-Horde_Mongo-1.0.1 ~amd64
@@ -235,7 +235,7 @@ Below is the second list for the specific package atoms supplied in this reposit
 =dev-php/horde-Horde_Xml_Element-2.0.1 ~amd64
 =dev-php/horde-Horde_Xml_Wbxml-2.0.1 ~amd64
 =dev-php/horde-Horde_Yaml-2.0.2 ~amd64
-=dev-php/horde-horde_lz4-1.0.0 ~amd64
+=dev-php/horde-horde_lz4-1.0.1 ~amd64
 =www-apps/horde-ansel-3.0.0_beta1 ~amd64
 =www-apps/horde-content-2.0.2 ~amd64
 =www-apps/horde-gollem-3.0.1 ~amd64
