@@ -433,6 +433,9 @@ function generate_ebuild($pear_package)
     $ename = get_channel_prefix($channelUri) . $pf->getName();
     $myp = $pf->getName();
 
+    $licence = str_replace(" License", "", $pf->getLicense());
+    $licence = str_replace("MIT (Expat)", "MIT", $licence);
+
     $euri = str_replace($ename, $myp, $uri);
 
 
@@ -523,7 +526,7 @@ function generate_ebuild($pear_package)
     $ebuild .= "HOMEPAGE=\"" . $parsedName['channel'] . "\"\n";
     $ebuild .= "SRC_URI=\"" . $euri . "\"\n";
     $ebuild .= "\n";
-    $ebuild .= "LICENSE=\"" . str_replace(" License", "", $pf->getLicense()) . "\"\n";
+    $ebuild .= "LICENSE=\"" . $licence ."\"\n"; str_replace(" License", "", $pf->getLicense()) . "\"\n";
     if ($hordeapp == FALSE)
         $ebuild .= "SLOT=\"0\"\n";
     $ebuild .= "KEYWORDS=\"~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86\"\n";

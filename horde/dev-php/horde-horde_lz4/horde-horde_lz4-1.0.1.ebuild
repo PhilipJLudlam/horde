@@ -16,7 +16,7 @@ DESCRIPTION="Horde LZ4 Compression Extension"
 HOMEPAGE="pear.horde.org"
 SRC_URI="http://pear.horde.org/get/horde_lz4-1.0.1.tgz"
 
-LICENSE="MIT (Expat)"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
 IUSE=""
