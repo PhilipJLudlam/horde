@@ -103,4 +103,5 @@ pecl-pam
 pecl-sasl
 pecl-ssh2
 pecl-xdiff
+predis
 ----
